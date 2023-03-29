@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Documentation for GitHub MEAN App Goodreads Clone</title>
-</head>
 <body>
 	<h1>Documentation for GitHub MEAN App Goodreads Clone</h1>
   <h2>Introduction:</h2>
