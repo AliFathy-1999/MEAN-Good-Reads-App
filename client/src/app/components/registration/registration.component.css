@@ -1,0 +1,323 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+section {
+    background: linear-gradient(to right, #e9e5cd, #d4d0b3 25%, #bfb99a 50%, #a9a37f 75%, #938d66);
+}
+
+.register {
+    padding: 3%;
+    overflow: hidden;
+}
+
+.register-form {
+    padding: 10%;
+    margin-top: 10%;
+    animation: slide-up 1s ease-out;
+}
+
+@media (max-width: 991px) {
+    .register-form {
+        margin-top: 16%;
+    }
+}
+
+@media (max-width: 667px) {
+    .register-form {
+        margin-top: 20%;
+    }
+
+    .register-right {
+        border-radius: 0;
+    }
+}
+
+.register-left {
+    text-align: center;
+    color: #fff;
+    margin-top: 4%;
+    animation: fade-in 1s ease-out;
+}
+
+.register-left input {
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    width: 60%;
+    background: #f8f9fa;
+    font-weight: bold;
+    color: #383d41;
+    margin-top: 30%;
+    margin-bottom: 3%;
+    cursor: pointer;
+    animation: fade-in 1s ease-out;
+}
+
+.register-left p {
+    font-weight: lighter;
+    padding: 12%;
+    margin-top: -9%;
+    animation: fade-in 1s ease-out;
+}
+
+.register-right {
+    background: #f8f9fa;
+    border-top-left-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+    animation: slide-right 1s ease-out;
+}
+
+.btnRegister {
+    float: right;
+    margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #938d66;
+    color: #fff;
+    font-weight: 600;
+    width: 50%;
+    cursor: pointer;
+    animation: slide-up 1s ease-out;
+}
+
+.register-heading {
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: -15%;
+    color: #495057;
+    animation: fade-in 1s ease-out;
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-right {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.register-heading span {
+    display: inline-block;
+    overflow: hidden;
+    animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
+    white-space: nowrap;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: #495057;
+    }
+}
+
+custom-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #938d66;
+    border-radius: 0;
+    padding: 0;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    /* Add position relative to parent */
+}
+
+.custom-input::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background-color: #495057;
+    transition: width 0.3s ease-out;
+    /* Add animation to width */
+}
+
+.custom-input:focus::before {
+    width: 100%;
+    /* Animate width to 100% on focus */
+}
+
+.custom-input-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 16px;
+    color: #495057;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.custom-input:focus+.custom-input-label,
+.custom-input:not(:placeholder-shown)+.custom-input-label {
+    transform: translateY(-25px);
+    font-size: 12px;
+    color: #938d66;
+    transition: all 0.3s ease;
+    /* Add animation to label */
+}
+
+/* Add animation to input field on focus */
+.custom-input:focus {
+    border-color: #495057;
+    box-shadow: 0 0 0 2px rgba(73, 80, 87, 0.2);
+}
+
+/* Add animation to input field on hover */
+.custom-input:hover {
+    border-bottom: 2px solid #495057;
+}
+
+/* Add animation to input field on invalid input */
+.custom-input:invalid {
+    border-bottom: 2px solid #495057;
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* Add animation to input field on valid input */
+.custom-input:valid {
+    border-bottom: 2px solid #938d66;
+    animation: bounceIn 0.5s both;
+}
+
+/* Add animation to input field on disabled state */
+.custom-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Add animation to input field on readonly state */
+.custom-input:read-only {
+    background-color: #f2f2f2;
+}
+
+/* Add animation to label on input field focus */
+.custom-input:focus+.custom-input-label {
+    color: #495057;
+}
+
+/* Add animation to label on input field hover */
+.custom-input:hover+.custom-input-label {
+    color: #495057;
+}
+
+/* Add animation to label on invalid input */
+.custom-input:invalid+.custom-input-label {
+    color: #495057;
+}
+
+/* Add animation to label on valid input */
+.custom-input:valid+.custom-input-label {
+    color: #938d66;
+}
+
+/* Add animation to label on disabled state */
+.custom-input:disabled+.custom-input-label {
+    color: #b3b3b3;
+}
+
+/* Add animation to label on readonly state */
+.custom-input:read-only+.custom-input-label {
+    color: #b3b3b3;
+}
+
+/* Add animation to shake input on invalid input */
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Add animation to bounce input on valid input */
+@keyframes bounceIn {
+
+    from,
+    20%,
+    40%,
+    60%,
+    80%,
+    to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transform: translate3d(0, 0, 0);
+    }
+
+    40%,
+    60% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -30px, 0);
+    }
+
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -15px, 0);
+    }
+}
