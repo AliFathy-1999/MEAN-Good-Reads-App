@@ -8,7 +8,7 @@ interface User{
   lastName:string,
   email:string,
   password:string,
-  username:string,
+  userName:string,
   pImage:string,
   role:Role
 }

@@ -1,59 +1,142 @@
 <app-navbar-home></app-navbar-home>
 <section>
-
     <div class="user-ragistration">
         <div class="container register">
             <div class="row">
-                <div class="col-md-12 register-left">
-                    <h3>Welcome To Good Reads </h3>
-                    <p>You’re in the right place. Tell us what titles or genres you’ve enjoyed in the past, and we’ll
-                        give
-                        you surprisingly insightful recommendations.</p>
+                <div class="col-md-12 text-center bg-transparent mt-5 mb-5">
+                    <h3 class="mb-4 font-weight-bold text-white">Welcome To Good Reads</h3>
+                    <p class="lead text-white">You’re in the right place. Tell us what titles or genres you’ve enjoyed
+                        in the past, and we’ll
+                        give you surprisingly insightful recommendations.</p>
                 </div>
 
-                <app-registration-cards-component class="col-lg-5"></app-registration-cards-component>
+                <app-registration-cards-component
+                    class="col-xl-5 col-lg-12 col-sm-12 col-xs-12 col-md-12"></app-registration-cards-component>
 
-                <div class="col-md-7 register-right">
+                <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-xs-12 register-right mt-3">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <h3 class="register-heading">{{ typedMessage }}</h3>
-                            <div class="row register-form">
+                            <form [formGroup]="registrationForm" class="row register-form"
+                                (ngSubmit)="submitRegisterForm(registrationForm)">
+
                                 <div class="col-md-6">
+
                                     <div class="form-group mt-5">
-                                        <input type="text" class="form-control custom-input"
+                                        <input formControlName="firstName" type="text" class="form-control custom-input"
                                             placeholder="First Name *" />
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <input type="text" class="form-control custom-input"
-                                            placeholder="Last Name *" />
+                                        <div *ngIf="registrationForm.get('firstName')?.errors != null && registrationForm.get('firstName')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('firstName')?.errors?.['required']">First
+                                                Name is
+                                                required!</p>
+                                            <p *ngIf="registrationForm.get('firstName')?.errors?.['minlength']">First
+                                                Name minmum length 3</p>
+                                            <p *ngIf="registrationForm.get('firstName')?.errors?.['maxlength']">First
+                                                Name maxmim length 15</p>
+                                        </div>
                                     </div>
 
                                     <div class="form-group mt-3">
                                         <input type="password" class="form-control custom-input"
-                                            placeholder="Confirm Password *" />
+                                            placeholder="Password *" formControlName="password" />
+
+                                        <div *ngIf="registrationForm.get('password')?.errors != null && registrationForm.get('password')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('password')?.errors?.['required']">
+                                                Password is required!</p>
+                                            <p *ngIf="registrationForm.get('password')?.errors?.['minlength']">
+                                                Minmum Length is 8 charchters </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control custom-input" placeholder="Username *"
+                                            formControlName="username" />
+                                        <div *ngIf="registrationForm.get('username')?.errors != null && registrationForm.get('username')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('username')?.errors?.['required']">Username
+                                                is required!</p>
+                                            <p *ngIf="registrationForm.get('username')?.errors?.['minlength']">Username
+                                                minimum length is 3</p>
+                                            <p *ngIf="registrationForm.get('username')?.errors?.['maxlength']">Username
+                                                maximum length is 15</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label class="custom-file-upload">
+                                            <input type="file">
+                                            Upload Image
+                                        </label>
+
+                                        <div class="alert-danger mt-2">
+                                            <p>Image is required!</p>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
+
                                     <div class="form-group mt-5">
-                                        <input type="email" class="form-control custom-input"
-                                            placeholder="Your Email *" />
+                                        <input type="text" class="form-control custom-input" placeholder="Last Name *"
+                                            formControlName="lastName" />
+                                        <div *ngIf="registrationForm.get('lastName')?.errors != null && registrationForm.get('lastName')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('lastName')?.errors?.['required']">Last Name
+                                                is required!</p>
+                                            <p *ngIf="registrationForm.get('lastName')?.errors?.['minlength']">Last Name
+                                                minimum length is 3</p>
+                                            <p *ngIf="registrationForm.get('lastName')?.errors?.['maxlength']">Last Name
+                                                maximum length is 15</p>
+                                        </div>
                                     </div>
 
                                     <div class="form-group mt-3">
-                                        <input type="text" class="form-control custom-input"
-                                            placeholder="Enter Your Answer *" />
-                                    </div>
-                                    <div class="form-group mt-3">
                                         <input type="password" class="form-control custom-input"
-                                            placeholder="Password *" />
+                                            placeholder="Confirm Password *" formControlName="confirmPassword" />
+
+                                        <div *ngIf="registrationForm.get('confirmPassword')?.errors != null && registrationForm.get('confirmPassword')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
+                                                Confirm Password is required!</p>
+                                            <p
+                                                *ngIf="registrationForm.get('confirmPassword')?.errors?.['passwordMismatch']">
+                                                Passwords do not match!</p>
+                                        </div>
                                     </div>
-                                    <input type="submit" class="btnRegister" value="Register" />
+
+                                    <div class="form-group mt-3">
+                                        <input type="email" class="form-control custom-input" placeholder="Your Email *"
+                                            formControlName="email" />
+
+                                        <div *ngIf="registrationForm.get('email')?.errors != null && registrationForm.get('email')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('email')?.errors?.['required']">Email is
+                                                required!</p>
+                                            <p *ngIf="registrationForm.get('email')?.errors?.['email']">Please enter a
+                                                valid email address!</p>
+                                        </div>
+                                    </div>
+
+                                    <button class="radius button">
+                                        <svg class="icon-arrow after" version="1.1" id="Capa_1"
+                                            viewBox="0 0 403.8 200.3" style="enable-background:new 0 0 403.8 200.3;">
+                                            <g>
+                                                <g>
+                                                    <path class="st0" d="M25.2,114.3h317.3L290,166.6c-5.9,5.8-5.9,15.3-0.1,21.2c5.8,5.9,15.3,5.9,21.2,0.1l78.3-77.9c0,0,0,0,0,0
+                                                     c5.9-5.8,5.9-15.4,0-21.2c0,0,0,0,0,0l-78.3-77.9c-5.9-5.8-15.4-5.8-21.2,0.1c-5.8,5.9-5.8,15.4,0.1,21.2l52.6,52.3H25.2
+                                                     c-8.3,0-15,6.7-15,15C10.2,107.6,16.9,114.3,25.2,114.3z" />
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <span>Sign Up</span>
+                                    </button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
 
             </div>
         </div>

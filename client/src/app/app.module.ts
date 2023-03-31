@@ -8,8 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistrationCardsComponentComponent } from './components/registration-cards-component/registration-cards-component.component';
+import { HttpClientModule } from '@angular/common/http';
 import { NavbarHomeComponent } from './components/navbar-home/navbar-home.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +23,8 @@ import { NavbarHomeComponent } from './components/navbar-home/navbar-home.compon
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
