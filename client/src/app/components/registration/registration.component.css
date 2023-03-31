@@ -1,12 +1,15 @@
 /* Global styles */
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'sora', sans-serif;
+
 }
 
 /* Section styles */
 section {
-    background: linear-gradient(to right, #e9e5cd, #d4d0b3 25%, #bfb99a 50%, #a9a37f 75%, #938d66);
     padding-bottom: 80px;
+    background-image: url('../../../assets/background-imgs/registrion-bg.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 /* Register form styles */
@@ -57,7 +60,7 @@ section {
 }
 
 .register-right {
-    background: #F4F1EA;
+    background: #fff;
     border-top-left-radius: 10% 50%;
     border-bottom-left-radius: 10% 50%;
     animation: slide-right 1s ease-out;
@@ -71,7 +74,7 @@ section {
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
-    background: #553b08;
+    background: #f65d4e;
     color: #fff;
     font-weight: 600;
     width: 50%;
@@ -360,17 +363,6 @@ section {
     background-color: #f2f2f2;
 }
 
-h5 {
-    font-size: 16px;
-}
-
-.last-card {
-    margin-top: -100px;
-}
-
-.mid-card {
-    margin-top: 180px;
-}
 
 @media (max-width: 667px) {
     .register-form {
@@ -382,5 +374,70 @@ h5 {
         margin-left: 0;
         border-radius: 0;
         margin-top: 20px;
+    }
+}
+
+.upload-text {
+    font-weight: 400;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 6px 12px;
+    max-width: 70%;
+}
+
+.upload-text:hover {
+    background-color: #e9ecef;
+    border-color: #c6c8ca;
+}
+
+.upload-btn {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+}
+
+.upload-btn:hover {
+    background-color: #0069d9;
+    border-color: #f65d4e;
+    color: #fff;
+}
+
+.custom-file-input:focus~.upload-text {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.custom-file-input:disabled~.upload-text {
+    background-color: #e9ecef;
+}
+
+.custom-file-input:lang(en)~.upload-text::after {
+    content: "Browse";
+}
+
+.custom-file-input {
+    position: absolute;
+    left: -9999px;
+}
+
+.custom-file-label::after {
+    content: "Choose file";
+}
+
+.custom-file-label::before {
+    content: "No file chosen";
+    color: #495057;
+}
+
+@media (max-width: 576px) {
+    .upload-text {
+        max-width: 50%;
     }
 }

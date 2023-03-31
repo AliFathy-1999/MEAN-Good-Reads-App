@@ -7,6 +7,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { RegistrationCardsComponentComponent } from './components/registration-cards-component/registration-cards-component.component';
 
 @NgModule({
   declarations: [
@@ -14,12 +15,14 @@ import { NavbarComponent } from './navbar/navbar.component';
     RegistrationComponent,
     FooterComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    RegistrationCardsComponentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

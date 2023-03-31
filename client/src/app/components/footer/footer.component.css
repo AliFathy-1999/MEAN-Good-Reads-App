@@ -1,16 +1,17 @@
 footer {
-    background-color: #553b08;
     color: #fff;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'sora', sans-serif;
     padding: 50px 0;
+    background-color: #1D1D1D;
 }
 
 footer h5 {
-    color: #fff;
+    color: #f65d4e;
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 20px;
     text-transform: uppercase;
+    font-family: 'sora', sans-serif;
 }
 
 footer p {
@@ -31,11 +32,11 @@ footer ul li a {
 }
 
 footer ul li a:hover {
-    color: #f0ad4e;
+    color: #f65d4e;
 }
 
 footer hr {
-    border-color: #fff;
+    border-color: #f65d4e;
     margin: 40px 0;
 }
 
@@ -47,7 +48,7 @@ footer ul.list-inline li a {
 }
 
 footer ul.list-inline li a:hover {
-    color: #f0ad4e;
+    color: #f65d4e;
 }
 
 @media (max-width: 767px) {

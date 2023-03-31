@@ -16,4 +16,5 @@ const errorHandler: ErrorRequestHandler = (err, req:Request, res:Response, next:
     });
 };
 app.use(errorHandler);
+            console.log('Hossam')
 module.exports = app;
