@@ -74,10 +74,9 @@ button.ghost {
 }
 
 button:hover {
-	filter: brightness(0.8);
-	box-shadow: 1px 1px 25px 10px rgba(146, 148, 248, 0.4);
-	transition: 1s ease-in-out;
-
+	transition: 0.32s ease-in-out;
+	background-color: #FFFFFF;
+    color: #EF9A53;
 }
 
 form {
@@ -171,7 +170,7 @@ form input:focus {
 }
 
 .overlay {
-	background-image: url('../../assets/flying-book.gif');
+	background-image: url('../../../assets/flying-book.gif');
 	opacity: 0.9;
 	background-repeat: no-repeat;
 	background-size: contain;
