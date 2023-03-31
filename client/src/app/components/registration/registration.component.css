@@ -87,65 +87,6 @@ section {
     border-bottom: 2px solid #f65d4e;
 }
 
-.upload-text {
-    font-weight: 400;
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    color: #495057;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 6px 12px;
-    max-width: 70%;
-}
-
-.upload-text:hover {
-    background-color: #e9ecef;
-    border-color: #c6c8ca;
-}
-
-.upload-btn {
-    background-color: #f65d4e;
-    border-color: #f65d4e;
-    color: #fff;
-    border-radius: 0 4px 4px 0;
-}
-
-.upload-btn:hover {
-    background-color: #f65d4e;
-    border-color: #f65d4e;
-    color: #fff;
-}
-
-.custom-file-input:focus~.upload-text {
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.custom-file-input:disabled~.upload-text {
-    background-color: #e9ecef;
-}
-
-.custom-file-input:lang(en)~.upload-text::after {
-    content: "Browse";
-}
-
-.custom-file-input {
-    position: absolute;
-    left: -9999px;
-}
-
-.custom-file-label::after {
-    content: "Choose file";
-}
-
-.custom-file-label::before {
-    content: "No file chosen";
-    color: #495057;
-}
-
 .alert-danger p {
     color: red;
 }
@@ -157,9 +98,9 @@ section {
     font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
-    color: #fff;
-    background-color: #f65d4e;
-    border-color: #f65d4e;
+    color: #8f8f8f;
+    background-color: #EDF0F4;
+    border-color: #fb4e3e;
     border-radius: 0.25rem;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -167,6 +108,7 @@ section {
 .custom-file-upload:hover {
     background-color: #fb4e3e;
     border-color: #fb4e3e;
+    color: #fff;
 }
 
 .custom-file-upload input[type="file"] {
@@ -181,4 +123,49 @@ section {
         margin-left: 0;
     }
 
+}
+
+.button.radius {
+    font-size: 18px;
+    padding: 10px 40px;
+    border: none;
+    background-color: #fb4e3e;
+    border-radius: 25px;
+    color: #f2f2f2;
+    position: relative;
+    margin-top: 20px;
+}
+
+.button.radius svg {
+    position: absolute;
+    top: 13px;
+    margin-left: 25px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transform: translateX(75%) scaleX(0.1);
+    transform-origin: center;
+    transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1), opacity .4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.st0 {
+    fill: #E5EFF5;
+}
+
+.button.radius:hover {
+    cursor: pointer;
+}
+
+.button.radius:hover svg {
+    opacity: 1;
+    transform: translateX(30px) scaleX(1);
+}
+
+.button.radius:hover span {
+    transform: translateX(-15px);
+}
+
+.button.radius span {
+    display: inline-block;
+    transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1);
 }

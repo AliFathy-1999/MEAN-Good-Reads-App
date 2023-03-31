@@ -17,6 +17,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
   registrationForm = new FormGroup ({
+    username: new FormControl(null, [Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
     firstName: new FormControl(null, [Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
     lastName: new FormControl(null, [ Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
     email: new FormControl("user@gmail.com", [Validators.required, Validators.email]),

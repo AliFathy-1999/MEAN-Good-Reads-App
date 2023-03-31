@@ -37,6 +37,47 @@
                                     </div>
 
                                     <div class="form-group mt-3">
+                                        <input type="password" class="form-control custom-input"
+                                            placeholder="Password *" formControlName="password" />
+
+                                        <div *ngIf="registrationForm.get('password')?.errors != null && registrationForm.get('password')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('password')?.errors?.['required']">
+                                                Password is required!</p>
+                                            <p *ngIf="registrationForm.get('password')?.errors?.['minlength']">
+                                                Minmum Length is 8 charchters </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control custom-input" placeholder="Username *"
+                                            formControlName="username" />
+                                        <div *ngIf="registrationForm.get('username')?.errors != null && registrationForm.get('username')?.touched"
+                                            class="alert-danger mt-2">
+                                            <p *ngIf="registrationForm.get('username')?.errors?.['required']">Username
+                                                is required!</p>
+                                            <p *ngIf="registrationForm.get('username')?.errors?.['minlength']">Username
+                                                minimum length is 3</p>
+                                            <p *ngIf="registrationForm.get('username')?.errors?.['maxlength']">Username
+                                                maximum length is 15</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-3">
+                                        <label class="custom-file-upload">
+                                            <input type="file">
+                                            Upload Image
+                                        </label>
+
+                                        <div class="alert-danger mt-2">
+                                            <p>Image is required!</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group mt-5">
                                         <input type="text" class="form-control custom-input" placeholder="Last Name *"
                                             formControlName="lastName" />
                                         <div *ngIf="registrationForm.get('lastName')?.errors != null && registrationForm.get('lastName')?.touched"
@@ -51,21 +92,6 @@
                                     </div>
 
                                     <div class="form-group mt-3">
-                                        <input type="password" class="form-control custom-input"
-                                            placeholder=" Password *" formControlName="password" />
-
-                                        <div *ngIf="registrationForm.get('password')?.errors != null && registrationForm.get('password')?.touched"
-                                            class="alert-danger mt-2">
-                                            <p *ngIf="registrationForm.get('password')?.errors?.['required']">
-                                                Password is required!</p>
-                                            <p *ngIf="registrationForm.get('password')?.errors?.['minlength']">
-                                                Minmum Length is 8 charchters </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group mt-5">
                                         <input type="password" class="form-control custom-input"
                                             placeholder="Confirm Password *" formControlName="confirmPassword" />
 
@@ -92,24 +118,20 @@
                                         </div>
                                     </div>
 
-
-
-
-
-                                    <div class="form-group mt-3">
-                                        <label class="custom-file-upload">
-                                            <input type="file">
-                                            Upload Image
-                                        </label>
-
-                                        <div class="alert-danger mt-2">
-                                            <p>Image is required!</p>
-                                        </div>
-                                    </div>
-
-                                    <input type="submit" class="btnRegister" value="Register" />
+                                    <button class="radius button">
+                                        <svg class="icon-arrow after" version="1.1" id="Capa_1"
+                                            viewBox="0 0 403.8 200.3" style="enable-background:new 0 0 403.8 200.3;">
+                                            <g>
+                                                <g>
+                                                    <path class="st0" d="M25.2,114.3h317.3L290,166.6c-5.9,5.8-5.9,15.3-0.1,21.2c5.8,5.9,15.3,5.9,21.2,0.1l78.3-77.9c0,0,0,0,0,0
+                                                     c5.9-5.8,5.9-15.4,0-21.2c0,0,0,0,0,0l-78.3-77.9c-5.9-5.8-15.4-5.8-21.2,0.1c-5.8,5.9-5.8,15.4,0.1,21.2l52.6,52.3H25.2
+                                                     c-8.3,0-15,6.7-15,15C10.2,107.6,16.9,114.3,25.2,114.3z" />
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <span>Sign Up</span>
+                                    </button>
                                 </div>
-
                             </form>
                         </div>
                     </div>
