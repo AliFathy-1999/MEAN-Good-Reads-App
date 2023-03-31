@@ -12,7 +12,7 @@ const { validate } = require('../middlewares/validation');
 router.post("/register",upload.single('pImage'),async (req:any,res:Response, next:NextFunction) => {
     const pImage = `../../client/src/assets/profile-imgs/${req.file.filename}`
     const { body: { firstName, lastName, userName, email, password, role } } = req;    
-    const user = userController.create({firstName,lastName,userName, email, password,role});
+    const user = userController.create({firstName,lastName,userName, email, password,pImage,role});
     const [err, data] = await asycnWrapper(user);
     if (err) return next(err);
     res.status(200).json(data);
