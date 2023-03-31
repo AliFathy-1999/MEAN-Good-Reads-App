@@ -10,7 +10,6 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors());
 
 app.use('/users', routes.userRoute);
-
 const errorHandler: ErrorRequestHandler = (err, req:Request, res:Response, next:NextFunction) => {
     res.status(400).send({
         apiStatus:false,
