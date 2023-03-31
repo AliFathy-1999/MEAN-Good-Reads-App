@@ -23,7 +23,6 @@ export class RegistrationComponent implements OnInit {
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl(null, [Validators.required, this.matchConfirmPassword.bind(this)]),
-    username: new FormControl(null, [Validators.required, Validators.minLength(6),Validators.maxLength(20)])
   })
   matchConfirmPassword(control: AbstractControl): ValidationErrors | null {
     const password = control.root.get('password');
