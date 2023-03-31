@@ -18,7 +18,7 @@ const schema = new Schema<User>({
         required:true,
         trim:true,
     },
-    username:{
+    userName:{
         type:String,
         minLength:3,
         maxLength:30,
@@ -70,6 +70,15 @@ schema.pre("save",async function(){
         this.password = await bcryptjs.hash(this.password,10);
 })
 
-const User = model("Users",schema);
 
+
+schema.methods.verifyPassword = function verifyPassword(pass: string) {
+    return bcryptjs.compareSync(pass, this.password);
+  };
+  
+const User = model('Users', schema);
+  
 module.exports = User;
+  
+export { User };
+
