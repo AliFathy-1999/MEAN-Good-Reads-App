@@ -21,7 +21,7 @@ const schema = new Schema<User>({
     username:{
         type:String,
         minLength:3,
-        maxLength:15,
+        maxLength:30,
         required:true,
         trim:true,
         unique:true,        

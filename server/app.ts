@@ -1,4 +1,6 @@
 import express, {Application, NextFunction, Request, Response , ErrorRequestHandler} from 'express';
+import { Multer,StorageEngine,DiskStorageOptions } from 'multer'
+const multer = require('multer')
 const app : Application = express();
 const cors = require("cors");
 const routes = require("./routes/index.ts")
@@ -16,5 +18,4 @@ const errorHandler: ErrorRequestHandler = (err, req:Request, res:Response, next:
     });
 };
 app.use(errorHandler);
-            console.log('Hossam')
 module.exports = app;

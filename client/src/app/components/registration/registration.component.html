@@ -104,7 +104,23 @@
                                                 Passwords do not match!</p>
                                         </div>
                                     </div>
+                                    <div class="form-group mt-5">
+                                      <input type="text" class="form-control custom-input"
+                                          placeholder="Enter your username" formControlName="username" />
 
+                                      <div *ngIf="registrationForm.get('username')?.errors != null && registrationForm.get('confirmPassword')?.touched"
+                                          class="alert-danger mt-2">
+                                          <p *ngIf="registrationForm.get('username')?.errors?.['required']">
+                                            username is required!</p>
+                                          <p
+                                              *ngIf="registrationForm.get('username')?.errors?.['minlength']">
+                                              At least 6 characters
+                                          </p>
+                                          <p *ngIf="registrationForm.get('username')?.errors?.['maxlength']">
+                                          Max 20 characters
+                                      </p>
+                                      </div>
+                                  </div>
                                     <div class="form-group mt-3">
                                         <input type="email" class="form-control custom-input" placeholder="Your Email *"
                                             formControlName="email" />
@@ -118,6 +134,7 @@
                                         </div>
                                     </div>
 
+<<<<<<< HEAD
                                     <button class="radius button">
                                         <svg class="icon-arrow after" version="1.1" id="Capa_1"
                                             viewBox="0 0 403.8 200.3" style="enable-background:new 0 0 403.8 200.3;">
@@ -131,6 +148,20 @@
                                         </svg>
                                         <span>Sign Up</span>
                                     </button>
+=======
+                                    <div class="form-group mt-3">
+                                        <label class="custom-file-upload">
+                                            <input type="file" accept="image/png, image/jpeg, image/jpg, image/tiff ">
+                                            Upload Image
+                                        </label>
+
+                                        <div class="alert-danger mt-2">
+                                            <p>Image is required!</p>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btnRegister">Register</button>
+>>>>>>> e854d2a (upload profile image)
                                 </div>
                             </form>
                         </div>
