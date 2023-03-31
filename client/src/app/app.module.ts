@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './login/login.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistrationCardsComponentComponent } from './components/registration-cards-component/registration-cards-component.component';
+import { NavbarHomeComponent } from './components/navbar-home/navbar-home.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,13 @@ import { RegistrationCardsComponentComponent } from './components/registration-c
     FooterComponent,
     LoginComponent,
     NavbarComponent,
-    RegistrationCardsComponentComponent
+    RegistrationCardsComponentComponent,
+    NavbarHomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light bg-light">
+
+    <div class="container-fluid">
+      <div>
+      <a class="navbar-brand" href="#">
+        <!-- <img id="logo" src="../../assets/flying-book.gif" alt="" width="60" height="44" class="d-inline-block align-text-top"> -->
+        <div id="brand">
+        <span id="good">Good</span><span id="read">Reads</span></div>
+      </a>
+      </div>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+<input minlength="13" [ngClass]="{'border-danger': loginForm.get('username')?.errors?.['minlength'] ||loginForm.get('username')?.touched &&loginForm.get('username')?.errors?.['required']}" placeholder="Username" formControlName="username" type="text" name="username">
+
+<input minlength="8" [ngClass]="{'border-danger': loginForm.get('password')?.errors?.['minlength'] ||loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']}" type="password" name="password"  id="password" formControlName="password"  placeholder="Password">
+<button type="submit" [disabled]="loginForm.invalid"><span>Sign In</span></button>
+
+</form>
+    </div>
+  </nav>

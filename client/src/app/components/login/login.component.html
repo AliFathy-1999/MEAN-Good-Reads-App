@@ -1,12 +1,10 @@
 <app-navbar></app-navbar>
-
 <div class="container" id="container"> 
-
 	<div class="form-container sign-in-container">
 		<form [formGroup]="loginForm" (ngSubmit)="login()">
       <h2>Welcome Back!</h2>
-			<h3>Sign in</h3>
-			<input type="text" placeholder="Username" minlength="8" id="username" name="username" formControlName="username"/>
+		<h3 id="sign">Sign in</h3>
+		<input type="text" placeholder="Username" minlength="8" id="username" name="username" formControlName="username"/>
       <p class="val_text text-danger"*ngIf="loginForm.get('username')?.touched &&loginForm.get('username')?.errors?.['required']">Username is required</p>
       <p class="val_text text-danger" *ngIf="loginForm.get('username')?.errors?.['minlength']">Minimum length is 13</p>
 
