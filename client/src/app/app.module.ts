@@ -24,7 +24,8 @@ import { NavbarHomeComponent } from './components/navbar-home/navbar-home.compon
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent]
