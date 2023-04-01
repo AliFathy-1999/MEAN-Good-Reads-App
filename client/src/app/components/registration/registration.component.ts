@@ -18,7 +18,6 @@ export class RegistrationComponent implements OnInit {
   submitted = false; // add a submitted property and set it to false
   file:any = null;
   error:string = '';
-  
   selectedFile: File | undefined;
 
   constructor(private formBuilder: FormBuilder,private _router:Router, private http: HttpClient, private _AuthService :AuthService) {
@@ -32,9 +31,8 @@ export class RegistrationComponent implements OnInit {
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.minLength(8), this.passwordValidator.bind(this)]),
     confirmPassword: new FormControl(null, [Validators.required, this.matchConfirmPassword.bind(this)]),
-    pImage: new FormControl(null,  [Validators.required])
   })
-  
+
   // Custom validator function for password field
   passwordValidator(control: FormControl): { [key: string]: boolean } | null {
     const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[a-zA-Z0-9!@#$%^&*]/;
@@ -43,7 +41,7 @@ export class RegistrationComponent implements OnInit {
     }
     return null;
   }
-  
+
   matchConfirmPassword(control: AbstractControl): ValidationErrors | null {
     const password = control.root.get('password');
     return password && control.value !== password.value ? { 'passwordMismatch': true } : null;
@@ -51,17 +49,7 @@ export class RegistrationComponent implements OnInit {
 
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.registrationForm.patchValue({
-      pImage: file
-    });
-    this.registrationForm.get('pImage')?.updateValueAndValidity();
-  }
-  
-
-
-  get userData(){
-    return this.registrationForm.controls;
+    this.file = event.target.files;
   }
 
   ngOnInit() {
@@ -91,18 +79,22 @@ export class RegistrationComponent implements OnInit {
   // submit form function
   submitRegisterForm(registrationForm: FormGroup) {
     this.submitted = true;
-    console.log(registrationForm.value, registrationForm.value.pImage.name);
-  
-
-  
-    this._AuthService.register(registrationForm.value).subscribe((res) => {
+    if(this.file != null){
+    const formData = new FormData();
+    formData.append('firstName', registrationForm.get('firstName')?.value);
+    formData.append('lastName', registrationForm.get('lastName')?.value);
+    formData.append('email', registrationForm.get('email')?.value);
+    formData.append('password', registrationForm.get('password')?.value);
+    formData.append('confirmPassword', registrationForm.get('confirmPassword')?.value);
+    formData.append('userName', registrationForm.get('userName')?.value);
+    formData.append('pImage', this.file[0]);
+    this._AuthService.register(formData).subscribe((res) => {
       if (res.message) {
         this.error = res.message;
-        console.log(registrationForm.value);
-      } 
-      console.log(this.error);
+        console.log(this.error);
+      }
     });
-
   }
-  
+  }
+
 }

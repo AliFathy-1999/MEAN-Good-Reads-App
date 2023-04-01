@@ -49,7 +49,7 @@
                                                 Minmum Length is 8 charchters </p>
                                             <p *ngIf="registrationForm.get('password')?.errors?.['pattern']">
                                                 Password must contain at least one uppercase letter, one number, and one
-                                                special character.
+                                                special character ! @ # $ % ^ &
                                             </p>
 
 
@@ -73,7 +73,7 @@
                                     </div>
 
                                     <div class="form-group mt-3">
-                                        <input class="custom-file-upload" type="file" id="pImage" name="pImage"
+                                        <input class="custom-file-upload" type="file" id="pImage"
                                             (change)="onFileSelected($event)">
                                         <div *ngIf="registrationForm.get('pImage')?.errors?.['required']"
                                             class="alert-danger mt-2">

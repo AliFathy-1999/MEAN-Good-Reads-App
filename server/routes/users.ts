@@ -1,4 +1,4 @@
-import express, {Request, Response , Router,NextFunction} from 'express';
+import express, {Request, Response , Router,NextFunction, ErrorRequestHandler} from 'express';
 const { userController } = require("../controllers/index")
 const {upload} = require("../middlewares/imageMiddleware")
 const router : Router = express.Router();
@@ -10,12 +10,18 @@ const { validate } = require('../middlewares/validation');
 
 
 router.post("/register",upload.single('pImage'),async (req:any,res:Response, next:NextFunction) => {
-    const pImage = `../../client/src/assets/profile-imgs/${req.file.filename}`
-    const { body: { firstName, lastName, userName, email, password, role } } = req;    
-    const user = userController.create({firstName,lastName,userName, email, password,pImage,role});
-    const [err, data] = await asycnWrapper(user);
-    if (err) return next(err);
-    res.status(200).json(data);
+    try {
+      const pImage = `../../../client/src/assets/profile-imgs/${req.file.filename}`
+      const { body: { firstName, lastName, userName, email, password,confirmPassword, role } } = req;   
+      if(password !== confirmPassword){
+        throw new Error(`Password must be matched with the confirm password !!!`)
+      } 
+      const user = userController.create({firstName,lastName,userName, email, password,pImage,role});
+      res.status(200).json(user);      
+    } catch (err) {
+      if (err) return next(err);
+    }
+
 })
 
 

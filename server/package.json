@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start:dev": "npx nodemon",
-    "build": "cd client && ng serve -o",
+    "build": "cd ../client && ng serve -o",
     "all": "npm run start:dev | npm run build"
   },
   "repository": {
