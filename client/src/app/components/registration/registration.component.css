@@ -169,3 +169,9 @@ section {
     display: inline-block;
     transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1);
 }
+
+.button.radius:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    /* add more styles here */
+}

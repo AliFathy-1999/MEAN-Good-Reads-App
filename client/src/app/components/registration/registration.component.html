@@ -58,25 +58,25 @@
 
                                     <div class="form-group mt-3">
                                         <input type="text" class="form-control custom-input" placeholder="Username *"
-                                            formControlName="username" />
-                                        <div *ngIf="registrationForm.get('username')?.errors != null && registrationForm.get('username')?.touched"
+                                            formControlName="userName" />
+                                        <div *ngIf="registrationForm.get('userName')?.errors != null && registrationForm.get('userName')?.touched"
                                             class="alert-danger mt-2">
-                                            <p *ngIf="registrationForm.get('username')?.errors?.['required']">Username
+                                            <p *ngIf="registrationForm.get('userName')?.errors?.['required']">Username
                                                 is required!</p>
-                                            <p *ngIf="registrationForm.get('username')?.errors?.['minlength']">Username
+                                            <p *ngIf="registrationForm.get('userName')?.errors?.['minlength']">Username
                                                 minimum length is 3</p>
-                                            <p *ngIf="registrationForm.get('username')?.errors?.['maxlength']">Username
+                                            <p *ngIf="registrationForm.get('userName')?.errors?.['maxlength']">Username
                                                 maximum length is 15</p>
+                                            <p *ngIf="error.length>0">Username
+                                                minimum length is 30</p>
                                         </div>
                                     </div>
 
                                     <div class="form-group mt-3">
-                                        <label class="custom-file-upload">
-                                            <input type="file">
-                                            Upload Image
-                                        </label>
-
-                                        <div class="alert-danger mt-2">
+                                        <input class="custom-file-upload" type="file" id="pImage" name="pImage"
+                                            (change)="onFileSelected($event)">
+                                        <div *ngIf="registrationForm.get('pImage')?.errors?.['required']"
+                                            class="alert-danger mt-2">
                                             <p>Image is required!</p>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
                                         </div>
                                     </div>
 
-                                    <label class="radius button" for="fileInput">
+                                    <button class="radius button" for="fileInput" [disabled]="!registrationForm.valid">
                                         <svg class="icon-arrow after" version="1.1" id="Capa_1"
                                             viewBox="0 0 403.8 200.3" style="enable-background:new 0 0 403.8 200.3;">
                                             <g>
@@ -138,9 +138,9 @@
                                             </g>
                                         </svg>
                                         <span>Sign Up</span>
-                                    </label>
-                                    <input type="file" id="fileInput" style="display: none"
-                                        (change)="onFileSelected($event)">
+                                    </button>
+
+                                    <input type="submit" style="display: none;" [disabled]="!registrationForm.valid">
                                 </div>
                             </form>
                         </div>
