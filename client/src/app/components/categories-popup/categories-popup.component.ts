@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-categories-popup',
@@ -6,6 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./categories-popup.component.css']
 })
 export class CategoriesPopupComponent {
+
+  constructor(private formBuilder: FormBuilder) {
+  }
+  categoryForm = new FormGroup ({
+    categoryName: new FormControl(null, [Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
+  })
 
   openModel() {
     const modelDiv = document.getElementById('myModal');

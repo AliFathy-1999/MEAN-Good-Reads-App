@@ -134,16 +134,7 @@ textarea.form-control {
     cursor: pointer;
 }
 
-#imageUpload {
-    text-align: center;
-    margin-top: 3p;
-    background: transparent;
-    margin-top: 9px;
-    margin-left: -13px;
-    font-size: 18px;
 
-
-}
 
 
 
@@ -229,4 +220,9 @@ textarea.form-control {
 .button-86:active::after {
     transition: 0s;
     transform: translate(0, 5%);
+}
+
+.button.radius:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
