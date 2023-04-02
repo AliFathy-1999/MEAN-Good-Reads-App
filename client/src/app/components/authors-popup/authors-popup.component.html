@@ -1,0 +1,76 @@
+<div class="col-3 mt-5">
+    <button class="button-86" role="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Author</button>
+</div>
+
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog" style="width: auto !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Authors</h4>
+                <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-wrap">
+                    <form id="survey-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="name-label" for="name">First Name</label>
+                                    <input type="text" name="name" id="name" placeholder="Enter your name"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="email-label" for="email">Last Name</label>
+                                    <input type="email" name="email" id="email" placeholder="Enter your email"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="number-label" for="number">Date of Birth
+                                        <small>(optional)</small></label>
+                                    <input type="date" class="form-control" id="datepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Upload photo</label>
+                                    <span id="dropdown" name="role" class="form-control" required>
+                                        <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Author History</label>
+                                    <textarea id="comments" class="form-control" name="comment"
+                                        placeholder="Enter your comment here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" id="submit" class="btn btn-primary btn-block">Add Author</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
