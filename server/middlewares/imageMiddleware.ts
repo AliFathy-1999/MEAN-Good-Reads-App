@@ -1,9 +1,9 @@
 const multer = require("multer")
 const path = require("path")
+
 const storage = multer.diskStorage({
     destination: function(req:any, file:any, cb:any){
         cb(null, "../client/src/assets/profile-imgs")
-        //
     },
     filename: function(req:any,file:any, cb:any){
         const { body: { userName } } = req;
@@ -26,13 +26,13 @@ const upload= multer ({
         fileSize:1024 * 1024 * 5, // 5MB
     },
     fileFilter: function (req:any, file:any, cb:any) {
+        try{
         const ext = path.extname(file.originalname);
         const extAllowed = [".png",".jpg",".tiff",".jpeg"]
-            try{
-                const disallowedExts:number = extAllowed.findIndex((myExt:string)=> myExt != ext )
-                if(disallowedExts == -1) {       
-                    return cb(new Error('Only images are allowed'))
-                }
+        const disallowedExts:number = extAllowed.findIndex((myExt:string)=> myExt != ext )
+            if(disallowedExts == -1) {       
+                return cb(new Error('Only images are allowed'))
+            }
                 cb(null, true)
             }catch(e){
                 return cb(true,null)

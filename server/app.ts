@@ -13,10 +13,14 @@ app.use('/users', routes.userRoute);
 app.use('/admin', routes.adminRoute);
 
 const errorHandler: ErrorRequestHandler = (err, req:Request, res:Response, next:NextFunction) => {
-    res.status(400).send({
-        apiStatus:false,
-        message:err.message
-    });
+    let errMsg = err.message
+    let attributeName : string= ""
+    if(err.message.includes('username' && 'duplicate'))
+        errMsg = "Username already in use"
+    else if((err.message.includes('email' && 'duplicate')))
+        errMsg = "Email already in use"
+    res.status(400).send({message:errMsg});     
+        
 };
 
 app.use(errorHandler);
