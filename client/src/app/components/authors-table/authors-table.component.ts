@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-authors-table',
@@ -90,8 +91,18 @@ export class AuthorsTableComponent implements OnInit {
       "isEdit": false
     }
   ]
+
+  
+
   constructor() { }
 
+
+  authorsForm = new FormGroup ({
+    firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+    lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+    dob: new FormControl(null, [Validators.required]),
+    authorImage: new FormControl(null, [Validators.required])
+  });
   ngOnInit(): void {
   }
   onEdit(item: any) {

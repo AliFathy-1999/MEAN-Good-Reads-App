@@ -5,7 +5,7 @@
     <app-authors-popup></app-authors-popup>
     <div class="row mt-5 mb-5 ">
         <div class="col-12">
-            <table class="table table-hover">
+            <table class="table table-hover" [formGroup]="authorsForm">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -21,8 +21,14 @@
                         <td>{{i+1}}</td>
                         <td>
                             <div *ngIf="user.isEdit">
-                                <input type="file" [(ngModel)]="user.img" class="form-control" id="imageUpload"
-                                    accept="image/*">
+                                <input formControlName="authorImage" type="file" [(ngModel)]="user.img"
+                                    class="form-control" id="imageUpload" accept="image/*">
+                            </div>
+                            <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
+                                class="alert-danger mt-2">
+                                <p class="text-danger" *ngIf="authorsForm.get('authorImage')?.errors?.['required']">
+                                    Image is
+                                    required!</p>
                             </div>
                             <div *ngIf="!user.isEdit">
                                 {{user.img}}
@@ -30,7 +36,18 @@
                         </td>
                         <td>
                             <div *ngIf="user.isEdit">
-                                <input type="text" [(ngModel)]="user.firstName" class="form-control" />
+                                <input formControlName="firstName" type=" text" [(ngModel)]="user.firstName"
+                                    class="form-control" />
+                            </div>
+                            <div *ngIf="authorsForm.get('firstName')?.errors != null && authorsForm.get('firstName')?.touched"
+                                class="alert-danger mt-2">
+                                <p class="text-danger" *ngIf="authorsForm.get('firstName')?.errors?.['required']">First
+                                    Name is
+                                    required!</p>
+                                <p class="text-danger" *ngIf="authorsForm.get('firstName')?.errors?.['minlength']">First
+                                    Name minmum length 3</p>
+                                <p class="text-danger" *ngIf="authorsForm.get('firstName')?.errors?.['maxlength']">First
+                                    Name maxmim length 15</p>
                             </div>
                             <div *ngIf="!user.isEdit">
                                 {{user.firstName}}
@@ -39,7 +56,18 @@
 
                         <td>
                             <div *ngIf="user.isEdit">
-                                <input type="text" [(ngModel)]="user.lastName" class="form-control" />
+                                <input formControlName="lastName" type="text" [(ngModel)]="user.lastName"
+                                    class="form-control" />
+                            </div>
+                            <div *ngIf="authorsForm.get('lastName')?.errors != null && authorsForm.get('lastName')?.touched"
+                                class="alert-danger mt-2">
+                                <p class="text-danger" *ngIf="authorsForm.get('lastName')?.errors?.['required']">Last
+                                    Name is
+                                    required!</p>
+                                <p class="text-danger" *ngIf="authorsForm.get('lastName')?.errors?.['minlength']">Last
+                                    Name minmum length 3</p>
+                                <p class="text-danger" *ngIf="authorsForm.get('lastName')?.errors?.['maxlength']">Last
+                                    Name maxmim length 15</p>
                             </div>
                             <div *ngIf="!user.isEdit">
                                 {{user.lastName}}
@@ -47,8 +75,14 @@
                         </td>
                         <td>
                             <div *ngIf="user.isEdit">
-                                <input type="date" [(ngModel)]="user.dob" class="form-control" id="datepicker">
+                                <input formControlName="dob" type="date" class="form-control" id="datepicker">
 
+                            </div>
+                            <div *ngIf="authorsForm.get('dob')?.errors != null && authorsForm.get('dob')?.touched"
+                                class="alert-danger mt-2">
+                                <p class="text-danger" *ngIf="authorsForm.get('dob')?.errors?.['required']">
+                                    Date of Birth is
+                                    required!</p>
                             </div>
                             <div *ngIf="!user.isEdit">
                                 {{user.dob}}
@@ -56,7 +90,7 @@
                         </td>
                         <td style="width: 15%;" class="text-center">
                             <div *ngIf="user.isEdit">
-                                <button class="btn btn-sm greenBtn">Update</button>
+                                <button [disabled]="!authorsForm.valid" class="btn btn-sm greenBtn">Update</button>
                                 <button class="btn btn-sm redBtn" (click)="user.isEdit = false">Cancel</button>
                             </div>
                             <div *ngIf="!user.isEdit">
