@@ -8,7 +8,7 @@ const { booksValidator } = require('../Validations');
 
 const router: Router = express.Router();
 
-router.post('/', adminAuth, validate(booksValidator.bookData), upload.single('bookImage'), async (req: Request, res: Response, next: NextFunction) => {
+router.post('/', adminAuth,upload.single('bookImage'), validate(booksValidator.bookData), async (req: Request, res: Response, next: NextFunction) => {
     let bookImage;
     if (req.file) {
       bookImage = `${process.env.BOOKS_IMAGES + req.file.filename}`;      
@@ -47,7 +47,7 @@ router.get('/', adminAuth, validate(booksValidator.booksRetrive), async (req: Re
     res.status(200).json({ success: true, data, resullt: data.length });
   });
 
-router.patch('/:id', adminAuth, validate(booksValidator.bookId), validate(booksValidator.bookEdit) , async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:id', adminAuth,upload.single('bookImage'), validate(booksValidator.bookId), validate(booksValidator.bookEdit) , async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
   let bookImage;
   if (req.file) {

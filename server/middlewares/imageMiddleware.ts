@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
     
     
     filename: function(req:any,file:any, cb:any){
-        const { body: { userName,firstName,lastName } } = req;
+        const { body: { userName,firstName,lastName,name } } = req;
         let uniqueName :string= ""
         
         switch(file.fieldname){
@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
                     uniqueName = `${firstName}-${lastName}`
                     break;
                 case "bookImage":
-                    uniqueName = `${firstName}-${lastName}`
+                    uniqueName = `${name}`
                     break;
                 default:
                     uniqueName = `${Date.now()}`
