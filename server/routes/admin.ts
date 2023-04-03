@@ -48,7 +48,7 @@ router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Req
     const author = authorController.createAuthor({ _id , firstName, lastName, DOB, authorImg});
     const [err, data] = await asycnWrapper(author);
     if (err) return next(err);
-    res.status(200).json(data);
+    res.status(200).json({message:"Author Added successfully"});
   });  
   router.patch('/updateauthor/:id', adminAuth ,upload.single("authorImg"), async (req:Request, res:Response, next:NextFunction) => {
     let authorImg :any; 
@@ -61,7 +61,7 @@ router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Req
     if(data == null) 
       data = {message:"Author not found"};
     if (err) return next(err);
-    res.status(200).json(data);
+    res.status(200).json({message:"Author updated successfully"});
   });  
   router.get('/authors/:pageNumber/:limit', adminAuth , async (req:Request, res:Response, next:NextFunction) => { 
     const { params:{ limit,pageNumber }} = req 
@@ -69,6 +69,15 @@ router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Req
     const [err, data] = await asycnWrapper(author);
     if (err) return next(err);
     res.status(200).json(data);
+  });  
+  router.delete('/author/:id', adminAuth , async (req:Request, res:Response, next:NextFunction) => { 
+    const { params:{ id }} = req 
+    const author = authorController.deleteAuthor(id);
+    let [err, data] = await asycnWrapper(author);
+    if(data == null) 
+      data = {message:"Author not found"};
+    else if (err) return next(err);
+    res.status(200).json({message:"Author deleted successfully"});
   });  
   router.get('/author/:id', adminAuth , async (req:Request, res:Response, next:NextFunction) => { 
     const { params:{ id }} = req 
