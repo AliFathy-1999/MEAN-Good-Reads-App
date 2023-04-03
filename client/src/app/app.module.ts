@@ -9,8 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistrationCardsComponentComponent } from './components/registration-cards-component/registration-cards-component.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NavbarHomeComponent } from './components/navbar-home/navbar-home.component';
-<<<<<<< HEAD
+import { NavbarHomeComponent } from './components/navbar-home/navbar-home.component'; 
 import { TestHomeComponent } from './test-home/test-home.component';
 import { TokenInterceptorInterceptor } from './token-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,19 +22,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-
-
-
-=======
 import { AuthorsTableComponent } from './components/authors-table/authors-table.component';
 import { FormsModule } from '@angular/forms';
 import { AuthorsPopupComponent } from './components/authors-popup/authors-popup.component';
 import { CategoriesPopupComponent } from './components/categories-popup/categories-popup.component';
-<<<<<<< HEAD
->>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
-=======
 import { NgxPaginationModule } from 'ngx-pagination';
->>>>>>> cd21dbe (Add CRUD functions to Authors Table)
 
 @NgModule({
   declarations: [
@@ -46,24 +37,18 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NavbarComponent,
     RegistrationCardsComponentComponent,
     NavbarHomeComponent,
-<<<<<<< HEAD
     TestHomeComponent,
     AdminBookComponent,
     CrudBookComponent,
-=======
     AuthorsTableComponent,
     AuthorsPopupComponent,
     CategoriesPopupComponent
-
->>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-<<<<<<< HEAD
-<<<<<<< HEAD
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
@@ -74,15 +59,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatTableModule
 
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorInterceptor,multi:true}
-=======
-    FormsModule
-=======
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorInterceptor,multi:true},
     FormsModule,
     NgxPaginationModule
->>>>>>> cd21dbe (Add CRUD functions to Authors Table)
-  
->>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
   ],
   bootstrap: [AppComponent]
 })

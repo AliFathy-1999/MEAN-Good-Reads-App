@@ -18,12 +18,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of authArr | paginate :{itemsPerPage: tableSize,currentPage:page,totalItems:count} ;let i= index">
+                    <tr *ngFor="let user of authArr;let i= index">
                         <td>{{i+1}}</td>
                         <td>
                             <div *ngIf="user.isEdit">
-                                <input (change)="onFileSelected($event)" formControlName="authorImage" type="file" [(ngModel)]="user.img"
-                                    class="form-control" id="imageUpload" accept="image/*">
+                                <input (change)="onFileSelected($event)" formControlName="authorImage" type="file"
+                                    [(ngModel)]="user.img" class="form-control" id="imageUpload" accept="image/*">
                             </div>
                             <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
                                 class="alert-danger mt-2">
@@ -110,7 +110,8 @@
                         </td>
                         <td style="width: 15%;" class="text-center">
                             <div *ngIf="user.isEdit">
-                                <button type="submit" [disabled]="!authorsForm.valid" class="btn btn-sm greenBtn" (click)="onUpdate(user.id, authorsForm)">Update</button>
+                                <button type="submit" [disabled]="!authorsForm.valid" class="btn btn-sm greenBtn"
+                                    (click)="onUpdate(user.id, authorsForm)">Update</button>
                                 <button class="btn btn-sm redBtn" (click)="user.isEdit = false">Cancel</button>
                             </div>
                             <div *ngIf="!user.isEdit">
@@ -121,11 +122,6 @@
                     </tr>
                 </tbody>
             </table>
-
-            <pagination-controls
-            previousLabel="Prev"
-            nextLabel="Next"
-             (pageChange)="onTableChange($event)"></pagination-controls>
 
         </div>
     </div>

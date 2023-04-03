@@ -15,7 +15,6 @@ export class AuthService {
   }
   login(loginData:object):Observable<any>{
     return this._HttpClient.post('http://localhost:3000/users/signin',loginData)
-<<<<<<< HEAD
     // return this._HttpClient.post('http://localhost:3000/users',loginData)
   }
 
@@ -26,8 +25,6 @@ export class AuthService {
   getToken(){
     return localStorage.getItem('token')||'';
     }
-=======
   }
 
->>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
-}
+
