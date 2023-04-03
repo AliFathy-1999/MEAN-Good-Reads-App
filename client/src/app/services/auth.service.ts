@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private _HttpClient:HttpClient ) { }
 
-  register(formData:object):Observable<any>{    
+  register(formData:object):Observable<any>{
     return this._HttpClient.post('http://localhost:3000/users/register',formData)
   }
   login(loginData:object):Observable<any>{
@@ -25,10 +25,4 @@ export class AuthService {
   getToken(){
     return localStorage.getItem('token')||'';
     }
-<<<<<<< HEAD
 }
-=======
-  }
-
-
->>>>>>> ea290368b7d479360c6064329eb85a2cc0efca92
