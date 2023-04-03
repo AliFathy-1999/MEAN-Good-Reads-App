@@ -3,10 +3,36 @@ const path = require("path")
 
 const storage = multer.diskStorage({
     destination: function(req:any, file:any, cb:any){
-        cb(null, "../client/src/assets/profile-imgs")
+        let imagePath :string= ""
+        switch(file.fieldname){
+            case "pImage":
+                imagePath = "../client/src/assets/profile-imgs"
+                break;
+            case "authorImg":
+                imagePath = "../client/src/assets/author-imgs"
+                break;
+            default:
+                imagePath = "../client/src/assets/random-imgs"
+        }
+        cb(null, imagePath)
     },
+    
+    
     filename: function(req:any,file:any, cb:any){
-        const { body: { userName } } = req;
+        const { body: { userName,firstName,lastName } } = req;
+        let uniqueName :string= ""
+        
+        switch(file.fieldname){
+                case "pImage":
+                    uniqueName = userName
+                    break;
+                case "authorImg":
+                    uniqueName = `${firstName}-${lastName}`
+                    break;
+                default:
+                    uniqueName = `${Date.now()}`
+        }
+        
         let fileN = file.originalname;
         const ext = path.extname(file.originalname);
         if(ext == '.tiff' || ext == '.jpeg')
@@ -16,7 +42,7 @@ const storage = multer.diskStorage({
         else{
             fileN = fileN.slice(0, -4);
         }
-        const myFileName = `${userName}-${fileN}${path.extname(file.originalname)}`
+        const myFileName = `${uniqueName}-${fileN}${path.extname(file.originalname)}`
         cb(null, myFileName)
     }
 })

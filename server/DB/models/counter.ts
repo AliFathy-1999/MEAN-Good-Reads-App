@@ -1,5 +1,6 @@
 import {Schema,model} from 'mongoose';
-const schema  = new Schema({
+import { Counter } from '../schemaInterfaces';
+const schema  = new Schema<Counter>({
     id:String,
     seq:{
         type:Number,

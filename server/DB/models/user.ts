@@ -30,6 +30,11 @@ const schema = new Schema<User>({
         type:String,
         required:[true, "Email is a required field"],
         unique:true,
+        validate(value:string){
+            if(!validator.isEmail(value)){
+                throw new Error("Invalid email")
+            }
+        }
     },
     password:{
         type:String,
@@ -75,11 +80,10 @@ schema.pre("save",async function(){
 
 schema.methods.verifyPassword = function verifyPassword(pass: string) {
     return bcryptjs.compareSync(pass, this.password);
-  };
+};
   
 const User = model('Users', schema);
   
 module.exports = User;
-  
-export { User };
+
 
