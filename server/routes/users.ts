@@ -39,7 +39,7 @@ router.post('/signin', validate(usersValidator.signIn) ,async (req:Request, res:
 
   router.get('/', userAuth ,async (req:Request, res:Response, next:NextFunction) => {
     try {
-      res.status(201).json({"user": req.user});
+      res.status(201).json({user: req.user});
     } catch (err) {
       next(err);
     }

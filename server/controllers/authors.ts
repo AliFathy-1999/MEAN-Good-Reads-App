@@ -7,11 +7,14 @@ const getAuthors = (limit:number,pageNumber:number) :Author => Authors.find({}).
 
 const updateAuthor = (id:number,data:Author) => Authors.findOneAndUpdate({_id:id},data,{new:true});
 
+const deleteAuthor = (id:number) => Authors.findOneAndDelete({_id:id});
+
 const singleAuthor = (id:number) :Author => Authors.findOne({_id:id});
 
 module.exports = {
     createAuthor,
     getAuthors,
     updateAuthor,
+    deleteAuthor,
     singleAuthor
 }

@@ -1,5 +1,7 @@
 module.exports = {
     userRoute : require("./users"),
     adminRoute : require("./admin"),
+    bookRoute : require("./book"),
+    CategoryRoute : require("./category"),
 
 }

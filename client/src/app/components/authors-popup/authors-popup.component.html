@@ -8,7 +8,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add Authors</h4>
-                <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" (click)="closeModel()" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div class="form-wrap">
@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label>Upload photo</label>
                                     <span id="dropdown" name="role" class="form-control" required>
-                                        <input formControlName="authorImage" type="file" class="form-control"
+                                        <input formControlName="authorImage"  (change)="onFileSelected($event)" type="file" class="form-control"
                                             id="imageUpload" accept="image/*">
                                     </span>
                                     <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
@@ -94,7 +94,7 @@
                                 <div class="form-group">
                                     <label>Author History</label>
                                     <textarea id="comments" class="form-control" name="comment"
-                                        placeholder="Enter your comment here..."></textarea>
+                                        placeholder="Enter your comment here..." formControlName="bio"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -102,8 +102,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <button [disabled]="!authorsForm.valid" type="submit" id="submit"
-                                    class="btn btn-primary btn-block">Add Author</button>
+                                 (click)="addAuthor(authorsForm)"   class="btn btn-primary btn-block">Add Author</button>
                             </div>
+                            <div *ngIf="successMessage" class="alert mt-3 alert-success text-center align-bottom"
+                            role="alert">
+                            {{ successMessage }}
+                        </div>
                         </div>
 
                     </form>
