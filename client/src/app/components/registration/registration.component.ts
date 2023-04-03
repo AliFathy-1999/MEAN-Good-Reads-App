@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 AuthService
 @Component({
@@ -11,7 +11,7 @@ AuthService
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-
+  successMessage: string = '';
   message = "New here? Create a free account!";
   messageArray: string[] = [];
   typedMessage = "";
@@ -88,12 +88,24 @@ export class RegistrationComponent implements OnInit {
     formData.append('confirmPassword', registrationForm.get('confirmPassword')?.value);
     formData.append('userName', registrationForm.get('userName')?.value);
     formData.append('pImage', this.file[0]);
-    this._AuthService.register(formData).subscribe((res) => {
-      if (res.message) {
-        this.error = res.message;
-        console.log(this.error);
+    
+    this._AuthService.register(formData).subscribe(
+      (res) => {
+        
+        if (res.message === 'User registered successfully') {
+          this.successMessage = 'Signed up successfully!';
+          this.registrationForm.reset();
+          console.log(res.status);
+          
+        }
+
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error status code:', error.status);
+        console.error('Error message:', error.message);
+        
       }
-    });
+    );
   }
   }
 

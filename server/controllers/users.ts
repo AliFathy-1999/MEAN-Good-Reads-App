@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
-import { User } from "../DB/schemaInterfaces";
+import { User} from "../DB/schemaInterfaces";
 const Users = require('../DB/models/user');
+
 
 
 const generateUserId = async () => {
@@ -28,8 +29,7 @@ const signIn = async ( loginedUser:{ userName: string, password:string } ) => {
     if (!valid) throw new Error('un-authenticated');
     return createToken(user);
   };
-  
 
 module.exports = {
-    create, signIn
+    create,signIn,
 }

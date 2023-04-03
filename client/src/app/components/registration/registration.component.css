@@ -173,5 +173,4 @@ section {
 .button.radius:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    /* add more styles here */
 }

@@ -1,0 +1,37 @@
+* {
+    font-family: 'sora', sans-serif;
+}
+
+button {
+    color: white;
+    margin: 0 3px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.redBtn {
+    background-color: #FFE2E6;
+    color: #C67482;
+}
+
+.greenBtn {
+    background-color: #D0F4E8;
+    color: #2C9978;
+}
+
+thead {
+    background-color: #F6F6F8;
+
+}
+
+th {
+    color: #B7BABF;
+    font-weight: lighter;
+    font-size: 14px;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

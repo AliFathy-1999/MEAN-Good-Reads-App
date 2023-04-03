@@ -6,36 +6,41 @@ const bcryptjs = require('bcryptjs');
 const schema = new Schema<User>({
     firstName:{
         type:String,
-        minLength:3,
-        maxLength:15,
-        required:true,
+        minLength:[3,"First name must be at least 3 characters"],
+        maxLength:[15,"First name must be at less than 15 characters"],
+        required:[true, "First name is a required field"],
         trim:true,
     },
     lastName:{
         type:String,
-        minLength:3,
-        maxLength:15,
-        required:true,
+        minLength:[3,"Last name must be at least 3 characters"],
+        maxLength:[15,"Last must be at less than 15 characters"],
+        required:[true, "Last name is a required field"],
         trim:true,
     },
     userName:{
         type:String,
-        minLength:3,
-        maxLength:30,
-        required:true,
+        minLength:[3,"Username must be at least 3 characters"],
+        maxLength:[30,"Username must be at less than 30 characters"],
+        required:[true, "Username is a required field"],
         trim:true,
         unique:true,        
     },
     email:{
         type:String,
-        required:true,
+        required:[true, "Email is a required field"],
         unique:true,
+        validate(value:string){
+            if(!validator.isEmail(value)){
+                throw new Error("Invalid email")
+            }
+        }
     },
     password:{
         type:String,
-        required:true,
+        required:[true, "Password is a required field"],
         trim:true,
-        minlength:6,
+        minlength:[6,"Password must be at least 6 characters"],
         match:/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/,
         //@iti43OS
         validate(value:string){
@@ -63,6 +68,7 @@ schema.methods.toJSON = function () {
     const userObject = user.toObject();
     delete userObject.password;
     delete userObject.__v;
+    delete userObject.role;
     return userObject;
 }
 schema.pre("save",async function(){
@@ -74,11 +80,10 @@ schema.pre("save",async function(){
 
 schema.methods.verifyPassword = function verifyPassword(pass: string) {
     return bcryptjs.compareSync(pass, this.password);
-  };
+};
   
 const User = model('Users', schema);
   
 module.exports = User;
-  
-export { User };
+
 

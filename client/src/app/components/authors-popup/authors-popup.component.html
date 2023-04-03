@@ -1,0 +1,117 @@
+<div class="col-3 mt-5">
+    <button class="button-86" role="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Author</button>
+</div>
+
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog" style="width: auto !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Authors</h4>
+                <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-wrap">
+                    <form [formGroup]="authorsForm" id="survey-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="name-label" for="name">First Name</label>
+                                    <input type="text" formControlName="firstName" name="name" id="name"
+                                        placeholder="Enter your name" class="form-control" required>
+                                    <div *ngIf="authorsForm.get('firstName')?.errors != null && authorsForm.get('firstName')?.touched"
+                                        class="alert-danger mt-2">
+                                        <p class="text-danger"
+                                            *ngIf="authorsForm.get('firstName')?.errors?.['required']">First
+                                            Name is
+                                            required!</p>
+                                        <p class="text-danger"
+                                            *ngIf="authorsForm.get('firstName')?.errors?.['minlength']">First
+                                            Name minmum length 3</p>
+                                        <p class="text-danger"
+                                            *ngIf="authorsForm.get('firstName')?.errors?.['maxlength']">First
+                                            Name maxmim length 15</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="email-label" for="email">Last Name</label>
+                                    <input type="text" formControlName="lastName" name=" lastName" id=" lastName"
+                                        placeholder="Enter your email" class="form-control" required>
+                                    <div *ngIf="authorsForm.get('lastName')?.errors != null && authorsForm.get('lastName')?.touched"
+                                        class="alert-danger mt-2">
+                                        <p class="text-danger"
+                                            *ngIf="authorsForm.get('lastName')?.errors?.['required']">Last
+                                            Name is
+                                            required!</p>
+                                        <p class="text-danger"
+                                            *ngIf="authorsForm.get('lastName')?.errors?.['minlength']">Last
+                                            Name minmum length 3</p>
+                                        <p class="text-danger"
+                                            *ngIf="authorsForm.get('lastName')?.errors?.['maxlength']">Last
+                                            Name maxmim length 15</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="number-label" for="number">Date of Birth
+                                        <small>(optional)</small></label>
+                                    <input formControlName="dob" type="date" class="form-control" id="datepicker">
+                                    <div *ngIf="authorsForm.get('dob')?.errors != null && authorsForm.get('dob')?.touched"
+                                        class="alert-danger mt-2">
+                                        <p class="text-danger" *ngIf="authorsForm.get('dob')?.errors?.['required']">
+                                            Date of Birth is
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Upload photo</label>
+                                    <span id="dropdown" name="role" class="form-control" required>
+                                        <input formControlName="authorImage" type="file" class="form-control"
+                                            id="imageUpload" accept="image/*">
+                                    </span>
+                                    <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
+                                        class="alert-danger mt-2">
+                                        <p class="text-danger"
+                                            *ngIf="authorsForm.get('authorImage')?.errors?.['required']">
+                                            Image is
+                                            required!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Author History</label>
+                                    <textarea id="comments" class="form-control" name="comment"
+                                        placeholder="Enter your comment here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button [disabled]="!authorsForm.valid" type="submit" id="submit"
+                                    class="btn btn-primary btn-block">Add Author</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

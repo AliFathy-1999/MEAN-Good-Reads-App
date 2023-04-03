@@ -138,9 +138,15 @@
                                             </g>
                                         </svg>
                                         <span>Sign Up</span>
+
                                     </button>
 
                                     <input type="submit" style="display: none;" [disabled]="!registrationForm.valid">
+
+                                </div>
+                                <div *ngIf="successMessage" class="alert mt-3 alert-success text-center align-bottom"
+                                    role="alert">
+                                    {{ successMessage }}
                                 </div>
                             </form>
                         </div>
