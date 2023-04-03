@@ -1,0 +1,40 @@
+<div mat-dialog-title>
+    <h3>Book Form</h3>
+</div>
+<form [formGroup]="bookForm" (ngSubmit)="submitData()">
+<div mat-dialog-content>
+    <div>
+<div class="content">
+
+
+      <input type="file" class="file-input" id="photo"
+      (change)="onFileSelected($event)" formNameControl="photo" #fileUpload>
+      <!-- <div class="file-upload"> -->
+        {{photo || "The Image of the Book."}}
+        <button mat-mini-fab color="primary" class="upload-btn" type="button"
+          (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button> 
+<mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="bookName">
+      </mat-form-field>
+</div>
+  
+      <div class="content">
+      <mat-form-field appearance="outline">
+        <mat-label>CategoryId</mat-label>
+        <input matInput type="number" formControlName="categoryId">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>AuthorId</mat-label>
+        <input matInput type="number" formControlName="authorId">
+      </mat-form-field>
+      </div>
+    </div>
+</div>
+<div mat-dialog-action class="action">
+    <button mat-raised-button class="bg-success text-white p-3" type="submit">{{data?'Update':'Save'}}</button>
+    <button mat-raised-button color="warn" (click)="closeDialog()" type="button">Cancel</button>
+</div>
+</form>

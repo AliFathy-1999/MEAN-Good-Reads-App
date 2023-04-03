@@ -9,12 +9,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class NavbarHomeComponent {
 
   loginForm:FormGroup
-  username:String="";
+  userName:String="";
   password:String="";
 constructor(){
   
 this.loginForm = new FormGroup({
-  username : new FormControl(null,[Validators.required,Validators.minLength(13)]),
+  userName : new FormControl(null,[Validators.required,Validators.minLength(13)]),
   password : new FormControl(null,[Validators.required,Validators.minLength(8)])
 }) 
 }

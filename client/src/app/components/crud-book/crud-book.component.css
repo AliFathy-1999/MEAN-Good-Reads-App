@@ -1,0 +1,26 @@
+.file-input {
+    display: none;
+  }
+.content mat-form-field{
+    margin: 25px;
+}
+
+.content button{
+    margin: 21px;
+
+}
+
+h3{
+    text-align: center;
+}
+
+
+/* .action{
+    margin-left: 22%;
+    margin-bottom: 3%;
+    /* padding: 0px 25px 20px; */
+
+
+.action button{
+    margin-left: 24%;
+    margin-bottom: 3%;}
