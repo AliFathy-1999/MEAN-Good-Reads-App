@@ -14,6 +14,21 @@ h3{
     text-align: center;
 }
 
+.dialogVal{
+text-align: right;
+margin-top: -45px;
+margin-right: 55px;
+}
+
+.catVal{
+margin-left: 25px;
+}
+
+
+
+ 
+
+
 
 /* .action{
     margin-left: 22%;
@@ -24,3 +39,11 @@ h3{
 .action button{
     margin-left: 24%;
     margin-bottom: 3%;}
+
+
+@media (max-width: 715px) {
+    .dialogVal{
+    text-align: left;
+    margin-left: 25px;
+}
+}

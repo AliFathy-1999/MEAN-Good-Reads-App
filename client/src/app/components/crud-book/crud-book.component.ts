@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BooksService } from 'src/app/services/books.service';
 
+
 @Component({
   selector: 'app-crud-book',
   templateUrl: './crud-book.component.html',
@@ -14,10 +15,10 @@ export class CrudBookComponent implements OnInit{
   bookName!:String;
   categoryId!:Number;
   authorId!:Number;
-  photo='';
+  photo!:any;
 
 
-  onFileSelected(event:any) {
+  onFileSelected(event:Event) {
       const file= event.target as HTMLInputElement  
       if(file.files)
       {
@@ -26,7 +27,7 @@ export class CrudBookComponent implements OnInit{
           this.bookForm.value.photo=event.target.result;       
        }
         reader.readAsDataURL(file.files[0]);
-      }     
+      }  
 }
 
 

@@ -32,25 +32,13 @@ login() {
       (res) => {
         console.log(res.token);
         console.log(res);
-<<<<<<< HEAD
         localStorage.setItem('token',res.token);
-=======
->>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
       },
       (error: HttpErrorResponse) => {
         console.error('Error status code:', error.status);
         console.error('Error message:', error.message);
-<<<<<<< HEAD
       }
     );
   
-=======
-        
-        
-      }
-    );
-  
-}
->>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
 }
 }

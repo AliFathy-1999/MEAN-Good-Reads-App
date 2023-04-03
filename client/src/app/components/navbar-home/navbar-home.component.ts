@@ -13,7 +13,7 @@ export class NavbarHomeComponent {
   password:String="";
 constructor(){
   
-this.loginForm = new FormGroup({
+  this.loginForm = new FormGroup({
   userName : new FormControl(null,[Validators.required,Validators.minLength(13)]),
   password : new FormControl(null,[Validators.required,Validators.minLength(8)])
 }) 
