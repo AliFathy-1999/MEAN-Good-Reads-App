@@ -31,7 +31,11 @@ import { AuthorsTableComponent } from './components/authors-table/authors-table.
 import { FormsModule } from '@angular/forms';
 import { AuthorsPopupComponent } from './components/authors-popup/authors-popup.component';
 import { CategoriesPopupComponent } from './components/categories-popup/categories-popup.component';
+<<<<<<< HEAD
 >>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
+=======
+import { NgxPaginationModule } from 'ngx-pagination';
+>>>>>>> cd21dbe (Add CRUD functions to Authors Table)
 
 @NgModule({
   declarations: [
@@ -59,6 +63,7 @@ import { CategoriesPopupComponent } from './components/categories-popup/categori
     ReactiveFormsModule,
     HttpClientModule,
 <<<<<<< HEAD
+<<<<<<< HEAD
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
@@ -72,6 +77,10 @@ import { CategoriesPopupComponent } from './components/categories-popup/categori
   providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorInterceptor,multi:true}
 =======
     FormsModule
+=======
+    FormsModule,
+    NgxPaginationModule
+>>>>>>> cd21dbe (Add CRUD functions to Authors Table)
   
 >>>>>>> a0f18f00090b5719da4c21bf63b0723e0c7575c0
   ],

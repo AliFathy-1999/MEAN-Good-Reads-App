@@ -5,7 +5,7 @@
     <app-authors-popup></app-authors-popup>
     <div class="row mt-5 mb-5 ">
         <div class="col-12">
-            <table class="table table-hover" [formGroup]="authorsForm">
+            <table class="table table-hover" [formGroup]="authorsForm" #authorForm="ngForm">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -13,46 +13,54 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Date of Birth</th>
+                        <th>Author History</th>
                         <th style="width: 15%;" class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of usersArray;let i= index">
+                    <tr *ngFor="let user of authArr | paginate :{itemsPerPage: tableSize,currentPage:page,totalItems:count} ;let i= index">
                         <td>{{i+1}}</td>
                         <td>
                             <div *ngIf="user.isEdit">
-                                <input formControlName="authorImage" type="file" [(ngModel)]="user.img"
+                                <input (change)="onFileSelected($event)" formControlName="authorImage" type="file" [(ngModel)]="user.img"
                                     class="form-control" id="imageUpload" accept="image/*">
                             </div>
                             <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
                                 class="alert-danger mt-2">
-                                <p class="text-danger" *ngIf="authorsForm.get('authorImage')?.errors?.['required']">
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('authorImage')?.errors?.['required'] && user.isEdit">
                                     Image is
                                     required!</p>
                             </div>
-                            <div *ngIf="!user.isEdit">
-                                {{user.img}}
+                            <div class="imageContainer" *ngIf="!user.isEdit">
+
+                                <img src="../../../assets/profile-imgs/avatar.png" />
                             </div>
                         </td>
+
                         <td>
                             <div *ngIf="user.isEdit">
-                                <input formControlName="firstName" type=" text" [(ngModel)]="user.firstName"
+                                <input formControlName="firstName" type="text" [(ngModel)]="user.firstName"
                                     class="form-control" />
                             </div>
                             <div *ngIf="authorsForm.get('firstName')?.errors != null && authorsForm.get('firstName')?.touched"
                                 class="alert-danger mt-2">
-                                <p class="text-danger" *ngIf="authorsForm.get('firstName')?.errors?.['required']">First
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('firstName')?.errors?.['required'] && user.isEdit">First
                                     Name is
                                     required!</p>
-                                <p class="text-danger" *ngIf="authorsForm.get('firstName')?.errors?.['minlength']">First
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('firstName')?.errors?.['minlength'] && user.isEdit">First
                                     Name minmum length 3</p>
-                                <p class="text-danger" *ngIf="authorsForm.get('firstName')?.errors?.['maxlength']">First
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('firstName')?.errors?.['maxlength'] && user.isEdit">First
                                     Name maxmim length 15</p>
                             </div>
                             <div *ngIf="!user.isEdit">
                                 {{user.firstName}}
                             </div>
                         </td>
+
 
                         <td>
                             <div *ngIf="user.isEdit">
@@ -61,12 +69,15 @@
                             </div>
                             <div *ngIf="authorsForm.get('lastName')?.errors != null && authorsForm.get('lastName')?.touched"
                                 class="alert-danger mt-2">
-                                <p class="text-danger" *ngIf="authorsForm.get('lastName')?.errors?.['required']">Last
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('lastName')?.errors?.['required'] && user.isEdit">Last
                                     Name is
                                     required!</p>
-                                <p class="text-danger" *ngIf="authorsForm.get('lastName')?.errors?.['minlength']">Last
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('lastName')?.errors?.['minlength'] && user.isEdit">Last
                                     Name minmum length 3</p>
-                                <p class="text-danger" *ngIf="authorsForm.get('lastName')?.errors?.['maxlength']">Last
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('lastName')?.errors?.['maxlength'] && user.isEdit">Last
                                     Name maxmim length 15</p>
                             </div>
                             <div *ngIf="!user.isEdit">
@@ -80,7 +91,8 @@
                             </div>
                             <div *ngIf="authorsForm.get('dob')?.errors != null && authorsForm.get('dob')?.touched"
                                 class="alert-danger mt-2">
-                                <p class="text-danger" *ngIf="authorsForm.get('dob')?.errors?.['required']">
+                                <p class="text-danger"
+                                    *ngIf="authorsForm.get('dob')?.errors?.['required'] && user.isEdit">
                                     Date of Birth is
                                     required!</p>
                             </div>
@@ -88,19 +100,33 @@
                                 {{user.dob}}
                             </div>
                         </td>
+                        <td>
+                            <div *ngIf="user.isEdit">
+                                <textarea formControlName="bio" class="form-control" id="bio"></textarea>
+                            </div>
+                            <div *ngIf="!user.isEdit" style="max-width: 500px;">
+                                {{user.bio}}
+                            </div>
+                        </td>
                         <td style="width: 15%;" class="text-center">
                             <div *ngIf="user.isEdit">
-                                <button [disabled]="!authorsForm.valid" class="btn btn-sm greenBtn">Update</button>
+                                <button type="submit" [disabled]="!authorsForm.valid" class="btn btn-sm greenBtn" (click)="onUpdate(user.id, authorsForm)">Update</button>
                                 <button class="btn btn-sm redBtn" (click)="user.isEdit = false">Cancel</button>
                             </div>
                             <div *ngIf="!user.isEdit">
-                                <button class="btn btn-sm greenBtn" (click)="onEdit(user)">Edit</button>
-                                <button class="btn-danger redBtn ">delete</button>
+                                <button class="btn btn-sm greenBtn" (click)="onEdit(user.id)">Edit</button>
+                                <button class="btn-danger redBtn " (click)="onDelete(user.id)">delete</button>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
+
+            <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+             (pageChange)="onTableChange($event)"></pagination-controls>
+
         </div>
     </div>
 </section>
