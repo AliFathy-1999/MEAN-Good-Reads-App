@@ -95,6 +95,8 @@ export class RegistrationComponent implements OnInit {
         if (res.message === 'User registered successfully') {
           this.successMessage = 'Signed up successfully!';
           this.registrationForm.reset();
+          console.log(res.status);
+          
         }
 
       },

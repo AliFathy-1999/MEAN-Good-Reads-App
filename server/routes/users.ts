@@ -25,14 +25,18 @@ router.post("/register",upload.single('pImage'),async (req:any,res:Response, nex
 
 
 router.post('/signin', validate(usersValidator.signIn) ,async (req:Request, res:Response, next:NextFunction) => {
-    const { body: { userName, password } } = req;
+
+    
     try {
+      const { body: { userName, password } } = req;
+      console.log(req.body);
       const token = await userController.signIn({userName, password});
       res.cookie('token',token).status(201).json({ token });
     } catch (err) {
       next(err);
     }
   });
+
   router.get('/', userAuth ,async (req:Request, res:Response, next:NextFunction) => {
     try {
       res.status(201).json({"user": req.user});

@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -10,17 +12,34 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
 
   loginForm:FormGroup
-  username:String="";
+  userName:String="";
   password:String="";
-constructor(){
+constructor(private _AuthService :AuthService){
   
 this.loginForm = new FormGroup({
-  username : new FormControl(null,[Validators.required,Validators.minLength(13)]),
+  userName : new FormControl(null,[Validators.required,Validators.minLength(8)]),
   password : new FormControl(null,[Validators.required,Validators.minLength(8)])
 }) 
 }
 
+
 login() {
-  console.log(this.loginForm.value);
+  
+ 
+    console.log(this.loginForm.value);
+    
+    this._AuthService.login(this.loginForm.value).subscribe(
+      (res) => {
+        console.log(res.token);
+        console.log(res);
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error status code:', error.status);
+        console.error('Error message:', error.message);
+        
+        
+      }
+    );
+  
 }
 }
