@@ -1,18 +1,25 @@
 <app-navbar></app-navbar>
-<div class="container" id="container"> 
+<div class="container" id="container">
 	<div class="form-container sign-in-container">
 		<form [formGroup]="loginForm" (ngSubmit)="login()">
-      <h2>Welcome Back!</h2>
-		<h3 id="sign">Sign in</h3>
-		<input type="text" placeholder="Username" minlength="8" id="username" name="username" formControlName="username"/>
-      <p class="val_text text-danger"*ngIf="loginForm.get('username')?.touched &&loginForm.get('username')?.errors?.['required']">Username is required</p>
-      <p class="val_text text-danger" *ngIf="loginForm.get('username')?.errors?.['minlength']">Minimum length is 13</p>
+			<h2>Welcome Back!</h2>
+			<h3 id="sign">Sign in</h3>
+			<input type="text" placeholder="Username" minlength="8" id="username" name="username"
+				formControlName="username" />
+			<p class="val_text text-danger"
+				*ngIf="loginForm.get('username')?.touched &&loginForm.get('username')?.errors?.['required']">Username is
+				required</p>
+			<p class="val_text text-danger" *ngIf="loginForm.get('username')?.errors?.['minlength']">Minimum length is
+				13</p>
 
-      <input type="password" placeholder="Password" id="password" name="password" formControlName="password" />
-      <p class="val_text text-danger" *ngIf="loginForm.get('password')?.touched &&loginForm.get('password')?.errors?.['required']">Password is required</p>
-      <p class="val_text text-danger" *ngIf="loginForm.get('password')?.errors?.['minlength']">Minimum length is 8</p>
+			<input type="password" placeholder="Password" id="password" name="password" formControlName="password" />
+			<p class="val_text text-danger"
+				*ngIf="loginForm.get('password')?.touched &&loginForm.get('password')?.errors?.['required']">Password is
+				required</p>
+			<p class="val_text text-danger" *ngIf="loginForm.get('password')?.errors?.['minlength']">Minimum length is 8
+			</p>
 
-      <a id="new" [routerLink]="['/']">Don't have an account?</a>
+			<a id="new" [routerLink]="['/']">Don't have an account?</a>
 
 			<button [disabled]="loginForm.invalid">Sign In</button>
 		</form>
@@ -27,4 +34,3 @@
 		</div>
 	</div>
 </div>
-
