@@ -1,8 +1,8 @@
-const multer = require("multer")
-const path = require("path")
-
+import express, { Request, Response, Router, NextFunction } from 'express';
+const multer = require('multer');
+const path = require('path');
 const storage = multer.diskStorage({
-    destination: function(req:any, file:any, cb:any){
+    destination: function(req:Request, file:any, cb:any){
         let imagePath :string= ""
         switch(file.fieldname){
             case "pImage":
@@ -10,6 +10,9 @@ const storage = multer.diskStorage({
                 break;
             case "authorImg":
                 imagePath = "../client/src/assets/author-imgs"
+                break;
+            case "bookImage":
+                    imagePath = "../client/src/assets/books-imgs"
                 break;
             default:
                 imagePath = "../client/src/assets/random-imgs"
@@ -27,6 +30,9 @@ const storage = multer.diskStorage({
                     uniqueName = userName
                     break;
                 case "authorImg":
+                    uniqueName = `${firstName}-${lastName}`
+                    break;
+                case "bookImage":
                     uniqueName = `${firstName}-${lastName}`
                     break;
                 default:
