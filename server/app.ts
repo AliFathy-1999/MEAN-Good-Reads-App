@@ -1,5 +1,5 @@
 import express, {Application, NextFunction, Request, Response , ErrorRequestHandler} from 'express';
-import { Multer,StorageEngine,DiskStorageOptions } from 'multer'
+// import { Multer,StorageEngine,DiskStorageOptions } from 'multer'
 const multer = require('multer')
 const app : Application = express();
 const cors = require("cors");
