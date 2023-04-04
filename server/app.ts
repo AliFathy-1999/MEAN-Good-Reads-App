@@ -15,12 +15,7 @@ app.use('/books', routes.bookRoute);
 app.use('/categories', routes.CategoryRoute);
 
 const errorHandler: ErrorRequestHandler = (err, req:Request, res:Response, next:NextFunction) => {
-    let errMsg = err.message
-    if(err.message.includes('username' && 'duplicate'))
-        errMsg = "Username already in use"
-    else if((err.message.includes('email' && 'duplicate')))
-        errMsg = "Email already in use"
-    res.status(400).send({message:errMsg});     
+    res.status(400).json(err);     
 };
 
 app.use(errorHandler);

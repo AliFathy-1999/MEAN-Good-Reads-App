@@ -38,17 +38,7 @@ const storage = multer.diskStorage({
                 default:
                     uniqueName = `${Date.now()}`
         }
-        
-        let fileN = file.originalname;
-        const ext = path.extname(file.originalname);
-        if(ext == '.tiff' || ext == '.jpeg')
-        {
-            fileN = fileN.slice(0, -5); 
-        }
-        else{
-            fileN = fileN.slice(0, -4);
-        }
-        const myFileName = `${uniqueName}-${fileN}${path.extname(file.originalname)}`
+        const myFileName = `${uniqueName}-${file.originalname}`
         cb(null, myFileName)
     }
 })

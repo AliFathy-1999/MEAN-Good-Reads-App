@@ -14,8 +14,8 @@ const schema = new Schema<User>(
     },
     lastName: {
       type: String,
-      minLength: [3,"Last name must be at least 3 characters"],
-      maxLength: [15,"Last must be at less than 15 characters"],
+      minLength: 3,
+      maxLength: 15,
       required: [true, "Last name is a required field"],
       trim: true,
     },
