@@ -14,33 +14,37 @@ export class AuthorsTableComponent implements OnInit {
   selectedFile: File | undefined;
   page: number = 1;
   count: number = 0;
-  tableSize: number = 3;
-  tableSizes: any = [5,10,15,20];
+  pageSize: number = 4;
+  collectionSize: number = 100;;
 
   authorsForm = new FormGroup ({
-    firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-    lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-    dob: new FormControl(null, [Validators.required]),
-    bio: new FormControl(null, [Validators.maxLength(10000)]),
-    authorImage: new FormControl(null, [Validators.required])
+    firstName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
+    lastName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
+    dob: new FormControl(),
+    bio: new FormControl(),
+    authorImage: new FormControl()
   });
 
   constructor(private authorsService: AuthorsService) {}
-
-  
 
   ngOnInit(): void {
     this.authArr = this.authorsService.getAuthors();
   }
 
-    onTableChange(event:any){
-      this.tableSize = event.target.value;
-      this.page =1;
-      this.authArr;
-    }
-  onEdit(id: number) {
+  get paginatedData() {
+    return this.authorsService.getAuthors().slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+  onEdit(id: number, authorForm:any) {
     this.authorsService.editAuthor(id);
     this.authArr = this.authorsService.getAuthors();
+    const author = this.authorsService.getAuthorById(id);
+
+    // Set the form controls to the existing values
+    authorForm.controls['firstName'].setValue(author?.firstName);
+    authorForm.controls['lastName'].setValue(author?.lastName);
+    authorForm.controls['dob'].setValue(author?.dob);
+    authorForm.controls['bio'].setValue(author?.bio);
+    authorForm.controls['authorImage'].setValue(author?.img);    
   }
 
   onFileSelected(event: any) {

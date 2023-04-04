@@ -26,6 +26,7 @@ import { AuthorsTableComponent } from './components/authors-table/authors-table.
 import { AuthorsPopupComponent } from './components/authors-popup/authors-popup.component';
 import { CategoriesPopupComponent } from './components/categories-popup/categories-popup.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +61,8 @@ import { CategoriesTableComponent } from './components/categories-table/categori
     MatIconModule,
     MatPaginatorModule,
     MatTableModule,
+    NgxPaginationModule
+
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorInterceptor,multi:true},
     FormsModule

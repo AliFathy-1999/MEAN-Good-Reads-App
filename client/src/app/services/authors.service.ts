@@ -8,7 +8,7 @@ import { TypesModule, User, Author } from '../dataTypes/typesModule';
 // Service to manage authors data
 export class AuthorsService {
   authArr: Array<Author> = [
-    {
+    { 
       id: 1,
       firstName: 'Leanne',
       lastName: 'Bret',
@@ -94,6 +94,10 @@ export class AuthorsService {
 
   constructor() {}
 
+  getAuthorById(id: number): Author | undefined {
+    return this.authArr.find(author => author.id === id);
+  }
+  
   getAuthors(): any {
     return this.authArr;
   }
