@@ -1,5 +1,6 @@
-* {
+section {
     font-family: 'sora', sans-serif;
+
 }
 
 button {
@@ -8,16 +9,36 @@ button {
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
 }
+
 
 .redBtn {
     background-color: #FFE2E6;
     color: #C67482;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
 }
 
 .greenBtn {
     background-color: #D0F4E8;
     color: #2C9978;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+}
+
+button:hover {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+i {
+    font-size: 20px;
 }
 
 thead {
@@ -75,4 +96,10 @@ button:disabled {
 
 td {
     vertical-align: middle;
+}
+
+.authorTable {
+
+    width: 100%;
+    overflow-x: auto;
 }
