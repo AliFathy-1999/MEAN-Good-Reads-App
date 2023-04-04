@@ -2,8 +2,21 @@
     font-family: 'sora', sans-serif;
 }
 
+table th {
+    background-color: #F6F6F8;
+    color: #B7BABF;
+    font-weight: lighter;
+    font-size: 14px;
+}
+
 .mat-elevation-z8{
     margin: 4% 5%;
+}
+
+.editBg{
+    background-color: #D0F4E8;
+    border-radius: 50%;
+    position: relative;
 }
 
 .addbtn button{
