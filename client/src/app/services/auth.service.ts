@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
 Observable
 HttpClient
@@ -8,7 +9,7 @@ HttpClient
 })
 export class AuthService {
 
-  constructor(private _HttpClient:HttpClient ) { }
+  constructor(private _HttpClient:HttpClient,private _cookieService:CookieService) { }
 
   register(formData:object):Observable<any>{
     return this._HttpClient.post('http://localhost:3000/users/register',formData)
@@ -19,10 +20,11 @@ export class AuthService {
   }
 
   isLogged(){
- return localStorage.getItem('token')!=null;
+return this._cookieService.get('token')!=null;
   }
 
   getToken(){
-    return localStorage.getItem('token')||'';
+    return this._cookieService.get('token')||'';
+
     }
 }

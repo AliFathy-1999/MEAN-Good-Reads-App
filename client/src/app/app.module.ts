@@ -10,10 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistrationCardsComponentComponent } from './components/registration-cards-component/registration-cards-component.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarHomeComponent } from './components/navbar-home/navbar-home.component';
-<<<<<<< HEAD
 import { TestHomeComponent } from './components/test-home/test-home.component';
-=======
->>>>>>> 393a42c4ad00fb641883e24cc0fdad265958db00
 import { TokenInterceptorInterceptor } from './token-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminBookComponent } from './components/admin-book/admin-book.component';
@@ -29,11 +26,6 @@ import { AuthorsTableComponent } from './components/authors-table/authors-table.
 import { AuthorsPopupComponent } from './components/authors-popup/authors-popup.component';
 import { CategoriesPopupComponent } from './components/categories-popup/categories-popup.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
-<<<<<<< HEAD
-// import { NgxPaginationModule } from 'ngx-pagination';
-
-=======
->>>>>>> 393a42c4ad00fb641883e24cc0fdad265958db00
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,16 +40,12 @@ import { CategoriesTableComponent } from './components/categories-table/categori
     CategoriesPopupComponent,
     AdminBookComponent,
     CrudBookComponent,
-<<<<<<< HEAD
     AdminBookComponent,
     CrudBookComponent,
     AuthorsTableComponent,
     AuthorsPopupComponent,
     TestHomeComponent,
     CategoriesTableComponent
-=======
-    CategoriesTableComponent,
->>>>>>> 393a42c4ad00fb641883e24cc0fdad265958db00
   ],
   imports: [
     BrowserModule,
@@ -74,12 +62,7 @@ import { CategoriesTableComponent } from './components/categories-table/categori
     MatTableModule,
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorInterceptor,multi:true},
-<<<<<<< HEAD
-    FormsModule,
-    // NgxPaginationModule
-=======
     FormsModule
->>>>>>> 393a42c4ad00fb641883e24cc0fdad265958db00
   ],
   bootstrap: [AppComponent]
 })
