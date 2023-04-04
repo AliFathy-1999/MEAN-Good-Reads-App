@@ -32,24 +32,12 @@ login() {
       (res) => {
         console.log(res.token);
         console.log(res);
-<<<<<<< HEAD
         localStorage.setItem('token',res.token);
-=======
->>>>>>> ea290368b7d479360c6064329eb85a2cc0efca92
       },
       (error: HttpErrorResponse) => {
         console.error('Error status code:', error.status);
         console.error('Error message:', error.message);
-<<<<<<< HEAD
       }
     );
-  
-=======
-
-
-      }
-    );
-
 }
->>>>>>> ea290368b7d479360c6064329eb85a2cc0efca92
 }
