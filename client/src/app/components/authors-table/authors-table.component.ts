@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { TypesModule, User, Author } from '../../dataTypes/typesModule';
 import { AuthorsService } from '../../services/authors.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-authors-table',
@@ -25,7 +26,7 @@ export class AuthorsTableComponent implements OnInit {
     authorImage: new FormControl()
   });
 
-  constructor(private authorsService: AuthorsService) {}
+  constructor(private authorsService: AuthorsService, private deletePopup:MatDialog) {}
 
   ngOnInit(): void {
     this.authArr = this.authorsService.getAuthors();
