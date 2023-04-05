@@ -25,12 +25,6 @@ export class AuthService {
   login(loginData: object): Observable<any> {
     return this._HttpClient.post('http://localhost:3000/users/signin', loginData);
   }
-
-  // removeAuthor(id: number): Observable<any> {
-  //   const url = `http://localhost:3000/authors/${id}`;
-  //   return this._HttpClient.delete(url);
-  // }
-
   getAuthorsApi(page: number, limit: number): Observable<any> {
     const url = `http://localhost:3000/authors/${page}/${limit}`;
     return this._HttpClient.get(url);

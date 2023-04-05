@@ -17,7 +17,6 @@ export class AuthorsService {
   constructor(private authService: AuthService, private httpClient: HttpClient, private cookieService: CookieService) {
     this.authService.getAuthorsApi(1, 5).subscribe((data: any) => {
       this.authArr = data;
-      console.log(this.authArr);
     });
   }
 
@@ -46,11 +45,7 @@ export class AuthorsService {
   }
 
   deleteAuthor(id: number): Observable<any> {
-    // const url = `${this.apiUrl}/${id}`;
-    console.log('Delete 2');
-
     const url = `http://localhost:3000/authors/${id}`;
-
     return this.httpClient.delete(url);
   }
 
@@ -66,25 +61,8 @@ export class AuthorsService {
     this.authArr.push(author);
   }
 
-  updateAuthor(id: number, newAuthorForm: any): Observable<any> {
-    const authorIndex = this.authArr.findIndex((author) => author._id === id);
-
-    if (authorIndex !== -1) {
-      const authorToUpdate = this.authArr[authorIndex];
-      authorToUpdate.firstName = newAuthorForm.get('firstName');
-      authorToUpdate.lastName = newAuthorForm.get('lastName');
-      authorToUpdate.DOB = newAuthorForm.get('DOB');
-      authorToUpdate.bio = newAuthorForm.get('bio');
-      authorToUpdate.authorImg = newAuthorForm.get('authorImage');
-      authorToUpdate.isEdit = false;
-
-      console.log(authorToUpdate);
-
-      const url = `${this.apiUrl}/${id}`;
-
-      return this.httpClient.put(url, authorToUpdate);
-    } else {
-      return throwError(`Author with ID ${id} does not exist in the array.`);
-    }
+  updateAuthor(id: number, formData: FormData): Observable<any> {
+    const url = `http://localhost:3000/authors/${id}`;
+    return this.httpClient.patch(url, formData);
   }
 }

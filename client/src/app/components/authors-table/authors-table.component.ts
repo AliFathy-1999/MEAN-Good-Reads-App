@@ -90,8 +90,11 @@ export class AuthorsTableComponent implements OnInit {
     }
   }
 
-  onUpdate(id: number, authorsForm: any) {
-    console.log(authorsForm.get('firstName')?.value);
+  onUpdate(id: number, authorsForm: FormGroup) {
+    if (authorsForm.invalid) {
+      console.error('Form is invalid');
+      return;
+    }
 
     const author = this.authArr.find((author) => author._id === id);
 
@@ -100,21 +103,20 @@ export class AuthorsTableComponent implements OnInit {
       return;
     }
 
-    console.log(this.form);
-
     const formData = new FormData();
     formData.append('firstName', authorsForm.get('firstName')?.value);
     formData.append('lastName', authorsForm.get('lastName')?.value);
     formData.append('DOB', authorsForm.get('DOB')?.value);
     formData.append('bio', authorsForm.get('bio')?.value);
     if (this.file && this.file.length > 0) {
-      formData.append('authorImage', this.file[0]);
+      formData.append('authorImg', this.file[0]);
     }
-    console.log(formData.get('firstName'));
 
     this.authorsService.updateAuthor(id, formData).subscribe(
       () => {
         console.log(`Author with ID ${id} updated successfully.`);
+        author.isEdit = false; // set isEdit to false for the updated author
+
         this.authorsService.getAuthors().subscribe((data: any) => {
           this.authArr = data;
         });
