@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { AuthorsService } from '../../services/authors.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Author } from 'src/app/dataTypes/typesModule';
+import { AuthorsTableComponent } from '../authors-table/authors-table.component';
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-authors-popup',
   templateUrl: './authors-popup.component.html',
@@ -13,20 +17,39 @@ export class AuthorsPopupComponent {
   file: any = null;
   error: string = '';
   successMessage: string = '';
+  newAother: object = {
+    firstName: '',
+    lastName: '',
+    DOB: '',
+    isEdit: false,
+  };
   selectedFile: File | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
     private authorsService: AuthorsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private authorsTableComponent: AuthorsTableComponent,
+    private cdr: ChangeDetectorRef
   ) {}
   authorsForm = new FormGroup({
     firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-    DOB: new FormControl(null, [Validators.required]),
-    bio: new FormControl('', [Validators.maxLength(1000)]),
+    DOB: new FormControl('01/04/1998', [Validators.required, this.validateDOB.bind(this)]),
+    bio: new FormControl('', [Validators.maxLength(300), Validators.minLength(30)]),
     authorImage: new FormControl(null, [Validators.required]),
   });
+
+  validateDOB(control: AbstractControl): { [key: string]: boolean } | null {
+    const DOB = new Date(control.value);
+    const year = DOB.getFullYear();
+    console.log(year);
+
+    if (year >= 2010) {
+      return { invalidDOB: true };
+    }
+    return null;
+  }
 
   openModel() {
     const modelDiv = document.getElementById('myModal');
@@ -53,22 +76,27 @@ export class AuthorsPopupComponent {
     formData.append('bio', authorsForm.get('bio')?.value);
     formData.append('authorImg', this.file[0]);
 
-    console.log(formData.get('firstName'));
-    console.log(formData.get('lastName'));
-    console.log(formData.get('DOB'));
-    console.log(formData.get('bio'));
-    console.log(formData.get('authorImg'));
-
+    this.newAother = {
+      firstName: authorsForm.get('firstName')?.value,
+      lastName: authorsForm.get('lastName')?.value,
+      DOB: authorsForm.get('DOB')?.value,
+      authorImg: authorsForm.get('authorImg')?.value,
+      isEdit: false,
+    };
     this.authService.addAuthor(formData).subscribe(
       (res) => {
         console.log(res);
+        if (res.message === 'Author Added successfully') {
+          this.authorsForm.reset();
+          this.successMessage = 'Author added successfully!';
+          this.authorsService.getAuthors().subscribe((authors: any) => {
+            this.authorsService.authArr = authors;
+          });
+        }
       },
       (error: HttpErrorResponse) => {
         console.log(error);
       }
     );
-
-    this.authorsForm.reset();
-    this.successMessage = 'Author added successfully!';
   }
 }

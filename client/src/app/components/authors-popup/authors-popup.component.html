@@ -67,13 +67,18 @@
                                         <p class="text-danger" *ngIf="authorsForm.get('DOB')?.errors?.['required']">
                                             Date of Birth is
                                             required!</p>
+                                        <p class="text-danger" *ngIf="authorsForm.get('DOB')?.errors?.['invalidDOB']">
+                                            You have to choose a date before 2010
+                                        </p>
+
+
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Upload photo</label>
-                                    <span id="dropdown" name="role" class="form-control" required>
+                                    <span id="dropdown" name="role" class="form-control">
                                         <input formControlName="authorImage" (change)="onFileSelected($event)"
                                             type="file" class="form-control" id="imageUpload" accept="image/*">
                                     </span>
@@ -95,6 +100,16 @@
                                     <label>Author History</label>
                                     <textarea id="comments" class="form-control" name="bio"
                                         placeholder="Enter your comment here..." formControlName="bio"></textarea>
+                                    <div *ngIf="authorsForm.get('bio')?.errors != null && authorsForm.get('bio')?.touched"
+                                        class="alert-danger mt-2">
+                                        <p class="text-danger" *ngIf="authorsForm.get('bio')?.errors?.['minlength']">
+                                            The
+                                            BIO minmum length 30</p>
+                                        <p class="text-danger" *ngIf="authorsForm.get('bio')?.errors?.['maxlength']">
+                                            The
+                                            BIO maxmim length 300</p>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
