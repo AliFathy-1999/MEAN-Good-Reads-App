@@ -38,7 +38,7 @@ export class AuthorsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getAuthorsApi(0, 10).subscribe((data: any) => {
+    this.authService.getAuthorsApi(1, 10).subscribe((data: any) => {
       this.authArr = data;
 
       this.authArr = this.authArr.map((author: Author) => {
@@ -77,22 +77,29 @@ export class AuthorsTableComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    this.authorsService.deleteAuthor(id);
-    this.authArr = this.authorsService.getAuthors();
+    if (confirm('Are you sure you want to delete this author?')) {
+      this.authorsService.deleteAuthor(id).subscribe(
+        () => {
+          // If the delete request is successful, remove the author from the array of authors
+          this.authArr = this.authArr.filter((a) => a._id !== id);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
   }
 
   onUpdate(id: number, authorsForm: any) {
     console.log(authorsForm.get('firstName')?.value);
 
-    const authorIndex = this.authArr.findIndex((author) => author._id === id);
-    const currentAuthor = this.authArr.find((author) => {
-      return author._id === id;
-    });
+    const author = this.authArr.find((author) => author._id === id);
 
-    if (!authorsForm) {
-      alert('authorsForm is null');
+    if (!author) {
+      console.error(`Author with ID ${id} not found.`);
       return;
     }
+
     console.log(this.form);
 
     const formData = new FormData();
@@ -100,10 +107,21 @@ export class AuthorsTableComponent implements OnInit {
     formData.append('lastName', authorsForm.get('lastName')?.value);
     formData.append('DOB', authorsForm.get('DOB')?.value);
     formData.append('bio', authorsForm.get('bio')?.value);
-    formData.append('authorImage', this.file[0]);
+    if (this.file && this.file.length > 0) {
+      formData.append('authorImage', this.file[0]);
+    }
     console.log(formData.get('firstName'));
 
-    this.authorsService.updateAuthor(id, formData);
-    this.authArr = this.authorsService.getAuthors();
+    this.authorsService.updateAuthor(id, formData).subscribe(
+      () => {
+        console.log(`Author with ID ${id} updated successfully.`);
+        this.authorsService.getAuthors().subscribe((data: any) => {
+          this.authArr = data;
+        });
+      },
+      (error: any) => {
+        console.error(`Failed to update author with ID ${id}: ${error.message}`);
+      }
+    );
   }
 }

@@ -26,28 +26,21 @@ export class AuthService {
     return this._HttpClient.post('http://localhost:3000/users/signin', loginData);
   }
 
-  removeAuthor(id: number): Observable<any> {
-    const url = `http://localhost:3000/admin/author/${id}`;
-    return this._HttpClient.delete(url);
-  }
+  // removeAuthor(id: number): Observable<any> {
+  //   const url = `http://localhost:3000/authors/${id}`;
+  //   return this._HttpClient.delete(url);
+  // }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
     const url = `http://localhost:3000/authors/${page}/${limit}`;
     return this._HttpClient.get(url);
   }
-  // update(formData: FormData,id:number): Observable<any> {
-  //   // Create a new headers object with the Authorization header set to the token
-  //   // const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authToken);
-
-  //   // Send the HTTP POST request with the headers and form data
-  //   // return this._HttpClient.post('http://localhost:3000/updateauthor/'+id+'.json', formData, { headers });
-  // }
 
   addAuthor(author: FormData): Observable<any> {
     console.log(author.get('authorImg'));
     console.log(author.get('bio'));
     console.log(author.get('DOB '));
 
-    return this._HttpClient.post('http://localhost:3000/admin/addauthor', author);
+    return this._HttpClient.post('http://localhost:3000/authors', author);
   }
 }
