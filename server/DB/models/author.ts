@@ -26,14 +26,16 @@ const schema = new Schema<Author>({
         type:Date,
         required:[true, "Date of Birth is a required field"],
         validate(value:Date){
-            if(value > new Date(2010,12,31) && validator.isDate()){
-                throw new Error("Date of birth is invalid")
+            if(new Date(value) >= new Date(2010,12,31) ){
+                throw new Error("Date of birth is invalid, Author Birth date year must be less than 2010")
             }
         },
     },
-    history:{
+    bio:{
       type:String,
-      default:"No description"  
+      minlength:15,
+      maxlength:300,
+      default:"No bio"  
     },
     authorImg:{
         type:String,

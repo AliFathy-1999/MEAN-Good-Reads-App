@@ -3,7 +3,7 @@ import { Author } from "../DB/schemaInterfaces";
 
 const createAuthor = (data:Author) => Authors.create(data)
 
-const getAuthors = (limit:number,pageNumber:number) :Author => Authors.find({}).skip(pageNumber * limit).limit(limit); 
+const getAuthors = (limit:number,pageNumber:number) :Author => Authors.find({}).skip((pageNumber - 1) * limit).limit(limit); 
 
 const updateAuthor = (id:number,data:Author) => Authors.findOneAndUpdate({_id:id},data,{new:true});
 

@@ -19,7 +19,7 @@ router.post("/register",upload.single('pImage'),userValidation,async (req:any,re
       const { body: { firstName, lastName, userName, email, password, role } } = req;   
       const user = userController.create({firstName,lastName,userName, email, password,pImage,role});
       const [err, data] = await asycnWrapper(user);
-      if(err) return next({ err: userError.array() });
+      if(err) return next({ err: userError.array()[0].msg });
       res.status(200).json({"message":"User registered successfully"});  
          
 })
