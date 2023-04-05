@@ -14,7 +14,7 @@ const validate = (schema:validationschema) => async (req:Request, res:Response, 
           }
         }
       });
-      if (validationErr.length > 0) {
+      if (validationErr.length) {
         res.status(400).json({ message: 'validation error', validationErr: validationErr[0].details[0].message });
       } else {
         next();

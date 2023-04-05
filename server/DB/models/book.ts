@@ -140,10 +140,10 @@ schema.pre('save', async function () {
 });
 
 schema.pre('findOneAndUpdate', async function () {
+  console.log('hi');
   const doc = await this.model.findOne(this.getQuery());
   if (!doc.ratingsNumber) doc.averageRating = 0;
-  else doc.averageRating = Math.floor((doc.totalRating / doc.ratingsNumber)*100 )
-  doc.save();
+  else doc.averageRating = doc.totalRating / doc.ratingsNumber;
 });
 
 const Books = model<Book, BookModel>('Books', schema);

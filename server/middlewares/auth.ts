@@ -18,6 +18,7 @@ const userAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!bearerToken) throw new Error('Un-Authenticated');
     const result = await verifyToken(bearerToken);
+    if (result.role !== Role.USER) throw new Error('Unauthorized-User');
     req.user = result
     next();
   } catch (err) {
