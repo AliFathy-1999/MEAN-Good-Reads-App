@@ -29,7 +29,7 @@ router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Req
     }
   }); 
 
-  router.post('/addauthor',adminAuth ,upload.single("authorImg"),authorValidation.validAuthor , async (req:Request, res:Response, next:NextFunction) => {
+  router.post('/addauthor',adminAuth ,upload.single("authorImg"),authorValidation.validAddedAuthor , async (req:Request, res:Response, next:NextFunction) => {
     const authorError : Result<ValidationError> = validationResult(req);
     let authorImg = "https://cdn-icons-png.flaticon.com/128/3899/3899618.png" 
     if(req.file)
@@ -53,7 +53,7 @@ router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Req
     res.status(200).json({message:"Author Added successfully"});
   });  
 
-  router.patch('/updateauthor/:id',adminAuth,upload.single("authorImg"), authorValidation.validAuthor,async (req:Request, res:Response, next:NextFunction) => {
+  router.patch('/updateauthor/:id',adminAuth,upload.single("authorImg"), authorValidation.validEditedAuthor,async (req:Request, res:Response, next:NextFunction) => {
     let authorImg :any; 
     if(req.file)
       authorImg = `../../../client/src/assets/author-imgs/${req.file.filename}`
