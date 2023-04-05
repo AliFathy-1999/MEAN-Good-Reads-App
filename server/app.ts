@@ -12,6 +12,7 @@ app.use(cors());
 app.use('/users', routes.userRoute);
 app.use('/admin', routes.adminRoute);
 app.use('/books', routes.bookRoute);
+app.use('/authors', routes.authorRoute);
 app.use('/categories', routes.CategoryRoute);
 
 const errorHandler: ErrorRequestHandler = (err, req:Request, res:Response, next:NextFunction) => {

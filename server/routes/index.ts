@@ -3,5 +3,5 @@ module.exports = {
     adminRoute : require("./admin"),
     bookRoute : require("./book"),
     CategoryRoute : require("./category"),
-
+    authorRoute:require("./author"),
 }

@@ -34,7 +34,7 @@ const schema = new Schema<Author>(
         }
       },
     },
-    history: {
+    bio: {
       type: String,
       default: 'No description',
     },

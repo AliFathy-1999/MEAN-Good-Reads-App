@@ -4,12 +4,10 @@ const { userController } = require("../controllers/index")
 const {upload} = require("../middlewares/imageMiddleware")
 const router : Router = express.Router();
 const asycnWrapper = require('../lib/index');
-const Users = require('../DB/models/user');
-const usersValidator  = require('../Validations');
 const userValidation  = require('../Validations/userValidation');
-const { validate } = require('../middlewares/validation');
 const { userAuth } = require('../middlewares/auth');
-
+const { usersValidator } = require('../Validations');
+const { validate } = require('../middlewares/validation');
 
 router.post("/register",upload.single('pImage'),userValidation,async (req:any,res:Response, next:NextFunction) => {
     let pImage = "https://cdn-icons-png.flaticon.com/128/3899/3899618.png"   
@@ -27,7 +25,6 @@ router.post("/register",upload.single('pImage'),userValidation,async (req:any,re
 router.post('/signin', validate(usersValidator.signIn) ,async (req:Request, res:Response, next:NextFunction) => {
     try {
       const { body: { userName, password } } = req;
-      console.log(req.body);
       const token = await userController.signIn({userName, password});
       res.cookie('token',token).status(201).json({ token });
     } catch (err) {

@@ -82,6 +82,7 @@ interface Author {
   lastName: string;
   bio: string;
   DOB: Date;
+}
 interface Author{
   _id:Number,
   authorImg?:string,
