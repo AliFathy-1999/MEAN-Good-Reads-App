@@ -1,4 +1,5 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model, Types} from 'mongoose';
+
 
 enum Role {
   ADMIN = 'admin',
@@ -11,40 +12,38 @@ enum Shelve {
   WANT2READ = 'want2read',
 }
 
-interface User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  userName: string;
-  pImage?: string;
-  role: Role;
-  books?: [
-    {
-      rating: number;
-      book: number;
-      shelve: Shelve;
-    }
-  ];
-}
+type review = 
+  {
+    comment: String,
+    user: Types.ObjectId,
+    rating:Number,
+  }
 
-interface Book extends Document {
-  _id: number;
-  name: string;
-  bookImage: string;
-  categoryId: number;
-  authorId: number;
-  averageRating: number;
-  description?: string;
+interface User{
+  firstName:string,
+  lastName:string,
+  email:string,
+  password:string,
+  userName:string,
+  pImage?:string,
+  role:Role,
+  books?:[{
+    book:number,
+    shelve:Shelve
+  }],
 }
-
-interface counter extends Document {
-  _id: number;
-  count: number;
-}
-
-interface BookModel extends Model<Book> {
-  getNewId: () => Promise<number>;
+interface Book extends Document
+{
+   _id:number,
+  name:string,
+  bookImage:string,
+  categoryId:number,
+  authorId:number,
+  totalRating:number,
+  averageRating:number,
+  ratingsNumber:number,
+  description?:string,
+  reviews?: review[],
 }
 
 interface PaginatedBooks {
@@ -61,12 +60,33 @@ interface PaginatedBooks {
   meta?: any;
 }
 
-interface counterModel extends Model<counter> {}
+interface BookModel extends Model<Book> {
+  getNewId: () => Promise<number>;}
 
-interface Category extends Document {
-  _id: number;
-  name: string;
+interface Category extends Document{
+  _id:number,
+  name:string
 }
+
+
+interface PaginatedCategories {
+  docs: Category[];
+  totalDocs: number;
+  limit: number;
+  page?: number;
+  totalPages: number;
+  nextPage?: number | null;
+  prevPage?: number | null;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  meta?: any;
+}
+
+interface BookModel extends Model<Book> {
+  getNewId: () => Promise<number>;
+}
+
 
 interface categoryModel extends Model<Category> {
   getNewId: () => Promise<number>;
@@ -83,4 +103,4 @@ interface Author {
   bio: string;
   DOB: Date;
 }
-export { User, Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category, Book };
+export { User , Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, Category , Book , PaginatedCategories, review}

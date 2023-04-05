@@ -9,6 +9,7 @@ const validate = (schema:validationschema) => async (req:Request, res:Response, 
         if (schema[key]) {
           const validation = schema[key]!.validate(req[key]);
           if (validation.error) {
+            console.log(validation);
             validationErr.push(validation.error);
           }
         }

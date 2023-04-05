@@ -64,7 +64,6 @@ const schema = new Schema<User>(
     books: {
       type: [
         {
-          rating: Number,
           book: {
             type: Number,
             ref: 'Books',

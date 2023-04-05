@@ -1,9 +1,16 @@
 import express, {Request, Response , Router,NextFunction} from 'express';
-const { userController} = require("../controllers/index")
-const router : Router = express.Router();
+const { userController} = require("../controllers/index");
 const { usersValidator } = require('../Validations');
 const { validate } = require('../middlewares/validation');
 const { adminAuth } = require('../middlewares/auth');
+const asycnWrapper = require('../lib/index');
+
+const bookRoute = require("./admin_books");
+const categoryRoute = require("./admin_category");
+
+const router : Router = express.Router();
+router.use('/books', bookRoute);
+router.use('/categories', categoryRoute);
 
 router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Request, res:Response, next:NextFunction) => {
     const { body: { userName, password } } = req;
@@ -15,15 +22,5 @@ router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Req
       next(err);
     }
   });
-
-
-  router.get('/', adminAuth ,async (req:Request, res:Response, next:NextFunction) => {
-    try {
-      res.status(201).json({"user": req.user});
-    } catch (err) {
-      next(err);
-    }
-  }); 
- 
 
 module.exports = router;

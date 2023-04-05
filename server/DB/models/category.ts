@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Category, categoryModel } from '../schemaInterfaces';
+import mongoosePaginate from 'mongoose-paginate-v2';
+
 
 const schema = new Schema<Category>(
   {
@@ -20,6 +22,7 @@ const schema = new Schema<Category>(
   }
 );
 
+schema.plugin(mongoosePaginate);
 
 schema.statics.getNewId = async () => await Categoris.find({}).sort('-createdAt').limit(1).then((lastCategory) => lastCategory[0] ? lastCategory[0]._id + 1: 0 )
 

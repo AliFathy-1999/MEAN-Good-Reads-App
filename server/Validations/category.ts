@@ -9,7 +9,7 @@ const categoryData = {
 };
 
 const categoryId = {
-  params: Joi.object().keys({
+  params: Joi.object().required().keys({
     id: Joi.number(),
   }),
 };
