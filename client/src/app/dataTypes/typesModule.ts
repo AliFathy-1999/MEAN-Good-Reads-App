@@ -21,5 +21,11 @@ export interface Author {
   isEdit: boolean;
 }
 
+export interface Category{
+  id:number;
+  categoryName:string;
+  isEdit: boolean;
+}
+
 @NgModule({})
 export class TypesModule {}

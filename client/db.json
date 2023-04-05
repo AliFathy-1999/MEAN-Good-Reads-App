@@ -30,5 +30,47 @@
       "authorId": 14,
       "id": 5
     }
+  ],
+  "category": [
+    {
+      "categoryName": "new3",
+      "id": 5
+    },
+    {
+      "categoryName": "new6",
+      "id": 7
+    },
+    {
+      "categoryName": "new6",
+      "id": 8
+    },
+    {
+      "categoryName": "new",
+      "id": 9
+    },
+    {
+      "categoryName": "new",
+      "id": 12
+    },
+    {
+      "categoryName": "new3",
+      "id": 13
+    },
+    {
+      "categoryName": "new",
+      "id": 14
+    },
+    {
+      "categoryName": ",,s,s,s,",
+      "id": 15
+    },
+    {
+      "categoryName": "new",
+      "id": 16
+    },
+    {
+      "categoryName": "hhh",
+      "id": 17
+    }
   ]
 }

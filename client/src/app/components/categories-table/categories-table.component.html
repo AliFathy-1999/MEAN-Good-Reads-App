@@ -20,8 +20,9 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action</th>
             <td mat-cell *matCellDef="let element"> 
-            <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button> 
-            <button mat-icon-button color="warn" ><mat-icon>delete</mat-icon></button>      
+            <button mat-icon-button color="primary" (click)="openEditModel(element.id)"><img class="editBg" src="../../../assets/edit.png"
+              ></button> 
+            <button mat-icon-button color="warn" (click)="deleteCategory(element.id)"> <img width="100%" src="../../../assets/delete.png"></button>      
             </td>
           </ng-container>
       

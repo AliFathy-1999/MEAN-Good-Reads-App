@@ -57,9 +57,10 @@ export class CrudBookComponent implements OnInit{
   }
 
   ngOnInit():void{
-this.bookForm.patchValue(this.data)
+  this.bookForm.patchValue(this.data)
   }
 
+  
   closeDialog(){
     this._dialogRef.close();
   }

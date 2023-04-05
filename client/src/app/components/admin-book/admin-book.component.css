@@ -7,16 +7,20 @@ table th {
     color: #B7BABF;
     font-weight: lighter;
     font-size: 14px;
+    text-align: center;
+}
+
+table td{
+    text-align: center;
+    padding: 7px;
 }
 
 .mat-elevation-z8{
     margin: 4% 5%;
 }
 
-.editBg{
-    background-color: #D0F4E8;
+.imgBook{
     border-radius: 50%;
-    position: relative;
 }
 
 .addbtn button{

@@ -13,7 +13,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-wrap">
-                    <form [formGroup]="categoryForm" id="survey-form">
+                    <form [formGroup]="categoryForm" id="survey-form" (ngSubmit)="submitCategory()">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
