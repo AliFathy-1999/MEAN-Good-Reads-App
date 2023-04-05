@@ -13,7 +13,7 @@ router.post("/register",upload.single('pImage'),userValidation,async (req:any,re
     let pImage = "https://cdn-icons-png.flaticon.com/128/3899/3899618.png"   
     const userError : Result<ValidationError>= validationResult(req)
     if(req.file)
-       pImage = `../../../client/src/assets/profile-imgs/${req.file.filename}`
+       pImage = `../../../assets/profile-imgs/${req.file.filename}`
       const { body: { firstName, lastName, userName, email, password, role } } = req;   
       const user = userController.create({firstName,lastName,userName, email, password,pImage,role});
       const [err, data] = await asycnWrapper(user);

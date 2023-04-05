@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
-    const url = `http://localhost:3000/admin/authors/${page}/${limit}`;
+    const url = `http://localhost:3000/authors/${page}/${limit}`;
     return this._HttpClient.get(url);
   }
   // update(formData: FormData,id:number): Observable<any> {

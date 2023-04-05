@@ -12,7 +12,7 @@ router.post('/',adminAuth ,upload.single("authorImg"),authorValidation.validAdde
     const authorError : Result<ValidationError> = validationResult(req);
     let authorImg = "https://cdn-icons-png.flaticon.com/128/3899/3899618.png" 
     if(req.file)
-      authorImg = `../../../client/src/assets/author-imgs/${req.file.filename}`
+      authorImg = `../../../assets/author-imgs/${req.file.filename}`
     const incrementalId = await Counter.findOneAndUpdate(
         {id:"authorInc"},
         { $inc: { seq: 1 } },
@@ -35,7 +35,7 @@ router.post('/',adminAuth ,upload.single("authorImg"),authorValidation.validAdde
   router.patch('/:id',adminAuth,upload.single("authorImg"), authorValidation.validEditedAuthor,async (req:Request, res:Response, next:NextFunction) => {
     let authorImg :any; 
     if(req.file)
-      authorImg = `../../../client/src/assets/author-imgs/${req.file.filename}`
+      authorImg = `../../../assets/author-imgs/${req.file.filename}`
     const { params:{ id }} = req 
     const { body:{ firstName, lastName, bio, DOB } } = req; 
     const authorError : Result<ValidationError> = validationResult(req);
