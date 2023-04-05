@@ -82,12 +82,5 @@ interface Author {
   lastName: string;
   bio: string;
   DOB: Date;
-interface Author{
-  _id:Number,
-  authorImg?:string,
-  firstName:string,
-  lastName:string, 
-  bio:string, 
-  DOB:Date,
 }
 export { User, Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category, Book };
