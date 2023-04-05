@@ -1,11 +1,9 @@
-import { Document, Model} from 'mongoose';
-
+import { Document, Model } from 'mongoose';
 
 enum Role {
   ADMIN = 'admin',
   USER = 'user',
 }
-
 
 enum Shelve {
   READ = 'read',
@@ -13,37 +11,36 @@ enum Shelve {
   WANT2READ = 'want2read',
 }
 
-interface User{
-  firstName:string,
-  lastName:string,
-  email:string,
-  password:string,
-  userName:string,
-  pImage?:string,
-  role:Role,
-  books?:[{
-    rating:number,
-    book:number,
-    shelve:Shelve
-  }],
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  userName: string;
+  pImage?: string;
+  role: Role;
+  books?: [
+    {
+      rating: number;
+      book: number;
+      shelve: Shelve;
+    }
+  ];
 }
 
-
-interface Book extends Document
-{
-   _id:number,
-  name:string,
-  bookImage:string,
-  categoryId:number,
-  authorId:number,
-  averageRating:number,
-  description?:string,
-
+interface Book extends Document {
+  _id: number;
+  name: string;
+  bookImage: string;
+  categoryId: number;
+  authorId: number;
+  averageRating: number;
+  description?: string;
 }
 
-interface counter extends Document{
-  _id:number,
-  count:number,
+interface counter extends Document {
+  _id: number;
+  count: number;
 }
 
 interface BookModel extends Model<Book> {
@@ -66,18 +63,25 @@ interface PaginatedBooks {
 
 interface counterModel extends Model<counter> {}
 
-interface Category extends Document{
-  _id:number,
-  name:string
+interface Category extends Document {
+  _id: number;
+  name: string;
 }
 
 interface categoryModel extends Model<Category> {
   getNewId: () => Promise<number>;
 }
-interface Counter{
-  id:String,
-  seq:Number,
+interface Counter {
+  id: String;
+  seq: Number;
 }
+interface Author {
+  _id: Number;
+  authorImg?: string;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  DOB: Date;
 interface Author{
   _id:Number,
   authorImg?:string,
@@ -86,4 +90,4 @@ interface Author{
   bio:string, 
   DOB:Date,
 }
-export { User , Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category , Book}
+export { User, Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category, Book };

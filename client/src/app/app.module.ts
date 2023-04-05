@@ -14,19 +14,21 @@ import { TestHomeComponent } from './components/test-home/test-home.component';
 import { TokenInterceptorInterceptor } from './token-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminBookComponent } from './components/admin-book/admin-book.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
-import {CrudBookComponent } from './components/crud-book/crud-book.component';
-import{MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CrudBookComponent } from './components/crud-book/crud-book.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { AuthorsTableComponent } from './components/authors-table/authors-table.component';
 import { AuthorsPopupComponent } from './components/authors-popup/authors-popup.component';
 import { CategoriesPopupComponent } from './components/categories-popup/categories-popup.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthInterceptor } from './Interceptors/auth.interceptor';
+import { HttpInterceptorProviders } from './Interceptors';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AuthorsTableComponent,
     AuthorsPopupComponent,
     TestHomeComponent,
-    CategoriesTableComponent
+    CategoriesTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,12 +63,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatIconModule,
     MatPaginatorModule,
     MatTableModule,
-    NgxPaginationModule
-
+    NgxPaginationModule,
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorInterceptor,multi:true},
-    FormsModule
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },
+    HttpInterceptorProviders,
+    FormsModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

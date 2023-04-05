@@ -61,10 +61,10 @@
                                 <div class="form-group">
                                     <label id="number-label" for="number">Date of Birth
                                         <small>(optional)</small></label>
-                                    <input formControlName="dob" type="date" class="form-control" id="datepicker">
-                                    <div *ngIf="authorsForm.get('dob')?.errors != null && authorsForm.get('dob')?.touched"
+                                    <input formControlName="DOB" type="date" class="form-control" id="datepicker">
+                                    <div *ngIf="authorsForm.get('DOB')?.errors != null && authorsForm.get('DOB')?.touched"
                                         class="alert-danger mt-2">
-                                        <p class="text-danger" *ngIf="authorsForm.get('dob')?.errors?.['required']">
+                                        <p class="text-danger" *ngIf="authorsForm.get('DOB')?.errors?.['required']">
                                             Date of Birth is
                                             required!</p>
                                     </div>
@@ -74,8 +74,8 @@
                                 <div class="form-group">
                                     <label>Upload photo</label>
                                     <span id="dropdown" name="role" class="form-control" required>
-                                        <input formControlName="authorImage"  (change)="onFileSelected($event)" type="file" class="form-control"
-                                            id="imageUpload" accept="image/*">
+                                        <input formControlName="authorImage" (change)="onFileSelected($event)"
+                                            type="file" class="form-control" id="imageUpload" accept="image/*">
                                     </span>
                                     <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
                                         class="alert-danger mt-2">
@@ -93,7 +93,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Author History</label>
-                                    <textarea id="comments" class="form-control" name="comment"
+                                    <textarea id="comments" class="form-control" name="bio"
                                         placeholder="Enter your comment here..." formControlName="bio"></textarea>
                                 </div>
                             </div>
@@ -102,12 +102,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <button [disabled]="!authorsForm.valid" type="submit" id="submit"
-                                 (click)="addAuthor(authorsForm)"   class="btn btn-primary btn-block">Add Author</button>
+                                    (click)="addAuthor(authorsForm)" class="btn btn-primary btn-block">Add
+                                    Author</button>
                             </div>
                             <div *ngIf="successMessage" class="alert mt-3 alert-success text-center align-bottom"
-                            role="alert">
-                            {{ successMessage }}
-                        </div>
+                                role="alert">
+                                {{ successMessage }}
+                            </div>
                         </div>
 
                     </form>

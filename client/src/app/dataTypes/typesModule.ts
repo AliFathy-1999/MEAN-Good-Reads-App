@@ -10,13 +10,12 @@ export interface User {
   bio?: string;
 }
 
-
 export interface Author {
-  id: number;
+  _id: number;
   firstName: string;
   lastName: string;
-  img?: any;
-  dob: string;
+  authorImg?: any;
+  DOB: string;
   bio?: string;
   isEdit: boolean;
 }

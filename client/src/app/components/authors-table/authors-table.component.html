@@ -17,112 +17,113 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of authArr | paginate: { itemsPerPage: 4, currentPage: page };let i= index">
-                        <td>{{i+1}}</td>
+                    <tr *ngFor="let author of authArr | paginate: { itemsPerPage: 4, currentPage: page };let i= index">
+                        <td>{{author._id}}</td>
                         <td>
-                            <div *ngIf="user.isEdit">
+                            <div *ngIf="author.isEdit">
                                 <input (change)="onFileSelected($event)" formControlName="authorImage" type="file"
-                                    [(ngModel)]="user.img" class="form-control" id="imageUpload" accept="image/*">
+                                    [(ngModel)]="author.authorImg " class="form-control" id="imageUpload"
+                                    accept="image/*">
                             </div>
                             <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
                                 class="alert-danger mt-2">
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('authorImage')?.errors?.['required'] && user.isEdit">
+                                    *ngIf="authorsForm.get('authorImage')?.errors?.['required'] && author.isEdit">
                                     Image is
                                     required!</p>
                             </div>
-                            <div class="imageContainer" *ngIf="!user.isEdit">
-
-                                <img src="../../../assets/profile-imgs/avatar.png" />
+                            <div class="imageContainer" *ngIf="!author.isEdit">
+                                <img src="../../../{{author.authorImg}}" />
                             </div>
+
                         </td>
 
                         <td>
-                            <div *ngIf="user.isEdit">
-                                <input formControlName="firstName" type="text" [(ngModel)]="user.firstName"
+                            <div *ngIf="author.isEdit">
+                                <input formControlName="firstName" type="text" [(ngModel)]="author.firstName"
                                     class="form-control" />
                             </div>
                             <div *ngIf="authorsForm.get('firstName')?.errors != null && authorsForm.get('firstName')?.touched"
                                 class="alert-danger mt-2">
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('firstName')?.errors?.['required'] && user.isEdit">First
+                                    *ngIf="authorsForm.get('firstName')?.errors?.['required'] && author.isEdit">First
                                     Name is
                                     required!</p>
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('firstName')?.errors?.['minlength'] && user.isEdit">First
+                                    *ngIf="authorsForm.get('firstName')?.errors?.['minlength'] && author.isEdit">First
                                     Name minmum length 3</p>
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('firstName')?.errors?.['maxlength'] && user.isEdit">First
+                                    *ngIf="authorsForm.get('firstName')?.errors?.['maxlength'] && author.isEdit">First
                                     Name maxmim length 15</p>
                             </div>
-                            <div *ngIf="!user.isEdit">
-                                {{user.firstName}}
+                            <div *ngIf="!author.isEdit">
+                                {{author.firstName}}
                             </div>
                         </td>
 
 
                         <td>
-                            <div *ngIf="user.isEdit">
-                                <input formControlName="lastName" type="text" [(ngModel)]="user.lastName"
+                            <div *ngIf="author.isEdit">
+                                <input formControlName="lastName" type="text" [(ngModel)]="author.lastName"
                                     class="form-control" />
                             </div>
                             <div *ngIf="authorsForm.get('lastName')?.errors != null && authorsForm.get('lastName')?.touched"
                                 class="alert-danger mt-2">
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('lastName')?.errors?.['required'] && user.isEdit">Last
+                                    *ngIf="authorsForm.get('lastName')?.errors?.['required'] && author.isEdit">Last
                                     Name is
                                     required!</p>
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('lastName')?.errors?.['minlength'] && user.isEdit">Last
+                                    *ngIf="authorsForm.get('lastName')?.errors?.['minlength'] && author.isEdit">Last
                                     Name minmum length 3</p>
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('lastName')?.errors?.['maxlength'] && user.isEdit">Last
+                                    *ngIf="authorsForm.get('lastName')?.errors?.['maxlength'] && author.isEdit">Last
                                     Name maxmim length 15</p>
                             </div>
-                            <div *ngIf="!user.isEdit">
-                                {{user.lastName}}
+                            <div *ngIf="!author.isEdit">
+                                {{author.lastName}}
                             </div>
                         </td>
                         <td>
-                            <div *ngIf="user.isEdit">
-                                <input formControlName="dob" type="date" class="form-control" id="datepicker">
+                            <div *ngIf="author.isEdit">
+                                <input formControlName="DOB" type="date" class="form-control" id="datepicker">
 
                             </div>
-                            <div *ngIf="authorsForm.get('dob')?.errors != null && authorsForm.get('dob')?.touched"
+                            <div *ngIf="authorsForm.get('DOB')?.errors != null && authorsForm.get('DOB')?.touched"
                                 class="alert-danger mt-2">
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('dob')?.errors?.['required'] && user.isEdit">
+                                    *ngIf="authorsForm.get('DOB')?.errors?.['required'] && author.isEdit">
                                     Date of Birth is
                                     required!</p>
                             </div>
-                            <div *ngIf="!user.isEdit">
-                                {{user.dob}}
+                            <div *ngIf="!author.isEdit">
+                                {{author.DOB}}
                             </div>
                         </td>
                         <td>
-                            <div *ngIf="user.isEdit">
+                            <div *ngIf="author.isEdit">
                                 <textarea formControlName="bio" class="form-control" id="bio"></textarea>
                             </div>
-                            <div *ngIf="!user.isEdit" style="max-width: 500px;">
-                                {{user.bio}}
+                            <div *ngIf="!author.isEdit" style="max-width: 500px;">
+                                {{author.bio}}
                             </div>
                         </td>
                         <td style="width: 15%;" class="text-center">
-                            <div *ngIf="user.isEdit">
+                            <div *ngIf="author.isEdit">
                                 <button type="submit" class="btn btn-sm greenBtn"
-                                    (click)="onUpdate(user.id, authorsForm)"><i class="fas fa-sync-alt"></i>
+                                    (click)="onUpdate(author._id, authorsForm)"><i class="fas fa-sync-alt"></i>
                                 </button>
 
-                                <button class="btn btn-sm redBtn" (click)="user.isEdit = false"><i
+                                <button class="btn btn-sm redBtn" (click)="author.isEdit = false"><i
                                         class="fas fa-times"></i>
                                 </button>
                             </div>
-                            <div *ngIf="!user.isEdit">
-                                <button class="btn btn-sm greenBtn" (click)="onEdit(user.id, authorsForm)"><i
+                            <div *ngIf="!author.isEdit">
+                                <button class="btn btn-sm greenBtn" (click)="onEdit(author._id, authorsForm)"><i
                                         class="fas fa-pencil-alt"></i>
 
                                 </button>
-                                <button class="btn-danger redBtn " (click)="onDelete(user.id)"> <i
+                                <button class="btn-danger redBtn " (click)="onDelete(author._id)"> <i
                                         class="fas fa-trash-alt"></i></button>
                             </div>
                         </td>
