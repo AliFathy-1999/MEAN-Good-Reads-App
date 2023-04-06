@@ -16,6 +16,7 @@ const verifyToken = async (bearerToken: string) => {
 
 const userAuth = async (req: Request, res: Response, next: NextFunction) => {
   let bearerToken = req.headers.authorization;
+  // let bearerToken = req.cookies.token;
   try {
     if (!bearerToken) throw new Error('Un-Authenticated');
     const result = await verifyToken(bearerToken);
@@ -29,6 +30,8 @@ const userAuth = async (req: Request, res: Response, next: NextFunction) => {
 
 const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
   let bearerToken = req.headers.authorization;
+  // let bearerToken = req.cookies.token;
+  
   try {
     if (!bearerToken) throw new Error('Unauthenticated-User');
     const result = await verifyToken(bearerToken);

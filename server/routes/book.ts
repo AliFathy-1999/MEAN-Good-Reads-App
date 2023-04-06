@@ -11,7 +11,7 @@ router.get('/:id', validate(booksValidator.bookId), async (req: Request, res: Re
 const book = booksController.getBookById_fullInfo(req.params.id);
 const [err, data] = await asycnWrapper(book);
 if (err) return next(err);
-if (!data) return next(new AppError (`No book with ID ${req.params.id}`, 400)); ;
+if (!data) return next(new AppError (`No book with ID ${req.params.id}`, 400)); 
 res.status(200).json({ success: true, data });
 });
 
@@ -23,9 +23,7 @@ router.patch('/:id/reviews', userAuth, validate(booksValidator.bookId), validate
   const book = booksController.editBookReviews({ _id: req.params.id, newValues: { comment, rating , userId: req.user._id}});
   const [err, data] = await asycnWrapper(book);
   if (err) return next(err);
-  if (!data) return next(new AppError (`No book with ID ${req.params.id}`, 400)); ;
   res.status(200).json({ success: true, data });
-
 });
 
 module.exports = router;
