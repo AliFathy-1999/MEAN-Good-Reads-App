@@ -6,6 +6,7 @@ enum Role {
   USER = 'user',
 }
 
+
 enum Shelve {
   READ = 'read',
   READING = 'reading',
@@ -18,6 +19,7 @@ type review =
     user: Types.ObjectId,
     rating:Number,
   }
+
 
 interface User{
   firstName:string,
@@ -60,9 +62,6 @@ interface PaginatedBooks {
   meta?: any;
 }
 
-interface BookModel extends Model<Book> {
-  getNewId: () => Promise<number>;}
-
 interface Category extends Document{
   _id:number,
   name:string
@@ -83,6 +82,13 @@ interface PaginatedCategories {
   meta?: any;
 }
 
+
+interface counter extends Document{
+  _id:number,
+  count:number,
+}
+
+
 interface BookModel extends Model<Book> {
   getNewId: () => Promise<number>;
 }
@@ -91,16 +97,18 @@ interface BookModel extends Model<Book> {
 interface categoryModel extends Model<Category> {
   getNewId: () => Promise<number>;
 }
-interface Counter {
-  id: String;
-  seq: Number;
+interface counterModel extends Model<counter> {}
+
+interface Counter{
+  id:String,
+  seq:Number,
 }
-interface Author {
-  _id: Number;
-  authorImg?: string;
-  firstName: string;
-  lastName: string;
-  bio: string;
-  DOB: Date;
+interface Author{
+  _id:Number,
+  authorImg?:string,
+  firstName:string,
+  lastName:string, 
+  history:string, 
+  DOB:Date,
 }
-export { User , Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, Category , Book , PaginatedCategories, review}
+export { User , Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category , Book , PaginatedCategories, review}
