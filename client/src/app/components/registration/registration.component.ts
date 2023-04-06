@@ -4,34 +4,39 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
-AuthService
+import { ToastrService } from 'ngx-toastr';
+AuthService;
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
   successMessage: string = '';
-  message = "New here? Create a free account!";
+  message = 'New here? Create a free account!';
   messageArray: string[] = [];
-  typedMessage = "";
+  typedMessage = '';
   submitted = false; // add a submitted property and set it to false
-  file:any = null;
-  error:string = '';
+  file: any = null;
+  error: string = '';
   selectedFile: File | undefined;
 
-  constructor(private formBuilder: FormBuilder,private _router:Router, private http: HttpClient, private _AuthService :AuthService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private _router: Router,
+    private http: HttpClient,
+    private _AuthService: AuthService,
+    private toastr: ToastrService
+  ) {}
 
-  }
-
-  registrationForm = new FormGroup ({
-    userName: new FormControl(null, [Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
-    firstName: new FormControl(null, [Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
-    lastName: new FormControl(null, [ Validators.required, Validators.minLength(3),Validators.maxLength(15)]),
+  registrationForm = new FormGroup({
+    userName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+    firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+    lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.minLength(8), this.passwordValidator.bind(this)]),
     confirmPassword: new FormControl(null, [Validators.required, this.matchConfirmPassword.bind(this)]),
-  })
+  });
 
   // Custom validator function for password field
   passwordValidator(control: FormControl): { [key: string]: boolean } | null {
@@ -44,9 +49,8 @@ export class RegistrationComponent implements OnInit {
 
   matchConfirmPassword(control: AbstractControl): ValidationErrors | null {
     const password = control.root.get('password');
-    return password && control.value !== password.value ? { 'passwordMismatch': true } : null;
+    return password && control.value !== password.value ? { passwordMismatch: true } : null;
   }
-
 
   onFileSelected(event: any) {
     this.file = event.target.files;
@@ -66,7 +70,6 @@ export class RegistrationComponent implements OnInit {
         clearInterval(intervalId);
       }
     }, 100);
-
   }
 
   // custom validator function
@@ -79,34 +82,27 @@ export class RegistrationComponent implements OnInit {
   // submit form function
   submitRegisterForm(registrationForm: FormGroup) {
     this.submitted = true;
-    if(this.file != null){
-    const formData = new FormData();
-    formData.append('firstName', registrationForm.get('firstName')?.value);
-    formData.append('lastName', registrationForm.get('lastName')?.value);
-    formData.append('email', registrationForm.get('email')?.value);
-    formData.append('password', registrationForm.get('password')?.value);
-    formData.append('confirmPassword', registrationForm.get('confirmPassword')?.value);
-    formData.append('userName', registrationForm.get('userName')?.value);
-    formData.append('pImage', this.file[0]);
-    
-    this._AuthService.register(formData).subscribe(
-      (res) => {
-        
-        if (res.message === 'User registered successfully') {
-          this.successMessage = 'Signed up successfully!';
-          this.registrationForm.reset();
-          console.log(res.status);
-          
+    if (this.file != null) {
+      const formData = new FormData();
+      formData.append('firstName', registrationForm.get('firstName')?.value);
+      formData.append('lastName', registrationForm.get('lastName')?.value);
+      formData.append('email', registrationForm.get('email')?.value);
+      formData.append('password', registrationForm.get('password')?.value);
+      formData.append('confirmPassword', registrationForm.get('confirmPassword')?.value);
+      formData.append('userName', registrationForm.get('userName')?.value);
+      formData.append('pImage', this.file[0]);
+
+      this._AuthService.register(formData).subscribe(
+        (res) => {
+          if (res.message === 'User registered successfully') {
+            this.successMessage = 'Signed up successfully!';
+            this.registrationForm.reset();
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.toastr.error(error.error.err);
         }
-
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Error status code:', error.status);
-        console.error('Error message:', error.message);
-        
-      }
-    );
+      );
+    }
   }
-  }
-
 }

@@ -29,6 +29,7 @@ import { CategoriesTableComponent } from './components/categories-table/categori
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthInterceptor } from './Interceptors/auth.interceptor';
 import { HttpInterceptorProviders } from './Interceptors';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { HttpInterceptorProviders } from './Interceptors';
     MatPaginatorModule,
     MatTableModule,
     NgxPaginationModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },

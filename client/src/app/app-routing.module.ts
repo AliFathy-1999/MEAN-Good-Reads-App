@@ -11,17 +11,17 @@ import { CategoriesPopupComponent } from './components/categories-popup/categori
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 
 const routes: Routes = [
-  {path:'',component:RegistrationComponent},
-  {path:'login',component:LoginComponent},
-  {path:'home',component:TestHomeComponent,canActivate:[AuthGuard]},
-  {path:'book',component:AdminBookComponent},
-  {path:'crud',component:CrudBookComponent},
-  {path:'author',component:AuthorsTableComponent},
-  {path:'categories',component:CategoriesTableComponent},
+  { path: '', component: RegistrationComponent },
+  { path: 'admin', component: LoginComponent },
+  { path: 'home', component: TestHomeComponent, canActivate: [AuthGuard] },
+  { path: 'book', component: AdminBookComponent },
+  { path: 'crud', component: CrudBookComponent },
+  { path: 'author', component: AuthorsTableComponent },
+  { path: 'categories', component: CategoriesTableComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

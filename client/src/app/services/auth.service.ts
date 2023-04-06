@@ -25,16 +25,4 @@ export class AuthService {
   login(loginData: object): Observable<any> {
     return this._HttpClient.post('http://localhost:3000/users/signin', loginData);
   }
-  getAuthorsApi(page: number, limit: number): Observable<any> {
-    const url = `http://localhost:3000/authors/${page}/${limit}`;
-    return this._HttpClient.get(url);
-  }
-
-  addAuthor(author: FormData): Observable<any> {
-    console.log(author.get('authorImg'));
-    console.log(author.get('bio'));
-    console.log(author.get('DOB '));
-
-    return this._HttpClient.post('http://localhost:3000/authors', author);
-  }
 }

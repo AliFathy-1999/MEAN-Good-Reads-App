@@ -62,6 +62,8 @@ export class AuthorsPopupComponent {
     const modelDiv = document.getElementById('myModal');
     if (modelDiv != null) {
       modelDiv.style.display = 'none';
+      this.authorsTableComponent.getAuthors();
+      console.log('Close');
     }
   }
 
@@ -83,15 +85,17 @@ export class AuthorsPopupComponent {
       authorImg: authorsForm.get('authorImg')?.value,
       isEdit: false,
     };
-    this.authService.addAuthor(formData).subscribe(
+    this.authorsService.addAuthor(formData).subscribe(
       (res) => {
         console.log(res);
         if (res.message === 'Author Added successfully') {
+          this.authorsTableComponent.getAuthors();
           this.authorsForm.reset();
           this.successMessage = 'Author added successfully!';
-          this.authorsService.getAuthors().subscribe((authors: any) => {
+          this.authorsService.getAuthorsApi(1, 5).subscribe((authors: any) => {
             this.authorsService.authArr = authors;
           });
+          this.authorsService.getAuthorsApi(1, 5).subscribe();
         }
       },
       (error: HttpErrorResponse) => {

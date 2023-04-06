@@ -4,6 +4,7 @@ import { TypesModule, User, Author } from '../../dataTypes/typesModule';
 import { AuthorsService } from '../../services/authors.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-authors-table',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./authors-table.component.css'],
 })
 export class AuthorsTableComponent implements OnInit {
-  authArr: Array<Author> = [];
+  authArr: Array<any> = [];
   newAuthArr: Array<Author> = [];
   file: any = null;
   selectedFile: File | undefined;
@@ -32,13 +33,18 @@ export class AuthorsTableComponent implements OnInit {
   constructor(
     private authorsService: AuthorsService,
     private deletePopup: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {
     console.log(this.authArr);
   }
 
   ngOnInit(): void {
-    this.authService.getAuthorsApi(1, 10).subscribe((data: any) => {
+    this.getAuthors();
+  }
+
+  getAuthors() {
+    this.authorsService.getAuthorsApi(1, 10).subscribe((data: any) => {
       this.authArr = data;
 
       this.authArr = this.authArr.map((author: Author) => {
@@ -49,21 +55,17 @@ export class AuthorsTableComponent implements OnInit {
           authorImg: imageUrl,
         };
       });
-      console.log(this.authArr);
     });
   }
 
-  get paginatedData() {
-    return this.authorsService
-      .getAuthors()
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  }
   onEdit(id: number, authorForm: any) {
-    this.authorsService.editAuthor(id);
-    this.authArr = this.authorsService.getAuthors();
+    this.authArr.forEach((author) => {
+      author.isEdit = author._id === id;
+      console.log((author.isEdit = author._id === id));
+    });
+
     const author = this.authorsService.getAuthorById(id);
     console.log(author, typeof id, id);
-    this.authorsService.editAuthor(id);
     // Set the form controls to the existing values
     authorForm.controls['firstName'].setValue(author?.firstName);
     authorForm.controls['lastName'].setValue(author?.lastName);
@@ -81,10 +83,11 @@ export class AuthorsTableComponent implements OnInit {
       this.authorsService.deleteAuthor(id).subscribe(
         () => {
           // If the delete request is successful, remove the author from the array of authors
+          this.toastr.success('Deleted Succesfully');
           this.authArr = this.authArr.filter((a) => a._id !== id);
         },
         (error) => {
-          console.error(error);
+          this.toastr.success(error.message);
         }
       );
     }
@@ -92,7 +95,7 @@ export class AuthorsTableComponent implements OnInit {
 
   onUpdate(id: number, authorsForm: FormGroup) {
     if (authorsForm.invalid) {
-      console.error('Form is invalid');
+      this.toastr.error('Form is invalid');
       return;
     }
 
@@ -115,14 +118,15 @@ export class AuthorsTableComponent implements OnInit {
     this.authorsService.updateAuthor(id, formData).subscribe(
       () => {
         console.log(`Author with ID ${id} updated successfully.`);
-        author.isEdit = false; // set isEdit to false for the updated author
+        author.isEdit = false;
+        this.toastr.success(`Author with ID ${id} updated successfully.`);
 
-        this.authorsService.getAuthors().subscribe((data: any) => {
+        this.authorsService.getAuthorsApi(1, 5).subscribe((data: any) => {
           this.authArr = data;
         });
       },
       (error: any) => {
-        console.error(`Failed to update author with ID ${id}: ${error.message}`);
+        this.toastr.error(error.error.err);
       }
     );
   }
