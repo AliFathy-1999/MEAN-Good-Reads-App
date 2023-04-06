@@ -1,11 +1,10 @@
 
 import express, {Request, Response , Router,NextFunction} from 'express';
 import { Result, ValidationError, validationResult } from 'express-validator';
-import { AppError } from '../lib';
+import { AppError, asycnWrapper } from '../lib/index';
 const {upload} = require("../middlewares/imageMiddleware")
 const { authorController } = require("../controllers/index")
 const router : Router = express.Router();
-const asycnWrapper = require('../lib/index');
 const { adminAuth } = require('../middlewares/auth');
  const { Counter } = require("../DB/models/index")
  const authorValidation  = require('../Validations/author');
