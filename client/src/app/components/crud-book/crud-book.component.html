@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar> -->
 <div class="dialog">
 
 <div mat-dialog-title>
@@ -9,25 +9,34 @@
 <div mat-dialog-content>
 
   <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
 
-<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-<input hidden formNameControl="photo" name="photo" accept="image/*" (change)="onFileSelected($event)" #fileInput type="file" id="photo">
-        </div></div>
 
         <div class="col-md-6">
           <div class="form-group">     
 <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput type="text" class="form-control" formControlName="bookName" name="bookName">
+        <input matInput type="text" class="form-control" formControlName="name" name="name">
       </mat-form-field>
-      <div class="dialogVal alert-danger" *ngIf="bookForm.get('bookName')?.errors != null && bookForm.get('bookName')?.touched">
+      <div class="dialogVal alert-danger" *ngIf="bookForm.get('name')?.errors != null && bookForm.get('name')?.touched">
       <p class="text-danger"
-          *ngIf="bookForm.get('bookName')?.errors?.['required']">Book Name is required!</p>
+          *ngIf="bookForm.get('name')?.errors?.['required']">Book Name is required!</p>
       <p class="text-danger"
-          *ngIf="bookForm.get('bookName')?.errors?.['minlength']">Book Name minmum length 3</p>
+          *ngIf="bookForm.get('name')?.errors?.['minlength']">Book Name minmum length 3</p>
   </div>
+</div>
+</div>
+<div class="col-md-6">
+  <div class="form-group">     
+<mat-form-field appearance="outline">
+<mat-label>Description</mat-label>
+<input matInput type="text" class="form-control" formControlName="description" name="description">
+</mat-form-field>
+<div class="dialogVal alert-danger" *ngIf="bookForm.get('description')?.errors != null && bookForm.get('description')?.touched">
+<p class="text-danger"
+  *ngIf="bookForm.get('description')?.errors?.['required']">Book Name is required!</p>
+<p class="text-danger"
+  *ngIf="bookForm.get('description')?.errors?.['minlength']">Book Name minmum length 3</p>
+</div>
 </div>
 </div>
   </div>
@@ -61,6 +70,14 @@
   </div>
       </div>
     </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+
+<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+<input hidden formNameControl="photo" name="photo" accept="image/*" (change)="onFileSelected($event)" #fileInput type="file" id="photo">
+      </div></div>
+
 </div>
 <div mat-dialog-action class="action">
     <button mat-raised-button class="btn btn-sucess btn-block p-3" type="submit">{{data?'Update':'Save'}}</button>

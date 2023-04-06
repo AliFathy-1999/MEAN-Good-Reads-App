@@ -12,7 +12,8 @@ import { BooksService } from 'src/app/services/books.service';
 })
 export class CrudBookComponent implements OnInit{
  bookForm:FormGroup;
-  bookName!:String;
+  name!:String;
+  description!:String;
   categoryId!:Number;
   authorId!:Number;
   photo!:any;
@@ -36,7 +37,8 @@ export class CrudBookComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data:any) {
    this.bookForm = new FormGroup({
       photo: new FormControl(null,[Validators.required]),
-      bookName : new FormControl(null,[Validators.required,Validators.minLength(3)]),
+      name : new FormControl(null,[Validators.required,Validators.minLength(3)]),
+      description:new FormControl(null,[Validators.required,]),
       categoryId:new FormControl(null,[Validators.required]),
       authorId:new FormControl(null,[Validators.required]),
     })

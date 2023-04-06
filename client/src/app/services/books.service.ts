@@ -11,7 +11,7 @@ export class BooksService {
 
 
   addBook(bookData:object):Observable<any>{
-    return this._HttpClient.post('http://localhost:3000/books',bookData)
+    return this._HttpClient.post('http://localhost:3000/admin/books',bookData)
   }
   getAllBooks():Observable<any>{
     return this._HttpClient.get('http://localhost:3000/books')

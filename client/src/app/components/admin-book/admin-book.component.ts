@@ -30,7 +30,7 @@ openDialog(){
  })
 }
 
-  displayedColumns: string[] = ['id', 'photo', 'bookName', 'categoryId', 'authorId','action'];
+  displayedColumns: string[] = ['id', 'photo', 'name','description', 'categoryId', 'authorId','action'];
   dataSource = new MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
