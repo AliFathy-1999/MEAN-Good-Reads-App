@@ -12,7 +12,7 @@ import { CategoriesTableComponent } from './components/categories-table/categori
 
 const routes: Routes = [
   {path:'',component:RegistrationComponent},
-  {path:'admin',component:LoginComponent},
+  {path:'login',component:LoginComponent},
   {path:'home',component:TestHomeComponent,canActivate:[AuthGuard]},
   {path:'book',component:AdminBookComponent},
   {path:'crud',component:CrudBookComponent},
