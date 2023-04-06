@@ -3,7 +3,7 @@ import { Result, ValidationError, validationResult } from 'express-validator';
 const { userController } = require("../controllers/index")
 const { upload } = require("../middlewares/imageMiddleware")
 const router : Router = express.Router();
-const asycnWrapper = require('../lib/index');
+import { asycnWrapper } from '../lib/index';
 const userValidation  = require('../Validations/userValidation');
 const { userAuth } = require('../middlewares/auth');
 const { usersValidator } = require('../Validations');
@@ -26,7 +26,8 @@ router.post('/signin', validate(usersValidator.signIn) ,async (req:Request, res:
     try {
       const { body: { userName, password } } = req;
       const token = await userController.signIn({userName, password});
-      res.cookie('token',token).status(201).json({ token });
+      // res.cookie('token',token, { httpOnly: true }).status(200).json({ token });
+      res.status(200).json({ token});
     } catch (err) {
       next(err);
     }

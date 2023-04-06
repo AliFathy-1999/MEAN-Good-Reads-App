@@ -1,6 +1,7 @@
 import { Schema, model, ObjectId, Types } from 'mongoose';
 import { Book, BookModel, review } from '../schemaInterfaces';
 import mongoosePaginate from 'mongoose-paginate-v2';
+import { AppError, trimText } from '../../lib';
 
 const schema = new Schema<Book>(
   {
@@ -106,19 +107,16 @@ schema.statics.getBookById = async function (_id: Number) {
 schema.statics.editReviews = async function (data: { _id: Number; userId: ObjectId; comment: string; rating: number }) {
   let book = await Books.findOne({ _id: data._id });
   if (!book) {
-    return new Error("Book Doesn't exist");
+    throw new AppError (`No book with ID ${data._id}`, 400); 
   }
 
-  let bookWithReview = await Books.findOne({ _id: data._id, 'reviews.user': data.userId });
-
-  if (bookWithReview) {
-    bookWithReview = await Books.findOneAndUpdate(
+   let bookWithReview = await Books.findOneAndUpdate(
       { _id: data._id, 'reviews.user': data.userId },
-      { $set: { 'reviews.$.comment': data.comment, 'reviews.$.rating': data.rating } },
+      { $set: { 'reviews.$.comment': trimText(data.comment), 'reviews.$.rating': data.rating } },
       { new: true }
     );
-    return bookWithReview;
-  } else if (!bookWithReview) {
+
+   if (!bookWithReview) {
     bookWithReview = await Books.findOneAndUpdate(
       { _id: data._id },
       {
@@ -127,10 +125,9 @@ schema.statics.editReviews = async function (data: { _id: Number; userId: Object
       },
       { new: true }
     );
-    console.log(bookWithReview);
-
     return bookWithReview;
   }
+  return bookWithReview;
 };
 
 schema.pre('save', async function () {
@@ -143,7 +140,8 @@ schema.pre('findOneAndUpdate', async function () {
   console.log('hi');
   const doc = await this.model.findOne(this.getQuery());
   if (!doc.ratingsNumber) doc.averageRating = 0;
-  else doc.averageRating = doc.totalRating / doc.ratingsNumber;
+  else doc.averageRating = Math.floor((doc.totalRating/5 / doc.ratingsNumber));
+  doc.save();
 });
 
 const Books = model<Book, BookModel>('Books', schema);

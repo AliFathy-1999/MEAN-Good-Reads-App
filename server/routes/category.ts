@@ -1,8 +1,7 @@
 import express, { Request, Response, Router, NextFunction } from "express";
 const { categoriesController } = require("../controllers/index");
-const asycnWrapper = require("../lib/index");
+import { AppError, asycnWrapper } from '../lib/index';
 const { validate } = require("../middlewares/validation");
-const { adminAuth } = require("../middlewares/auth");
 const { categoriesValidator } = require("../Validations");
 
 const router: Router = express.Router();
