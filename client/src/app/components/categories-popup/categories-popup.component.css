@@ -143,6 +143,13 @@ textarea.form-control {
     cursor: pointer;
 }
 
+/* .mat-form-field-outline{
+    color: #f0f0f0;
+}
+
+.mat-form-field-outline:focus{
+    color: #f65d4e;   
+   } */
 
 
 @media (min-width: 576px) {
@@ -150,6 +157,8 @@ textarea.form-control {
         max-width: 850px;
     }
 }
+
+
 
 .button-86 {
     all: unset;
