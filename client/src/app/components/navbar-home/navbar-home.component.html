@@ -5,11 +5,13 @@
       <a class="navbar-brand" href="#">
         <img id="logo" src="../../../assets/logo.jpeg" alt="" width="60" height="44" class="d-inline-block align-text-top"></a>
       </div> 
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <!--<form [formGroup]="loginForm" (ngSubmit)="login()">
 <input minlength="13" [ngClass]="{'border-danger': loginForm.get('userName')?.errors?.['minlength'] ||loginForm.get('userName')?.touched &&loginForm.get('userName')?.errors?.['required']}" placeholder="Username" formControlName="userName" type="text" name="userName">
 
-<input minlength="8" [ngClass]="{'border-danger': loginForm.get('password')?.errors?.['minlength'] ||loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']}" type="password" name="password"  id="password" formControlName="password"  placeholder="Password">
+<input minlength="8" [ngClass]="{'border-danger': loginForm.get('password')?.errors?.['minlength'] ||loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']}" type="password" name="password"  id="password" formControlName="password"  placeholder="Password"> -->
 <!-- <button type="submit" [disabled]="loginForm.invalid"><span>Sign In</span></button> -->
+
+
 <button class="radius button">
   <svg class="icon-arrow after" version="1.1" id="Capa_1"
       viewBox="0 0 403.8 200.3" style="enable-background:new 0 0 403.8 200.3;">
@@ -21,9 +23,9 @@
           </g>
       </g>
   </svg>
-  <span>Sign In</span>
+  <span>Login</span>
 </button>
 
-</form>
+<!-- </form> -->
     </div>
   </nav>

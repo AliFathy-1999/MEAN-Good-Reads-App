@@ -17,9 +17,11 @@ getCategory():Observable<any>{
   return this._http.get('http://localhost:3000/category')
 }
 
-edited:boolean=false
+getCategoryById(id:number):Observable<any>{
+  return this._http.get(`http://localhost:3000/category${id}`)
+}
 
-editCategory(id:number,data:object):Observable<any>{
+updateCategory(id:number,data:object):Observable<any>{
   return this._http.patch(`http://localhost:3000/category/${id}`,data)
 }
 

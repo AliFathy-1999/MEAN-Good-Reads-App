@@ -3,10 +3,10 @@
 }
 
 #logo{
-    width:150px;
+    width:100%;
 }
 
-form input{
+/* form input{
     background-color: transparent;
     border: none;
     border-bottom: 2px solid #000;
@@ -25,24 +25,25 @@ form input:focus{
 
 form input:hover{
   border-bottom: 2px solid #f65d4e;
-}
+} */
 
 .button.radius {
-  padding: 6px 26px;
+  padding:11px 29px;
   border: none;
   background-color: #fb4e3e;
   border-radius: 25px;
   color: #f2f2f2;
   position: relative;
   margin-left: 10px;
+  font-size: 19px;
 }
 
 .button.radius svg {
   position: absolute;
   top: 8px;
   margin-left: 15px;
-  width: 18px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   opacity: 0;
   transform: translateX(75%) scaleX(0.1);
   transform-origin: center;

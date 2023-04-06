@@ -1,26 +1,20 @@
-<app-navbar></app-navbar>
-<div class="col-3 mt-5">
-    <button class="button-86" role="button" data-bs-toggle="modal" data-bs-target="#myModal">Add Category</button>
-</div>
 
+<div class="dialog">
 
-<div class="modal" id="myModal">
-    <div class="modal-dialog" style="width: auto !important;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add Categories</h4>
-                <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
+    <div mat-dialog-title>
+        <h4>Add Categories</h4>
+    </div>
                 <div class="form-wrap">
                     <form [formGroup]="categoryForm" id="survey-form" (ngSubmit)="submitCategory()">
+                        <div mat-dialog-content>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label id="name-label" for="name">Category Name</label>
-                                    <input type="text" formControlName="categoryName" name="categoryName"
-                                        id="categoryName" placeholder="Enter the category name" class="form-control"
-                                        required>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Category Name</mat-label>
+                                        <input matInput type="text" class="form-control" formControlName="categoryName" name="categoryName"
+                                        id="categoryName" placeholder="Enter the category name">
+                                      </mat-form-field>
 
                                     <div *ngIf="categoryForm.get('categoryName')?.errors != null && categoryForm.get('categoryName')?.touched"
                                         class="alert-danger mt-2">
@@ -41,18 +35,15 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" id="submit" class="btn btn-primary btn-block"
-                                    [disabled]="!categoryForm.valid">Add
-                                    Category</button>
+                                <div mat-dialog-action class="action" style="margin: auto;">
+                                    <button mat-raised-button class="btn btn-block p-3" type="submit">{{data?'Update':'Save'}}</button>
+                                    <button mat-raised-button class="btn btn-block p-3" (click)="closeDialog()" type="button">Cancel</button>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
                     </form>
-                </div>
             </div>
 
         </div>
-    </div>
-
-
-</div>
