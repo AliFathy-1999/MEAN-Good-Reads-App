@@ -3,7 +3,7 @@ const { categoriesController } = require("../controllers/index");
 const { categoriesValidator } = require('../Validations');
 const { validate } = require('../middlewares/validation');
 const { adminAuth } = require('../middlewares/auth');
-const asycnWrapper = require('../lib/index');
+import { AppError, asycnWrapper } from '../lib/index';
 
 const router : Router = express.Router();
 
@@ -31,7 +31,7 @@ router.patch("/:id", adminAuth, validate(categoriesValidator.categoryId), valida
     const category = categoriesController.editCategory({ id, name });
     const [err, data] = await asycnWrapper(category);
     if (err) return next(err);
-    if (!data) return next(new Error (`No Category with ID ${req.params.id}`));
+    if (!data) return next(new AppError (`No Category with ID ${req.params.id}`, 400));
     res.status(200).json({ success: true, data });
   }
   
@@ -41,7 +41,7 @@ router.delete("/:id", adminAuth, validate(categoriesValidator.categoryId), async
       const deletedCategory = categoriesController.deleteCategory(req.params.id);
       const [err, data] = await asycnWrapper(deletedCategory);
       if (err) return next(err);
-      if (!data) return next(new Error (`No Category with ID ${req.params.id}`));
+    if (!data) return next(new AppError(`No Category with ID ${req.params.id}`, 400));
       return res.status(204).end();
     }
   );
