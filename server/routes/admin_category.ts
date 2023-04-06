@@ -26,12 +26,12 @@ router.get('/:page/:limit', adminAuth, async (req: Request, res: Response, next:
   );
   
 router.patch("/:id", adminAuth, validate(categoriesValidator.categoryId), validate(categoriesValidator.categoryData), async (req: Request, res: Response, next: NextFunction) => {
-    console.log('hi');
     const { id } = req.params;
     const { name } = req.body;
     const category = categoriesController.editCategory({ id, name });
     const [err, data] = await asycnWrapper(category);
     if (err) return next(err);
+    if (!data) return next(new Error (`No Category with ID ${req.params.id}`));
     res.status(200).json({ success: true, data });
   }
   
@@ -41,6 +41,7 @@ router.delete("/:id", adminAuth, validate(categoriesValidator.categoryId), async
       const deletedCategory = categoriesController.deleteCategory(req.params.id);
       const [err, data] = await asycnWrapper(deletedCategory);
       if (err) return next(err);
+      if (!data) return next(new Error (`No Category with ID ${req.params.id}`));
       return res.status(204).end();
     }
   );

@@ -17,7 +17,7 @@ router.post('/', adminAuth, upload.single('bookImage'), validate(booksValidator.
     const { name, categoryId, authorId, description } = req.body;
       const book = booksController.create({ name, categoryId, authorId, bookImage, description });
       const [err, data] = await asycnWrapper(book);
-      if (err) return next(err);
+      if (err) return next(err);      
       res.status(201).json({ success: true, data });
     }
 );
@@ -31,7 +31,8 @@ router.get('/:page/:limit', adminAuth, validate(booksValidator.booksRetrive), as
 });
 
 
-router.patch('/:id', adminAuth,  validate(booksValidator.bookId), validate(booksValidator.bookEdit) , async (req: Request, res: Response, next: NextFunction) => {
+// router.patch('/:id', adminAuth,  validate(booksValidator.bookId), validate(booksValidator.bookEdit) , async (req: Request, res: Response, next: NextFunction) => {
+  router.patch('/:id', adminAuth,  async (req: Request, res: Response, next: NextFunction) => {
   let bookImage;
   if (req.file) {
     bookImage = `${process.env.BOOKS_IMAGES + req.file.filename}`;      
@@ -41,6 +42,7 @@ router.patch('/:id', adminAuth,  validate(booksValidator.bookId), validate(books
   const book = booksController.editBook({ _id: req.params.id, newValues: { name, bookImage, categoryId, authorId, description } });
   const [err, data] = await asycnWrapper(book);
   if (err) return next(err);
+  if (!data) return next(new Error (`No book with ID ${req.params.id}`)); ;
   res.status(200).json({ success: true, data });
 
 });
@@ -49,6 +51,7 @@ router.delete('/:id', adminAuth, validate(booksValidator.bookId), async (req: Re
   const deletedBook =  booksController.deleteBook( req.params.id);
   const [err, data] = await asycnWrapper(deletedBook);
   if (err) return next(err);
+  if (!data) return next(new Error (`No book with ID ${req.params.id}`)); ;
   return res.status(204).end();
   });
 

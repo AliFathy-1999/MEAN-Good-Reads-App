@@ -110,5 +110,6 @@ interface Author{
   lastName:string, 
   history:string, 
   DOB:Date,
+  bio:string,
 }
 export { User , Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category , Book , PaginatedCategories, review}

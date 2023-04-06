@@ -5,7 +5,7 @@ const Users = require('../DB/models/user');
 
 const createToken = (user:User) => {
   const token = jwt.sign({ userName: user.userName }, process.env.TOKEN_KEY, { expiresIn: '7d' });
-    return token;
+    return `Bearer ${token}`;
   };
   
   
