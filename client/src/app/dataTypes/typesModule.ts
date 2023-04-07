@@ -26,5 +26,15 @@ export interface Category {
   isEdit: boolean;
 }
 
+export interface Book{
+  id:number;
+  title:string;
+  author:string;
+  description:string;
+  category:string;
+  rating:number;
+  imageUrl:string;
+}
+
 @NgModule({})
 export class TypesModule {}

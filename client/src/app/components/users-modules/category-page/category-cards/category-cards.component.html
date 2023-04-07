@@ -1,0 +1,15 @@
+<app-category-header></app-category-header>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3" *ngFor="let category of categories">
+            <mat-card class="category-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        <mat-icon class="category-icon">{{category.icon}}</mat-icon>
+                        <a routerLink="/category/{{category.id}}" class="category-name">{{category.name}}</a>
+                    </mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+</div>
