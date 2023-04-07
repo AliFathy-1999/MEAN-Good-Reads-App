@@ -15,6 +15,7 @@ import { AuthorCardsComponent } from './components/users-modules/author-page/aut
 import { AuthorDetailsComponent } from './components/users-modules/author-page/author-details/author-details.component';
 import { CategoryCardsComponent } from './components/users-modules/category-page/category-cards/category-cards.component';
 import { CategoryComponent } from './components/users-modules/category-page/category/category.component';
+import { UserTableComponent } from './components/users-modules/user-profile-page/user-table/user-table.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'user/author', component: AuthorDetailsComponent },
   { path: 'user/categories', component: CategoryCardsComponent },
   { path: 'user/category', component: CategoryComponent },
+  { path: 'user/profile', component: UserTableComponent },
 ];
 
 @NgModule({
