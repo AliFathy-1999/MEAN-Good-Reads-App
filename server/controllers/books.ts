@@ -9,14 +9,13 @@ const getBooks = () => Books.find({});
 const getBookById = (_id: number) => Books.findById(_id).select('-averageRating -ratingsNumber -reviews');
 
 // User View
-const getBookById_fullInfo = (_id: number) => Books.getBookById(Number(_id));
+const getBookById_fullInfo = (_id: number) => Books.getBookById(_id);
 
 const getBooks_fullInfo = async (options: { page: number; limit: number }) => 
 {
   if (!options.limit) options.limit = 10;
   const result = (await Books.paginate({}, { ...options, populate: ['authorId', 'categoryId', 'reviews.user']})) as PaginatedBooks;
   return result as PaginatedBooks;
-//  Books.getBooksInfo();
 }
 
 const editBook = (data: { _id: number; newValues: object }) => 

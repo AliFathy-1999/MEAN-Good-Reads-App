@@ -97,19 +97,16 @@ schema.virtual('totalRating').get(function () {
   return sum;
 }).set(function () {
   this.averageRating = Math.floor(this.totalRating / this.ratingsNumber);
+  console.log('may',this);
 });
 
 schema.plugin(mongoosePaginate);
 
-schema.statics.getBookById = async function (_id: Number) {
-  return await Books.findById(_id)
+schema.statics.getBookById = async(_id: number) => Books.findById(_id)
     .populate({ path: 'authorId', select: ['firstName', 'lastName'] })
     .populate({ path: 'categoryId', select: "categoryId._id" })
     .populate({ path: 'reviews.user', select: ['firstName', 'lastName'] })
-    .exec()
-    .then((data) => data)
-    .catch((err) => err);
-};
+    .exec()  
 
 
 schema.statics.editReviews = async function (data: { _id: Number; userId: ObjectId; comment: string; rating: number }) {

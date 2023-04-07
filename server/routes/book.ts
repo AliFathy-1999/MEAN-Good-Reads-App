@@ -21,6 +21,7 @@ router.get('/', validate(paginationOptions), async (req: Request, res: Response,
 router.get('/:id', validate(booksValidator.bookId), async (req: Request, res: Response, next: NextFunction) => {
 const book = booksController.getBookById_fullInfo(req.params.id);
 const [err, data] = await asycnWrapper(book);
+console.log('data',data);
 if (err) return next(err);
 if (!data) return next(new AppError (`No book with ID ${req.params.id}`, 400)); 
 res.status(200).json({ success: true, data });
