@@ -4,11 +4,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BooksService } from 'src/app/services/books.service';
 
-
 @Component({
   selector: 'app-crud-book',
   templateUrl: './crud-book.component.html',
-  styleUrls: ['./crud-book.component.css']
+  styleUrls: ['./crud-book.component.css'],
 })
 export class CrudBookComponent implements OnInit{
 //  bookForm:FormGroup;
@@ -85,13 +84,11 @@ export class CrudBookComponent implements OnInit{
       }
   }
 
-  ngOnInit():void{
-  this.bookForm.patchValue(this.data)
+  ngOnInit(): void {
+    this.bookForm.patchValue(this.data);
   }
 
-  
-  closeDialog(){
+  closeDialog() {
     this._dialogRef.close();
   }
 }
-
