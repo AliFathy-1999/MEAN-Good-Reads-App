@@ -1,11 +1,10 @@
-<app-books-header></app-books-header>
 <div class="container mt-5">
     <h1 class="mb-5 mt-5">All</h1>
 
     <mat-toolbar color="primary">
         <span>Bookshelf</span>
         <span class="spacer"></span>
-        <button mat-button routerLink="/read" routerLinkActive="active">Read</button>
+        <button mat-button routerLink="/reading" routerLinkActive="active">Reading</button>
         <button mat-button routerLink="/current-reading" routerLinkActive="active">Current Reading</button>
         <button mat-button routerLink="/want-to-read" routerLinkActive="active">Want to Read</button>
     </mat-toolbar>
@@ -83,7 +82,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Shelf</mat-label>
                     <mat-select [(value)]="profileData.shelf">
-                        <mat-option value="reading">Read</mat-option>
+                        <mat-option value="reading">Reading</mat-option>
                         <mat-option value="current-reading">Current Reading</mat-option>
                         <mat-option value="want-to-read">Want to Read</mat-option>
                     </mat-select>
@@ -95,4 +94,3 @@
         <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
     </mat-table>
 </div>
-<router-outlet></router-outlet>
