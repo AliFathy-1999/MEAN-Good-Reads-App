@@ -11,6 +11,14 @@ const getBookById = (_id: number) => Books.findById(_id).select('-averageRating 
 // User View
 const getBookById_fullInfo = (_id: number) => Books.getBookById(Number(_id));
 
+const getBooks_fullInfo = async (options: { page: number; limit: number }) => 
+{
+  if (!options.limit) options.limit = 10;
+  const result = (await Books.paginate({}, { ...options, populate: ['authorId', 'categoryId', 'reviews.user']})) as PaginatedBooks;
+  return result as PaginatedBooks;
+//  Books.getBooksInfo();
+}
+
 const editBook = (data: { _id: number; newValues: object }) => 
   Books.findByIdAndUpdate(data._id, { ...data.newValues }, { new: true });
 
@@ -29,6 +37,7 @@ module.exports = {
   create,
   getBooks,
   getBookById,
+  getBooks_fullInfo,
   getBookById_fullInfo,
   editBook,
   editBookReviews,
