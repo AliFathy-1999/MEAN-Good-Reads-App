@@ -1,0 +1,67 @@
+<app-books-header></app-books-header>
+<section class="mt-5 mb-5">
+
+
+    <div class="container">
+        <mat-card class="book-card">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="book-image" [style.background-image]="'url(' + book.imageUrl + ')'"></div>
+                </div>
+                <div class="col-md-10 ">
+                    <mat-card-header>
+                        <mat-card-title class="book-title">{{ book.title }}</mat-card-title>
+                        <mat-card-subtitle class="book-author">{{ book.author }}</mat-card-subtitle>
+                        <mat-card-subtitle class="book-category">{{ book.category }}</mat-card-subtitle>
+
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="book-rating d-block">
+                            <ng-container *ngFor="let star of stars">
+                                <mat-icon class="star-icon">{{ star }}</mat-icon>
+                            </ng-container>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content>
+                        <p class="book-description">{{ book.description }}</p>
+                    </mat-card-content>
+                </div>
+            </div>
+
+        </mat-card>
+
+        <mat-card-header>
+            <mat-card-title class="review-heading">Reviews</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="review-section">
+                <mat-card class="review-card">
+                    <mat-card-header>
+                        <div class="review-header">
+                            <mat-icon class="user-icon">account_circle</mat-icon>
+                            <div class="user-info">
+                                <p class="user-name">John Doe</p>
+                                <div class="user-rating">
+                                    <ng-container *ngFor="let star of stars">
+                                        <mat-icon class="star-icon">{{ star }}</mat-icon>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p class="review-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Aenean nec dui eget velit
+                            euismod eleifend. Proin quis malesuada justo. Pellentesque euismod mi vitae felis
+                            accumsan, id commodo
+                            libero iaculis. Nunc non leo tincidunt, vestibulum velit vel, convallis velit. Donec
+                            quis ultricies magna,
+                            vel volutpat arcu. Curabitur vitae erat quis velit semper euismod.</p>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </mat-card-content>
+    </div>
+</section>

@@ -10,6 +10,7 @@ import { AuthorsTableComponent } from './components/authors-table/authors-table.
 import { CategoriesPopupComponent } from './components/categories-popup/categories-popup.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { BooksComponent } from './components/users-modules/books-page/books/books.component';
+import { BookDetailsComponent } from './components/users-modules/books-page/book-details/book-details.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'author', component: AuthorsTableComponent },
   { path: 'categories', component: CategoriesTableComponent },
   { path: 'books', component: BooksComponent },
+  { path: 'user/book', component: BookDetailsComponent },
 ];
 
 @NgModule({

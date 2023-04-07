@@ -7,22 +7,23 @@ import { Component } from '@angular/core';
 })
 export class BookDetailsComponent {
   book = {
-    imageUrl: 'https://via.placeholder.com/300x400',
-    title: 'The Great Gatsby',
-    author: 'F. Scott Fitzgerald',
+    imageUrl: '../../../../../assets/books-imgs/the-curious.jpg',
+    title: 'The Book Title',
+    author: 'Author Name',
     category: 'Fiction',
     rating: 4.5,
-    description: 'A story about the decadence of the Jazz Age.',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   };
 
-  bookName: string = 'The Great Gatsby';
-  authorName: string = 'F. Scott Fitzgerald';
-  categoryName: string = 'Fiction';
-  rating: number = 4.5;
-  description: string = 'A story about the decadence of the Jazz Age.';
-  readStatus: string = 'Want to Read';
+  stars: string[] = ['star', 'star', 'star', 'star_half', 'star_border'];
 
-  changeReadStatus(event: any) {
-    this.readStatus = event.target.value;
-  }
+  selectedValue: string | undefined;
+
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 50];
+
+  constructor() {}
+
+  ngOnInit(): void {}
 }

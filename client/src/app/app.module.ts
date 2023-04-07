@@ -35,6 +35,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { BooksHeaderComponent } from './components/users-modules/books-page/books-header/books-header.component';
 import { BookDetailsComponent } from './components/users-modules/books-page/book-details/book-details.component';
+import { BookReviewsComponent } from './components/users-modules/books-page/book-reviews/book-reviews.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { BookDetailsComponent } from './components/users-modules/books-page/book
     BooksComponent,
     BooksHeaderComponent,
     BookDetailsComponent,
+    BookReviewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,7 @@ import { BookDetailsComponent } from './components/users-modules/books-page/book
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },
-      HttpInterceptorProviders,
+    HttpInterceptorProviders,
     FormsModule,
   ],
   bootstrap: [AppComponent],
