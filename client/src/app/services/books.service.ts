@@ -7,9 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class BooksService {
-  constructor(private _HttpClient: HttpClient) {}
 
-<<<<<<< HEAD
   constructor(private _HttpClient:HttpClient,private cookieService: CookieService) { }
 
   isLogged(): boolean {
@@ -17,13 +15,8 @@ export class BooksService {
   }
 
   addBook(bookData:object):Observable<any>{
-    return this._HttpClient.post('http://localhost:3000/admin/books',bookData)
-=======
-  addBook(bookData: object): Observable<any> {
     console.log(bookData);
-
-    return this._HttpClient.post('http://localhost:3000/books', bookData);
->>>>>>> 343461865e3c46e4b86f6092a8547ca5b452bac5
+    return this._HttpClient.post('http://localhost:3000/admin/books',bookData)
   }
   getAllBooks(): Observable<any> {
     return this._HttpClient.get('http://localhost:3000/books');
@@ -33,12 +26,7 @@ export class BooksService {
     return this._HttpClient.delete(`http://localhost:3000/books/${id}`);
   }
 
-<<<<<<< HEAD
   editBook(id:number,data:object){
    return this._HttpClient.patch(`http://localhost:3000/books/${id}`,data)
-=======
-  editBook(id: number, data: object) {
-    return this._HttpClient.put(`http://localhost:3000/books/${id}`, data);
->>>>>>> 343461865e3c46e4b86f6092a8547ca5b452bac5
   }
 }
