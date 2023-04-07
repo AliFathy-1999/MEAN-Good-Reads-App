@@ -36,6 +36,10 @@ import { MatCardModule } from '@angular/material/card';
 import { BooksHeaderComponent } from './components/users-modules/books-page/books-header/books-header.component';
 import { BookDetailsComponent } from './components/users-modules/books-page/book-details/book-details.component';
 import { BookReviewsComponent } from './components/users-modules/books-page/book-reviews/book-reviews.component';
+import { AuthorCardsComponent } from './components/users-modules/author-page/author-cards/author-cards.component';
+import { AuthorHeaderComponent } from './components/users-modules/author-page/author-header/author-header.component';
+import { MatSliderModule } from '@angular/material/slider';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +64,8 @@ import { BookReviewsComponent } from './components/users-modules/books-page/book
     BooksHeaderComponent,
     BookDetailsComponent,
     BookReviewsComponent,
+    AuthorCardsComponent,
+    AuthorHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +84,7 @@ import { BookReviewsComponent } from './components/users-modules/books-page/book
     ToastrModule.forRoot(),
     CommonModule,
     MatCardModule,
+    MatSliderModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },
