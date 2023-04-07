@@ -5,7 +5,7 @@
     <h3>Book Form</h3>
 </div>
 <div class="form-wrap">
-<form [formGroup]="bookForm" (ngSubmit)="submitData()">
+<form [formGroup]="bookForm" (ngSubmit)="submitData(bookForm)">
 <div mat-dialog-content>
 
   <div class="row">
@@ -75,7 +75,7 @@
       <div class="form-group">
 
 <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-<input hidden formNameControl="photo" name="photo" accept="image/*" (change)="onFileSelected($event)" #fileInput type="file" id="photo">
+<input hidden formNameControl="bookImage" name="bookImage" accept="image/*" (change)="onFileSelected($event)" #fileInput type="file" id="bookImage">
       </div></div>
 
 </div>

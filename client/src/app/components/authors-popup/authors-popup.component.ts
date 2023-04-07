@@ -96,6 +96,7 @@ export class AuthorsPopupComponent {
             this.authorsService.authArr = authors;
           });
           this.authorsService.getAuthorsApi(1, 5).subscribe();
+          console.log(formData.get('authorImg'));
         }
       },
       (error: HttpErrorResponse) => {

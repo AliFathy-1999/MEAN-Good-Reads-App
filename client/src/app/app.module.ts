@@ -69,7 +69,7 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },
-    HttpInterceptorProviders,
+      HttpInterceptorProviders,
     FormsModule,
   ],
   bootstrap: [AppComponent],
