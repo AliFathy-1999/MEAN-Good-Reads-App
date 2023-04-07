@@ -103,12 +103,10 @@ export class AuthorsTableComponent implements OnInit {
       this.toastr.error('Form is invalid');
       return;
     }
-    console.log(authorsForm.get('authorImg'));
-
     const author = this.authArr.find((author) => author._id === id);
 
     if (!author) {
-      console.error(`Author with ID ${id} not found.`);
+      this.toastr.error(`Author with ID ${id} not found.`);
       return;
     }
 
@@ -118,6 +116,8 @@ export class AuthorsTableComponent implements OnInit {
     formData.append('DOB', authorsForm.get('DOB')?.value);
     formData.append('bio', authorsForm.get('bio')?.value);
     formData.append('authorImg', this.file[0]);
+
+    console.log(formData.get('bio'));
 
     this.authorsService.updateAuthor(id, formData).subscribe(
       () => {
