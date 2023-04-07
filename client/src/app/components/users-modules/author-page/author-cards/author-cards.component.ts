@@ -7,20 +7,60 @@ import { Component } from '@angular/core';
 })
 export class AuthorCardsComponent {
   authors = [
-    { name: 'John Doe', image: '../../../../../assets/books-imgs/the-curious.jpg' },
-    { name: 'Jane Smith', image: 'jane-smith.png' },
-    { name: 'Mark Johnson', image: 'mark-johnson.png' },
-    { name: 'Emily Davis', image: 'emily-davis.png' },
-    { name: 'Michael Lee', image: 'michael-lee.png' },
-    { name: 'Sophia Hernandez', image: 'sophia-hernandez.png' },
-    { name: 'Jacob Wilson', image: 'jacob-wilson.png' },
-    { name: 'Isabella Taylor', image: 'isabella-taylor.png' },
-    { name: 'William Garcia', image: 'william-garcia.png' },
-    { name: 'Ava Martinez', image: 'ava-martinez.png' },
-    { name: 'Ethan Rodriguez', image: 'ethan-rodriguez.png' },
-    { name: 'Mia Brown', image: 'mia-brown.png' },
-    { name: 'Alexander Davis', image: 'alexander-davis.png' },
-    { name: 'Olivia Thomas', image: 'olivia-thomas.png' },
+    {
+      name: 'Ahmed Khaled Tawfik 1',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 2',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 3',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 4',
+      author: 'Author 4',
+      description: 'Description 4',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 5',
+      author: 'Author 5',
+      description: 'Description 5',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 6',
+      author: 'Author 6',
+      description: 'Description 6',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 7',
+      author: 'Author 7',
+      description: 'Description 7',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 8',
+      author: 'Author 8',
+      description: 'Description 8',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 9',
+      author: 'Author 9',
+      description: 'Description 9',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
+    {
+      name: 'Ahmed Khaled Tawfik 10',
+      author: 'Author 10',
+      description: 'Description 10',
+      imageUrl: '../../../../../assets/author-imgs/ahmedKhaled.jpg',
+    },
   ];
 
   pageSize = 8;

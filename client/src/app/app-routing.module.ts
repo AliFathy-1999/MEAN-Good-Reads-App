@@ -12,6 +12,9 @@ import { CategoriesTableComponent } from './components/categories-table/categori
 import { BooksComponent } from './components/users-modules/books-page/books/books.component';
 import { BookDetailsComponent } from './components/users-modules/books-page/book-details/book-details.component';
 import { AuthorCardsComponent } from './components/users-modules/author-page/author-cards/author-cards.component';
+import { AuthorDetailsComponent } from './components/users-modules/author-page/author-details/author-details.component';
+import { CategoryCardsComponent } from './components/users-modules/category-page/category-cards/category-cards.component';
+import { CategoryComponent } from './components/users-modules/category-page/category/category.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
@@ -24,6 +27,9 @@ const routes: Routes = [
   { path: 'books', component: BooksComponent },
   { path: 'user/book', component: BookDetailsComponent },
   { path: 'user/authors', component: AuthorCardsComponent },
+  { path: 'user/author', component: AuthorDetailsComponent },
+  { path: 'user/categories', component: CategoryCardsComponent },
+  { path: 'user/category', component: CategoryComponent },
 ];
 
 @NgModule({

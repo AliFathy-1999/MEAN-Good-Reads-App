@@ -39,6 +39,12 @@ import { BookReviewsComponent } from './components/users-modules/books-page/book
 import { AuthorCardsComponent } from './components/users-modules/author-page/author-cards/author-cards.component';
 import { AuthorHeaderComponent } from './components/users-modules/author-page/author-header/author-header.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { AuthorDetailsComponent } from './components/users-modules/author-page/author-details/author-details.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { CategoryCardsComponent } from './components/users-modules/category-page/category-cards/category-cards.component';
+import { CategoryComponent } from './components/users-modules/category-page/category/category.component';
+import { CategoryHeaderComponent } from './components/users-modules/category-page/category-header/category-header.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +72,10 @@ import { MatSliderModule } from '@angular/material/slider';
     BookReviewsComponent,
     AuthorCardsComponent,
     AuthorHeaderComponent,
+    AuthorDetailsComponent,
+    CategoryCardsComponent,
+    CategoryComponent,
+    CategoryHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +95,8 @@ import { MatSliderModule } from '@angular/material/slider';
     CommonModule,
     MatCardModule,
     MatSliderModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },
