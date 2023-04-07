@@ -45,6 +45,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { CategoryCardsComponent } from './components/users-modules/category-page/category-cards/category-cards.component';
 import { CategoryComponent } from './components/users-modules/category-page/category/category.component';
 import { CategoryHeaderComponent } from './components/users-modules/category-page/category-header/category-header.component';
+import { UserTableComponent } from './components/users-modules/user-profile-page/user-table/user-table.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { UserNavbarComponent } from './components/users-modules/user-profile-page/user-navbar/user-navbar.component';
+import { WantToReadComponent } from './components/users-modules/user-profile-page/want-to-read/want-to-read.component';
+import { ReadComponent } from './components/users-modules/user-profile-page/read/read.component';
+import { CurrentlyReadingComponent } from './components/users-modules/user-profile-page/currently-reading/currently-reading.component';
+import { AllBooksComponent } from './components/users-modules/user-profile-page/all-books/all-books.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +83,12 @@ import { CategoryHeaderComponent } from './components/users-modules/category-pag
     CategoryCardsComponent,
     CategoryComponent,
     CategoryHeaderComponent,
+    UserTableComponent,
+    UserNavbarComponent,
+    WantToReadComponent,
+    ReadComponent,
+    CurrentlyReadingComponent,
+    AllBooksComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,6 +110,7 @@ import { CategoryHeaderComponent } from './components/users-modules/category-pag
     MatSliderModule,
     MatSelectModule,
     MatOptionModule,
+    MatToolbarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },

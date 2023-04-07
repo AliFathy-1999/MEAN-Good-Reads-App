@@ -15,6 +15,10 @@ import { AuthorCardsComponent } from './components/users-modules/author-page/aut
 import { AuthorDetailsComponent } from './components/users-modules/author-page/author-details/author-details.component';
 import { CategoryCardsComponent } from './components/users-modules/category-page/category-cards/category-cards.component';
 import { CategoryComponent } from './components/users-modules/category-page/category/category.component';
+import { UserTableComponent } from './components/users-modules/user-profile-page/user-table/user-table.component';
+import { ReadComponent } from './components/users-modules/user-profile-page/read/read.component';
+import { CurrentlyReadingComponent } from './components/users-modules/user-profile-page/currently-reading/currently-reading.component';
+import { WantToReadComponent } from './components/users-modules/user-profile-page/want-to-read/want-to-read.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
@@ -30,6 +34,10 @@ const routes: Routes = [
   { path: 'user/author', component: AuthorDetailsComponent },
   { path: 'user/categories', component: CategoryCardsComponent },
   { path: 'user/category', component: CategoryComponent },
+  { path: 'user/profile', component: UserTableComponent },
+  { path: 'read', component: ReadComponent },
+  { path: 'current-reading', component: CurrentlyReadingComponent },
+  { path: 'want-to-read', component: WantToReadComponent },
 ];
 
 @NgModule({
