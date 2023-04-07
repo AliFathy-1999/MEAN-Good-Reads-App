@@ -9,6 +9,7 @@ import { TestHomeComponent } from './components/test-home/test-home.component';
 import { AuthorsTableComponent } from './components/authors-table/authors-table.component';
 import { CategoriesPopupComponent } from './components/categories-popup/categories-popup.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
+import { BooksComponent } from './components/users-modules/books-page/books/books.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'crud', component: CrudBookComponent },
   { path: 'author', component: AuthorsTableComponent },
   { path: 'categories', component: CategoriesTableComponent },
+  { path: 'books', component: BooksComponent },
 ];
 
 @NgModule({

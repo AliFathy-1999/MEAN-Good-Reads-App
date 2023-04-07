@@ -30,6 +30,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthInterceptor } from './Interceptors/auth.interceptor';
 import { HttpInterceptorProviders } from './Interceptors';
 import { ToastrModule } from 'ngx-toastr';
+import { BooksComponent } from './components/users-modules/books-page/books/books.component';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { BooksHeaderComponent } from './components/users-modules/books-page/books-header/books-header.component';
+import { BookDetailsComponent } from './components/users-modules/books-page/book-details/book-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +55,9 @@ import { ToastrModule } from 'ngx-toastr';
     AuthorsPopupComponent,
     TestHomeComponent,
     CategoriesTableComponent,
+    BooksComponent,
+    BooksHeaderComponent,
+    BookDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +74,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatTableModule,
     NgxPaginationModule,
     ToastrModule.forRoot(),
+    CommonModule,
+    MatCardModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },
