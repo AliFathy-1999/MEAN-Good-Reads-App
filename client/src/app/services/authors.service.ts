@@ -36,12 +36,13 @@ export class AuthorsService {
       lastName: authorForm.get('lastName'),
       DOB: authorForm.get('DOB'),
       bio: authorForm.get('bio'),
-      authorImg: authorForm.get('authorImage'),
+      authorImg: authorForm.get('authorImg'),
       isEdit: false,
     };
     this.authArr.push(author);
+    console.log(authorForm.get('authorImg'));
 
-    return this.httpClient.post('http://localhost:3000/authors', author);
+    return this.httpClient.post('http://localhost:3000/authors', authorForm);
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {

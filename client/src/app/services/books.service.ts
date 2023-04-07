@@ -3,25 +3,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BooksService {
+  constructor(private _HttpClient: HttpClient) {}
 
-  constructor(private _HttpClient:HttpClient) { }
+  addBook(bookData: object): Observable<any> {
+    console.log(bookData);
 
-
-  addBook(bookData:object):Observable<any>{
-    return this._HttpClient.post('http://localhost:3000/books',bookData)
+    return this._HttpClient.post('http://localhost:3000/books', bookData);
   }
-  getAllBooks():Observable<any>{
-    return this._HttpClient.get('http://localhost:3000/books')
-  }
-
-  deleteBookById(id:number):Observable<any>{
-    return this._HttpClient.delete(`http://localhost:3000/books/${id}`)
+  getAllBooks(): Observable<any> {
+    return this._HttpClient.get('http://localhost:3000/books');
   }
 
-  editBook(id:number,data:object){
-   return this._HttpClient.put(`http://localhost:3000/books/${id}`,data)
+  deleteBookById(id: number): Observable<any> {
+    return this._HttpClient.delete(`http://localhost:3000/books/${id}`);
+  }
+
+  editBook(id: number, data: object) {
+    return this._HttpClient.put(`http://localhost:3000/books/${id}`, data);
   }
 }
