@@ -33,11 +33,9 @@ const bookEdit = {
 const bookReview = {
     body: Joi.object().keys({
             comment: Joi.string().trim().min(3).max(140),
-            rating: Joi.number()
+            rating: Joi.number().min(1).max(5)
         }).min(1),
     }
-
-
 
 
 module.exports = {

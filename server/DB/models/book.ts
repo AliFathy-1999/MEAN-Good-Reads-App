@@ -1,9 +1,11 @@
-import { Schema, model, ObjectId, Types } from 'mongoose';
-import { Book, BookModel, review } from '../schemaInterfaces';
+import { Schema, model, ObjectId } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
-import { AppError, trimText } from '../../lib';
-import NextFunction from 'express';
-import { Categoris } from './category';
+
+import { Book, BookModel } from '../schemaInterfaces';
+import { AppError } from '../../lib';
+
+const Categoris = require('./category');
+const Authors = require('./author');
 
 const schema = new Schema<Book>(
   {
@@ -39,10 +41,6 @@ const schema = new Schema<Book>(
       minlength: 30,
       maxlength: 200,
     },
-    averageRating: {
-      type: Number,
-      default: 0,
-    },
     ratingsNumber: {
       type: Number,
       default: 0,
@@ -66,6 +64,7 @@ const schema = new Schema<Book>(
           rating: {
             type: Number,
             required: true,
+            default:0
           },
         },
       ],
@@ -79,14 +78,20 @@ const schema = new Schema<Book>(
   }
 );
 
-
+// Retrieve Book Data Selection
 schema.methods.toJSON = function () {
   const book = this;
   const bookObject = book.toObject();
   delete bookObject.__v;
+  // delete bookObject.createdAt;
+  // delete bookObject.updatedAt;
+  delete bookObject.totalRating;
   return bookObject;
 };
 
+schema.plugin(mongoosePaginate);
+
+// Get new Incremental ID For Book Document
 schema.statics.getNewId = async () =>
   await Books.find({})
     .sort('-createdAt')
@@ -99,74 +104,29 @@ schema.statics.getNewId = async () =>
 schema.virtual('totalRating').get(function () {
   if (!this.reviews?.length) return 0;
   const sum = this.reviews.reduce((acc, cur) => acc + cur.rating.valueOf(), 0);
-  // if (!this.ratingsNumber) this.averageRating = 0;
-  // this.averageRating = Math.floor(sum / this.ratingsNumber);
-  // console.log(this.averageRating);
-  // this.save();
   return sum;
-}).set(function () {
-  this.averageRating = Math.floor(this.totalRating / this.ratingsNumber);
-  console.log('may',this);
 });
 
-schema.plugin(mongoosePaginate);
+schema.virtual('averageRating').get(function () {
+  if (this.ratingsNumber === 0) return 0;
+  return Math.floor(this.totalRating / this.ratingsNumber);
+});
 
-schema.statics.getBookById = async(_id: number) => Books.findById(_id)
-    .populate({ path: 'authorId', select: ['firstName', 'lastName'] })
-    .populate({ path: 'categoryId', select: "categoryId._id" })
-    .populate({ path: 'reviews.user', select: ['firstName', 'lastName'] })
-    .exec()  
-
-
-schema.statics.editReviews = async function (data: { _id: Number; userId: ObjectId; comment: string; rating: number }) {
-  let book = await Books.findOne({ _id: data._id });
-
-  if (!book) {
-    throw new AppError(`No book with ID ${data._id}`, 400);
-  }
-
-  let bookWithReview = await Books.findOneAndUpdate(
-    { _id: data._id, 'reviews.user': data.userId },
-    { $set: { 'reviews.$.comment': trimText(data.comment), 'reviews.$.rating': data.rating } },
-    { new: true }
-  );
-
-  if (!bookWithReview) {
-    bookWithReview = await Books.findOneAndUpdate(
-      { _id: data._id },
-      {
-        $push: { reviews: { comment: data.comment, user: data.userId, rating: data.rating } },
-        $inc: { ratingsNumber: 1 },
-      },
-      { new: true }
-    );
-    return bookWithReview;
-  }
-  return bookWithReview;
+// Validate Author and Category IDs Related to each Book entry
+schema.statics.checkReferenceValidation = async (references: { categoryId: number; authorId: number }) => {
+  const relatedCategory = await Categoris.findById(references.categoryId);
+  const relatedAuthor = await Authors.findById(references.authorId);
+  if (!(relatedAuthor && relatedCategory)) throw new AppError("Category or Author isn't valid", 422);
 };
 
+
+// Set Incremantal Id pre saving document
 schema.pre('save', { document: true, query: true }, async function () {
   if (this.isNew) {
     this._id = await Books.getNewId();
   }
-  console.log('after update');
-  if (this.isModified('totalRating')) {
-    if (!this.ratingsNumber) this.averageRating = 0;
-    this.averageRating = Math.floor(this.totalRating / 5 / this.ratingsNumber);
-  } 
 });
-
-// schema.pre('findOneAndUpdate', async function () {
-//   console.log('hi');
-//   const doc = await this.model.findOne(this.getQuery());
-//   console.log(doc);
-//   if (!doc.ratingsNumber) doc.averageRating = 0;
-//   else doc.averageRating = Math.floor((doc.totalRating/5 / doc.ratingsNumber));
-//   doc.save();
-// }); 
 
 const Books = model<Book, BookModel>('Books', schema);
 
 module.exports = Books;
-
-export { Books };

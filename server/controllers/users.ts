@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 import { User} from "../DB/schemaInterfaces";
 const Users = require('../DB/models/user');
 import { AppError } from '../lib/index';
-import { Books } from '../DB/models/book';
+
 let mongoose = require('mongoose');
 const createToken = (user: User) => {
   const token = jwt.sign({ userName: user.userName }, process.env.TOKEN_KEY, { expiresIn: '7d' });
