@@ -24,8 +24,10 @@ this.route.params.subscribe(params=>this.getBookById(params['id']))
   }
 
   getBookById(id:number){
-    this._book.getBookById(id).subscribe((res:Book)=>{
-      this.book=res
+    this._book.getBookById(id).subscribe((res:any)=>{
+      console.log(res.data)
+      this.book=res.data
+      console.log(this.book)
     })
     }
 

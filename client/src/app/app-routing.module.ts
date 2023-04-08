@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'author', component: AuthorsTableComponent },
   { path: 'categories', component: CategoriesTableComponent },
   { path: 'books', component: BooksComponent },
-  { path: 'user/book/:id', component: BookDetailsComponent },
+  { path: 'books/:id', component: BookDetailsComponent },
   { path: 'user/authors', component: AuthorCardsComponent },
   { path: 'user/author', component: AuthorDetailsComponent },
   { path: 'user/categories', component: CategoryCardsComponent },

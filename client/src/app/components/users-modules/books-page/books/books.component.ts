@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/dataTypes/typesModule';
 import { UserBooksService } from 'src/app/services/user-books.service';
 @Component({
@@ -9,19 +10,21 @@ import { UserBooksService } from 'src/app/services/user-books.service';
 export class BooksComponent implements OnInit {
 
 books:Book[]=[]
-
-constructor(private _books:UserBooksService){}
+page!: number;
+limit!: number;
+constructor(private _books:UserBooksService,private route:ActivatedRoute){}
   ngOnInit(): void {
-    this.getAllBooks();
+    this.getAllBooks()
   }
 
 getAllBooks(){
-this._books.getAllBooks().subscribe((res:any)=>{
-  this.books=res
+this._books.getAllBooks(2,2).subscribe((res:any)=>{
+  this.books=res.data.docs
+  console.log(this.books)
 })
 }
 
-  page = 1;
+  // page = 1;
   pageSize = 8;
   pageSizeOptions = [4, 8, 12];
 }

@@ -10,11 +10,11 @@ export class UserBooksService {
 
   constructor(private _http:HttpClient) { }
 
-  getAllBooks(): Observable<Book>{
-   return this._http.get<Book>('http://localhost:3000/book');
+  getAllBooks(page:number,limit:number): Observable<Book>{
+   return this._http.get<Book>(`http://localhost:3000/books?page=${page}&limit=${limit}`);
   }
 
   getBookById(id:number): Observable<Book>{
-    return this._http.get<Book>(`http://localhost:3000/book/${id}`);
+    return this._http.get<Book>(`http://localhost:3000/books/${id}`);
    }
 }

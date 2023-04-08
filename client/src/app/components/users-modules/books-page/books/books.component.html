@@ -7,28 +7,23 @@
                 <div class="col-md-3 mb-4">
                     <mat-card class="h-100">
                         <div mat-card-header>
-                            <div class="book-image" [style.background-image]="'url(' + book.imageUrl + ')'"></div>
+                            <div class="book-image" [style.background-image]="'url(' + book.bookImage + ')'"></div>
                         </div>
                         <mat-card-content class="card-content">
                             <a class="card-link">
-                                <mat-card-title class="card-title"[routerLink]="['/user/book',book.id]">{{ book.title }}</mat-card-title>
+                                <mat-card-title class="card-title"[routerLink]="['/books',book._id]">{{ book.name }}</mat-card-title>
                             </a>
-                            <mat-card-subtitle class="card-subtitle">{{ book.author }}</mat-card-subtitle>
+                            <!-- <mat-card-subtitle class="card-subtitle">{{ book.authorId.firstName }}</mat-card-subtitle> -->
                         </mat-card-content>
 
                     </mat-card>
                 </div>
-                <div class="clearfix d-md-none"></div> <!-- add clearfix to clear the float on small devices -->
+                <!-- <div class="clearfix d-md-none"></div> add clearfix to clear the float on small devices -->
                 <div *ngIf="(i + 1) % 4 === 0" class="col-md-12 mt-4"></div>
             </ng-container>
             <div class="col-md-12 mt-4">
-                <!-- <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                    [length]="books.length"></mat-paginator> -->
-                    <mat-paginator [length]="books.length"
-                    [pageSize]="5"
-                    [pageSizeOptions]="[5, 10]"
-                    aria-label="Select page">
-</mat-paginator>
+                <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                    [length]="books.length"></mat-paginator>
             </div>
         </div>
     </div>
