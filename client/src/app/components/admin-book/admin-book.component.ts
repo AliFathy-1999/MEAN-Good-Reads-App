@@ -5,6 +5,7 @@ import { BooksService } from 'src/app/services/books.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatIconButton } from '@angular/material/button';
+import { Book } from 'src/app/dataTypes/typesModule';
 
 @Component({
   selector: 'app-admin-book',
@@ -18,7 +19,7 @@ export class AdminBookComponent implements OnInit,AfterViewInit{
       }
 
 constructor(private _dialog:MatDialog, private _book:BooksService){}
-
+books:Book[]=[]
 
 
 openDialog(){
@@ -30,9 +31,9 @@ openDialog(){
  })
 }
 
-  displayedColumns: string[] = ['id', 'photo', 'bookName', 'categoryId', 'authorId','action'];
+  displayedColumns: string[] = ['id', 'photo', 'name','description', 'categoryId','authorId'
+  ,'action'];
   dataSource = new MatTableDataSource<any>;
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
@@ -40,9 +41,11 @@ openDialog(){
   }
 
 getAllBooks(){
-  this._book.getAllBooks().subscribe((res:any)=>{
-this.dataSource=new MatTableDataSource(res);
-this.dataSource.paginator=this.paginator
+  this._book.getAllBooks(2,10).subscribe((res:any)=>{
+  this.books=res.data.docs;
+  console.log(this.books)
+  this.dataSource=new MatTableDataSource(this.books);
+  this.dataSource.paginator=this.paginator
   })
 }
 

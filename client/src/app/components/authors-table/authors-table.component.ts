@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { TypesModule, User, Author } from '../../dataTypes/typesModule';
 import { AuthorsService } from '../../services/authors.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,9 +25,9 @@ export class AuthorsTableComponent implements OnInit {
   authorsForm = new FormGroup({
     firstName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
     lastName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
-    DOB: new FormControl(),
-    bio: new FormControl(),
-    authorImage: new FormControl(),
+    DOB: new FormControl('01/04/1998', [Validators.required, this.validateDOB.bind(this)]),
+    bio: new FormControl('Please Add The Author Bio Here', [Validators.maxLength(300), Validators.minLength(30)]),
+    authorImg: new FormControl(null, [Validators.required]),
   });
 
   constructor(
@@ -39,22 +39,27 @@ export class AuthorsTableComponent implements OnInit {
     console.log(this.authArr);
   }
 
+  validateDOB(control: AbstractControl): { [key: string]: boolean } | null {
+    const DOB = new Date(control.value);
+    const year = DOB.getFullYear();
+    console.log(year);
+
+    if (year >= 2010) {
+      return { invalidDOB: true };
+    }
+    return null;
+  }
+
   ngOnInit(): void {
     this.getAuthors();
+    console.log(this.authArr);
   }
 
   getAuthors() {
     this.authorsService.getAuthorsApi(1, 10).subscribe((data: any) => {
       this.authArr = data;
 
-      this.authArr = this.authArr.map((author: Author) => {
-        const imagePath = author.authorImg;
-        const imageUrl = imagePath ? 'assets/' + imagePath.split('assets/')[1] : '';
-        return {
-          ...author,
-          authorImg: imageUrl,
-        };
-      });
+      return this.authArr;
     });
   }
 
@@ -71,7 +76,7 @@ export class AuthorsTableComponent implements OnInit {
     authorForm.controls['lastName'].setValue(author?.lastName);
     authorForm.controls['DOB'].setValue(author?.DOB);
     authorForm.controls['bio'].setValue(author?.bio);
-    authorForm.controls['authorImage'].setValue(author?.authorImg);
+    authorForm.controls['authorImg'].setValue(author?.authorImg);
   }
 
   onFileSelected(event: any) {
@@ -98,11 +103,10 @@ export class AuthorsTableComponent implements OnInit {
       this.toastr.error('Form is invalid');
       return;
     }
-
     const author = this.authArr.find((author) => author._id === id);
 
     if (!author) {
-      console.error(`Author with ID ${id} not found.`);
+      this.toastr.error(`Author with ID ${id} not found.`);
       return;
     }
 
@@ -111,9 +115,9 @@ export class AuthorsTableComponent implements OnInit {
     formData.append('lastName', authorsForm.get('lastName')?.value);
     formData.append('DOB', authorsForm.get('DOB')?.value);
     formData.append('bio', authorsForm.get('bio')?.value);
-    if (this.file && this.file.length > 0) {
-      formData.append('authorImg', this.file[0]);
-    }
+    formData.append('authorImg', this.file[0]);
+
+    console.log(formData.get('bio'));
 
     this.authorsService.updateAuthor(id, formData).subscribe(
       () => {

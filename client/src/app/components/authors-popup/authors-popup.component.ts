@@ -36,8 +36,8 @@ export class AuthorsPopupComponent {
     firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     DOB: new FormControl('01/04/1998', [Validators.required, this.validateDOB.bind(this)]),
-    bio: new FormControl('', [Validators.maxLength(300), Validators.minLength(30)]),
-    authorImage: new FormControl(null, [Validators.required]),
+    bio: new FormControl('Please Add The Autho Bio Here ', [Validators.maxLength(300), Validators.minLength(30)]),
+    authorImg: new FormControl(null, [Validators.required]),
   });
 
   validateDOB(control: AbstractControl): { [key: string]: boolean } | null {
@@ -96,6 +96,7 @@ export class AuthorsPopupComponent {
             this.authorsService.authArr = authors;
           });
           this.authorsService.getAuthorsApi(1, 5).subscribe();
+          console.log(formData.get('authorImg'));
         }
       },
       (error: HttpErrorResponse) => {

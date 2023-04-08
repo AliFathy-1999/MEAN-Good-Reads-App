@@ -1,0 +1,101 @@
+.book-card {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.book-image {
+    height: 225px;
+    width: 155px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ccc;
+}
+
+.book-title {
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.book-author {
+    font-size: 18px;
+    color: #666;
+}
+
+.book-category {
+    font-size: 18px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.book-rating {
+    margin-top: 8px;
+}
+
+.star-icon {
+    color: orange;
+}
+
+.book-dropdown {
+    margin-top: 8px;
+}
+
+.review-heading {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.book-description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.review-card {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+}
+
+.user-icon {
+    font-size: 40px;
+    color: #ccc;
+    margin-right: 20px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.user-rating {
+    display: flex;
+}
+
+.star-icon {
+    font-size: 20px;
+    color: #ffc107;
+    margin-right: 5px;
+}
+
+.review-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-top: 10px;
+}

@@ -79,13 +79,13 @@
                                 <div class="form-group">
                                     <label>Upload photo</label>
                                     <span id="dropdown" name="role" class="form-control">
-                                        <input formControlName="authorImage" (change)="onFileSelected($event)"
-                                            type="file" class="form-control" id="imageUpload" accept="image/*">
+                                        <input formControlName="authorImg" (change)="onFileSelected($event)" type="file"
+                                            class="form-control" id="imageUpload" accept="image/*">
                                     </span>
-                                    <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
+                                    <div *ngIf="authorsForm.get('authorImg')?.errors != null && authorsForm.get('authorImg')?.touched"
                                         class="alert-danger mt-2">
                                         <p class="text-danger"
-                                            *ngIf="authorsForm.get('authorImage')?.errors?.['required']">
+                                            *ngIf="authorsForm.get('authorImg')?.errors?.['required']">
                                             Image is
                                             required!</p>
                                     </div>

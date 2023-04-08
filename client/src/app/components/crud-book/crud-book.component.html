@@ -1,71 +1,93 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar> -->
 <div class="dialog">
 
-<div mat-dialog-title>
+  <div mat-dialog-title>
     <h3>Book Form</h3>
-</div>
-<div class="form-wrap">
-<form [formGroup]="bookForm" (ngSubmit)="submitData()">
-<div mat-dialog-content>
-
-  <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-
-<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-<input hidden formNameControl="photo" name="photo" accept="image/*" (change)="onFileSelected($event)" #fileInput type="file" id="photo">
-        </div></div>
-
-        <div class="col-md-6">
-          <div class="form-group">     
-<mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput type="text" class="form-control" formControlName="bookName" name="bookName">
-      </mat-form-field>
-      <div class="dialogVal alert-danger" *ngIf="bookForm.get('bookName')?.errors != null && bookForm.get('bookName')?.touched">
-      <p class="text-danger"
-          *ngIf="bookForm.get('bookName')?.errors?.['required']">Book Name is required!</p>
-      <p class="text-danger"
-          *ngIf="bookForm.get('bookName')?.errors?.['minlength']">Book Name minmum length 3</p>
   </div>
-</div>
-</div>
-  </div>
+  <div class="form-wrap">
+    <form [formGroup]="bookForm" (ngSubmit)="submitData(bookForm)">
+      <div mat-dialog-content>
 
-      <!-- <div class="content"> -->
+        <div class="row">
+
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" class="form-control" formControlName="name" name="name">
+              </mat-form-field>
+              <div class="dialogVal alert-danger"
+                *ngIf="bookForm.get('name')?.errors != null && bookForm.get('name')?.touched">
+                <p class="text-danger" *ngIf="bookForm.get('name')?.errors?.['required']">Book Name is required!</p>
+                <p class="text-danger" *ngIf="bookForm.get('name')?.errors?.['minlength']">Book Name minmum length 3</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput type="text" class="form-control" formControlName="description" name="description">
+              </mat-form-field>
+              <div class="dialogVal alert-danger"
+                *ngIf="bookForm.get('description')?.errors != null && bookForm.get('description')?.touched">
+                <p class="text-danger" *ngIf="bookForm.get('description')?.errors?.['required']">Book Name is required!
+                </p>
+                <p class="text-danger" *ngIf="bookForm.get('description')?.errors?.['minlength']">Book Name minmum
+                  length 3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="content"> -->
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>Category Id</mat-label>
-        <input matInput type="number" class="form-control" formControlName="categoryId">
-      </mat-form-field>
-        <div class="catVal alert-danger" *ngIf="bookForm.get('categoryId')?.errors != null && bookForm.get('categoryId')?.touched">
-          <p class="text-danger"
-              *ngIf="bookForm.get('categoryId')?.errors?.['required']">Category Id is required!</p>
-      </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Category Id</mat-label>
+                <input matInput type="number" class="form-control" formControlName="categoryId">
+              </mat-form-field>
+              <div class="catVal alert-danger"
+                *ngIf="bookForm.get('categoryId')?.errors != null && bookForm.get('categoryId')?.touched">
+                <p class="text-danger" *ngIf="bookForm.get('categoryId')?.errors?.['required']">Category Id is required!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Author Id</mat-label>
+                <input matInput type="number" class="form-control" formControlName="authorId">
+              </mat-form-field>
+
+              <div class="dialogVal alert-danger"
+                *ngIf="bookForm.get('authorId')?.errors != null && bookForm.get('authorId')?.touched">
+                <p class="text-danger" *ngIf="bookForm.get('authorId')?.errors?.['required']">Author Id is required!</p>
+              </div>
+            </div>
+          </div>
         </div>
-</div>
-<div class="col-md-6">
 
-        <div class="form-group">
-        <mat-form-field appearance="outline">
-        <mat-label>Author Id</mat-label>
-        <input matInput type="number" class="form-control" formControlName="authorId">
-      </mat-form-field>
+        <div class="col-md-12">
+          <div class="form-group">
 
-      <div class="dialogVal alert-danger" *ngIf="bookForm.get('authorId')?.errors != null && bookForm.get('authorId')?.touched">
-        <p class="text-danger"
-            *ngIf="bookForm.get('authorId')?.errors?.['required']">Author Id is required!</p>
-    </div>
-  </div>
+            <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+            <input hidden formNameControl="bookImage" name="bookImage" accept="image/*"
+              (change)="onFileSelected($event)" #fileInput type="file" id="bookImage">
+          </div>
+        </div>
+
       </div>
-    </div>
-</div>
-<div mat-dialog-action class="action">
-    <button mat-raised-button class="btn btn-sucess btn-block p-3" type="submit">{{data?'Update':'Save'}}</button>
-    <button mat-raised-button class="btn btn-danger btn-block p-3" (click)="closeDialog()" type="button">Cancel</button>
-</div>
-</form>
-</div>
+      <div mat-dialog-action class="action">
+        <button mat-raised-button class="btn btn-sucess btn-block p-3" (click)="addBook(bookForm)"
+          type="button">{{data?'Update':'Save'}}</button>
+        <button mat-raised-button class="btn btn-danger btn-block p-3" (click)="closeDialog()"
+          type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -21,19 +21,19 @@
                         <td>{{author._id}}</td>
                         <td>
                             <div *ngIf="author.isEdit">
-                                <input (change)="onFileSelected($event)" formControlName="authorImage" type="file"
+                                <input (change)="onFileSelected($event)" formControlName="authorImg" type="file"
                                     [(ngModel)]="author.authorImg " class="form-control" id="imageUpload"
                                     accept="image/*">
                             </div>
-                            <div *ngIf="authorsForm.get('authorImage')?.errors != null && authorsForm.get('authorImage')?.touched"
+                            <div *ngIf="authorsForm.get('authorImg')?.errors != null && authorsForm.get('authorImg')?.touched"
                                 class="alert-danger mt-2">
                                 <p class="text-danger"
-                                    *ngIf="authorsForm.get('authorImage')?.errors?.['required'] && author.isEdit">
+                                    *ngIf="authorsForm.get('authorImg')?.errors?.['required'] && author.isEdit">
                                     Image is
                                     required!</p>
                             </div>
                             <div class="imageContainer" *ngIf="!author.isEdit">
-                                <img src="../../../{{author.authorImg}}" />
+                                <img src="{{author.authorImg}}" />
                             </div>
 
                         </td>
@@ -105,7 +105,7 @@
                                 <textarea formControlName="bio" class="form-control" id="bio"></textarea>
                             </div>
                             <div *ngIf="!author.isEdit" style="max-width: 500px;">
-                                {{author.bio}}
+                                {{author.bio || 'Please Add The Author Bio Here'}}
                             </div>
                         </td>
                         <td style="width: 15%;" class="text-center">

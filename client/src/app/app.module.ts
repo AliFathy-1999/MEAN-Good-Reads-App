@@ -30,6 +30,29 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AuthInterceptor } from './Interceptors/auth.interceptor';
 import { HttpInterceptorProviders } from './Interceptors';
 import { ToastrModule } from 'ngx-toastr';
+import { BooksComponent } from './components/users-modules/books-page/books/books.component';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { BooksHeaderComponent } from './components/users-modules/books-page/books-header/books-header.component';
+import { BookDetailsComponent } from './components/users-modules/books-page/book-details/book-details.component';
+import { BookReviewsComponent } from './components/users-modules/books-page/book-reviews/book-reviews.component';
+import { AuthorCardsComponent } from './components/users-modules/author-page/author-cards/author-cards.component';
+import { AuthorHeaderComponent } from './components/users-modules/author-page/author-header/author-header.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { AuthorDetailsComponent } from './components/users-modules/author-page/author-details/author-details.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { CategoryCardsComponent } from './components/users-modules/category-page/category-cards/category-cards.component';
+import { CategoryComponent } from './components/users-modules/category-page/category/category.component';
+import { CategoryHeaderComponent } from './components/users-modules/category-page/category-header/category-header.component';
+import { UserTableComponent } from './components/users-modules/user-profile-page/user-table/user-table.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { UserNavbarComponent } from './components/users-modules/user-profile-page/user-navbar/user-navbar.component';
+import { WantToReadComponent } from './components/users-modules/user-profile-page/want-to-read/want-to-read.component';
+import { ReadComponent } from './components/users-modules/user-profile-page/read/read.component';
+import { CurrentlyReadingComponent } from './components/users-modules/user-profile-page/currently-reading/currently-reading.component';
+import { AllBooksComponent } from './components/users-modules/user-profile-page/all-books/all-books.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +73,22 @@ import { ToastrModule } from 'ngx-toastr';
     AuthorsPopupComponent,
     TestHomeComponent,
     CategoriesTableComponent,
+    BooksComponent,
+    BooksHeaderComponent,
+    BookDetailsComponent,
+    BookReviewsComponent,
+    AuthorCardsComponent,
+    AuthorHeaderComponent,
+    AuthorDetailsComponent,
+    CategoryCardsComponent,
+    CategoryComponent,
+    CategoryHeaderComponent,
+    UserTableComponent,
+    UserNavbarComponent,
+    WantToReadComponent,
+    ReadComponent,
+    CurrentlyReadingComponent,
+    AllBooksComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +105,12 @@ import { ToastrModule } from 'ngx-toastr';
     MatTableModule,
     NgxPaginationModule,
     ToastrModule.forRoot(),
+    CommonModule,
+    MatCardModule,
+    MatSliderModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatToolbarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },

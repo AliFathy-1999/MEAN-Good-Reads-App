@@ -1,5 +1,8 @@
 import { ErrorRequestHandler } from 'express';
-const asycnWrapper = (promise: Promise<void>) =>
-  promise.then((data: any) => [undefined, data]).catch((err) => [err]);
+import { handleResponseError } from './handlingErrors';
+import { AppError } from './appError';
+import {  trimText } from './trimTextSpace';
 
-module.exports = asycnWrapper;
+const asycnWrapper = (promise: Promise<void>) => promise.then((data: any) => [undefined, data]).catch((err) => [err]);
+
+export { asycnWrapper, AppError, handleResponseError, trimText };

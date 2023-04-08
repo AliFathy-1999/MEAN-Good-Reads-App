@@ -1,0 +1,97 @@
+<app-user-navbar></app-user-navbar>
+<div class="container mt-5">
+    <h1 class="mb-5 mt-5">Currently Reading</h1>
+
+    <mat-toolbar color="primary">
+        <span>Bookshelf</span>
+        <span class="spacer"></span>
+        <button mat-button routerLink="/read" routerLinkActive="active">Read</button>
+        <button mat-button routerLink="/current-reading" routerLinkActive="active">Current Reading</button>
+        <button mat-button routerLink="/want-to-read" routerLinkActive="active">Want to Read</button>
+    </mat-toolbar>
+</div>
+
+<div class="container mb-5">
+
+    <mat-table [dataSource]="userProfileData">
+        <ng-container matColumnDef="coverImage">
+            <mat-header-cell *matHeaderCellDef>Cover</mat-header-cell>
+            <mat-cell *matCellDef="let profileData">
+                <div class="image">
+                    <img src="{{ profileData.coverImage }}" alt="Cover Image">
+                </div>
+
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="photo">
+            <mat-header-cell *matHeaderCellDef>Author Image</mat-header-cell>
+            <mat-cell *matCellDef="let profileData" class="">
+                <div class="image">
+                    <img src="{{ profileData.photo }}" alt="Profile Photo">
+                </div>
+
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *matCellDef="let profileData">{{ profileData.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="author">
+            <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
+            <mat-cell *matCellDef="let profileData">{{ profileData.author }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rating">
+            <mat-header-cell *matHeaderCellDef>Rating</mat-header-cell>
+            <mat-cell *matCellDef="let profileData">
+                <div class="rating">
+                    <ng-container *ngIf="profileData.rating > 0; else noRating">
+                        <span *ngFor="let i of [1, 2, 3, 4, 5]">
+                            <mat-icon class="star" [ngClass]="{'star-filled': i <= profileData.rating}">
+                                star
+                            </mat-icon>
+                        </span>
+                    </ng-container>
+                    <ng-template #noRating>No Rating</ng-template>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="averageRating">
+            <mat-header-cell *matHeaderCellDef>Average Rating</mat-header-cell>
+            <mat-cell *matCellDef="let profileData">
+                <div class="rating">
+                    <ng-container *ngIf="profileData.averageRating > 0; else noRating">
+                        <span *ngFor="let i of [1, 2, 3, 4, 5]">
+                            <mat-icon class="star" [ngClass]="{'star-filled': i <= profileData.averageRating}">
+                                star
+                            </mat-icon>
+                        </span>
+                    </ng-container>
+                    <ng-template #noRating>No Rating</ng-template>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="shelf">
+            <mat-header-cell *matHeaderCellDef>Shelf</mat-header-cell>
+            <mat-cell *matCellDef="let profileData">
+                <mat-form-field appearance="outline">
+                    <mat-label>Shelf</mat-label>
+                    <mat-select [(value)]="profileData.shelf">
+                        <mat-option value="reading">Read</mat-option>
+                        <mat-option value="current-reading">Current Reading</mat-option>
+                        <mat-option value="want-to-read">Want to Read</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+    </mat-table>
+</div>
