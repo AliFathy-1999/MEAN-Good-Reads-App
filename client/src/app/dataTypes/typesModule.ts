@@ -21,9 +21,9 @@ export interface Author {
 }
 
 export interface Category {
-  id: number;
-  categoryName: string;
-  isEdit: boolean;
+  _id: number;
+  name: string; 
+  icon:string;
 }
 
 export interface Book{

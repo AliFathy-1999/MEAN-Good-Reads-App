@@ -10,8 +10,7 @@ import { UserBooksService } from 'src/app/services/user-books.service';
 export class BooksComponent implements OnInit {
 
 books:Book[]=[]
-page!: number;
-limit!: number;
+
 constructor(private _books:UserBooksService,private route:ActivatedRoute){}
   ngOnInit(): void {
     this.getAllBooks()
