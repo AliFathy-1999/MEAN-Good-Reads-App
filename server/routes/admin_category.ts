@@ -1,6 +1,6 @@
 import express, {Request, Response , Router,NextFunction} from 'express';
 const { categoriesController } = require("../controllers/index");
-const { categoriesValidator } = require('../Validations');
+const { categoriesValidator, paginationOptions  } = require('../Validations');
 const { validate } = require('../middlewares/validation');
 const { adminAuth } = require('../middlewares/auth');
 import { AppError, asycnWrapper, trimText } from '../lib/index';
@@ -16,8 +16,8 @@ router.post("/", adminAuth, validate(categoriesValidator.categoryData), async (r
   );
   
   
-router.get('/:page/:limit', adminAuth, async (req: Request, res: Response, next: NextFunction) => {
-    const {page, limit } = req.params;    
+router.get('/',validate(paginationOptions) ,adminAuth, async (req: Request, res: Response, next: NextFunction) => {
+    const {page, limit } = req.query;    
     const categories = categoriesController.getPaginatedCategories({page, limit });
     const [err, data] = await asycnWrapper(categories);
     if (err) return next(err);

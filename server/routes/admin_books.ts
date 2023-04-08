@@ -1,6 +1,6 @@
 import express, { Request, Response, Router, NextFunction } from 'express';
 const { booksController } = require('../controllers/index');
-const { booksValidator } = require('../Validations');
+const { booksValidator, paginationOptions } = require('../Validations');
 const { upload } = require('../middlewares/imageMiddleware');
 const { validate } = require('../middlewares/validation');
 const { adminAuth } = require('../middlewares/auth');
@@ -21,8 +21,8 @@ router.post('/', adminAuth, upload.single('bookImage'), validate(booksValidator.
   }
 );
 
-router.get('/:page/:limit', adminAuth, validate(booksValidator.booksRetrive), async (req: Request, res: Response, next: NextFunction) => {
-    const { page, limit } = req.params;
+router.get('/', adminAuth, validate(paginationOptions), async (req: Request, res: Response, next: NextFunction) => {
+    const {page, limit } = req.query;    
     const books = booksController.getPaginatedBooks({ page, limit });
     const [err, data] = await asycnWrapper(books);
     if (err) return next(err);
@@ -30,8 +30,7 @@ router.get('/:page/:limit', adminAuth, validate(booksValidator.booksRetrive), as
   }
 );
 
-// router.patch('/:id', adminAuth,  validate(booksValidator.bookId), validate(booksValidator.bookEdit) , async (req: Request, res: Response, next: NextFunction) => {
-router.patch('/:id', adminAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:id', adminAuth, validate(booksValidator.bookId), validate(booksValidator.bookEdit), async (req: Request, res: Response, next: NextFunction) => {
   let bookImage;
   if (req.file) {
     bookImage = `${process.env.BOOKS_IMAGES + req.file.filename}`;

@@ -1,6 +1,5 @@
-import Joi, { number } from 'joi';
-import { ObjectId } from 'mongoose';
-
+import Joi from 'joi'
+;
 const bookData = {
     body: Joi.object().keys({
         name: Joi.string().trim().min(3).max(30).required(),
@@ -39,17 +38,11 @@ const bookReview = {
     }
 
 
-const booksRetrive = {
-    params: Joi.object().keys({
-        page:Joi.number().min(1).required(),
-        limit:Joi.number().min(1).required()
-    })
-}
+
 
 module.exports = {
     bookData,
     bookId,
     bookEdit,
     bookReview,
-    booksRetrive
 };

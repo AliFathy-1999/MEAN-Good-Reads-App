@@ -3,6 +3,7 @@ import { Book, BookModel, review } from '../schemaInterfaces';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { AppError, trimText } from '../../lib';
 import NextFunction from 'express';
+import { Categoris } from './category';
 
 const schema = new Schema<Book>(
   {
@@ -77,6 +78,14 @@ const schema = new Schema<Book>(
     toObject: { virtuals: true },
   }
 );
+
+
+schema.methods.toJSON = function () {
+  const book = this;
+  const bookObject = book.toObject();
+  delete bookObject.__v;
+  return bookObject;
+};
 
 schema.statics.getNewId = async () =>
   await Books.find({})
