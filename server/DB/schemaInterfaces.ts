@@ -108,7 +108,7 @@ interface Author{
   authorImg?:string,
   firstName:string,
   lastName:string, 
-  history:string, 
+  bio:string, 
   DOB:Date,
 }
 export { User , Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category , Book , PaginatedCategories, review}

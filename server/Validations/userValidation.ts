@@ -40,8 +40,9 @@ const userValidation = [
     .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
     .matches(/(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/).withMessage(' Password must contain at least one number, capital letter, and one special character')
     .not().contains('password').withMessage('Password cannot contain the word "password"'),
-    body('confirmPassword').custom((value:string, req:Request ) => {
-      if (value !== body('password')) {
+
+    body('confirmPassword').custom((value:string, {req}:any ) => {
+      if (value != req.body.password) {
         throw new Error('Password must be matched with the confirm password !!!');
       }
       return true;

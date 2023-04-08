@@ -17,7 +17,8 @@ router.post("/register",upload.single('pImage'),userValidation,async (req:any,re
       const { body: { firstName, lastName, userName, email, password, role } } = req;   
       const user = userController.create({firstName,lastName,userName, email, password,pImage,role});
       const [err, data] = await asycnWrapper(user);
-      if(err) return next({ err: userError.array()[0].msg });
+      if(!userError.isEmpty()) return next({ err: userError.array()[0].msg });
+      if(err) return next(err);
       res.status(200).json({"message":"User registered successfully"});  
          
 })
@@ -38,5 +39,15 @@ router.post('/signin', validate(usersValidator.signIn) ,async (req:Request, res:
     } catch (err) {
       next(err);
     }
+  });
+  router.get('/books/:id', userAuth,async (req:Request, res:Response, next:NextFunction) => {
+      const { params: { id } } = req;   
+      const user = userController.getUserBooks(id);
+      const [err, data] = await asycnWrapper(user);
+      console.log(err);
+      
+      console.log(data);
+      if(err) return next(err);
+      res.json(data)
   });
 module.exports = router;
