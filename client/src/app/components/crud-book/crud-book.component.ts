@@ -56,42 +56,66 @@ export class CrudBookComponent implements OnInit {
 
   submitData(bookForm: FormGroup) {
     if (this.data) {
-      this._book.editBook(this.data.id, this.bookForm.value).subscribe(
-        (res: any) => {
+      this._book.editBook(this.data.id, this.bookForm.value).subscribe({
+        next:(res: any) => {
           console.log(res.data);
           this._dialogRef.close(true);
         },
-        (error: HttpErrorResponse) => {
-          console.log(error);
+        error: (HttpErrorResponse) => {
+          console.log(HttpErrorResponse);
         }
-      );
+    });
+    }else{
+      const formData = new FormData();
+      formData.append('name', bookForm.get('name')?.value);
+      formData.append('description', bookForm.get('description')?.value);
+      formData.append('categoryId', bookForm.get('categoryId')?.value);
+      formData.append('authorId', bookForm.get('authorId')?.value);
+      formData.append('bookImage', this.file[0]);
+      console.log(formData);
+      console.log(formData.get('name'));
+      console.log(formData.get('description'));
+      console.log(formData.get('categoryId'));
+      console.log(formData.get('authorId'));
+      console.log(formData.get('bookImage'));{
+      this._book.addBook(formData).subscribe({ 
+        next:(res: any)=> {
+          this._dialogRef.close(true);
+          console.log(res);
+          console.log(formData.get('name'));
+        },
+        error: (HttpErrorResponse) => {
+          console.log(HttpErrorResponse);
+        }
+      });
+    }
     }
   }
 
-  addBook(bookForm: FormGroup) {
-    const formData = new FormData();
-    formData.append('name', bookForm.get('name')?.value);
-    formData.append('description', bookForm.get('description')?.value);
-    formData.append('categoryId', bookForm.get('categoryId')?.value);
-    formData.append('authorId', bookForm.get('authorId')?.value);
-    formData.append('bookImage', this.file[0]);
-    console.log(formData);
-    console.log(formData.get('name'));
-    console.log(formData.get('description'));
-    console.log(formData.get('categoryId'));
-    console.log(formData.get('authorId'));
-    console.log(formData.get('bookImage'));
-    this._book.addBook(formData).subscribe(
-      (res: any) => {
-        this._dialogRef.close(true);
-        console.log(res);
-        console.log(formData.get('name'));
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
-  }
+  // addBook(bookForm: FormGroup) {
+  //   const formData = new FormData();
+  //   formData.append('name', bookForm.get('name')?.value);
+  //   formData.append('description', bookForm.get('description')?.value);
+  //   formData.append('categoryId', bookForm.get('categoryId')?.value);
+  //   formData.append('authorId', bookForm.get('authorId')?.value);
+  //   formData.append('bookImage', this.file[0]);
+  //   console.log(formData);
+  //   console.log(formData.get('name'));
+  //   console.log(formData.get('description'));
+  //   console.log(formData.get('categoryId'));
+  //   console.log(formData.get('authorId'));
+  //   console.log(formData.get('bookImage'));
+  //   this._book.addBook(formData).subscribe(
+  //     (res: any) => {
+  //       this._dialogRef.close(true);
+  //       console.log(res);
+  //       console.log(formData.get('name'));
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 
   ngOnInit(): void {
     this.bookForm.patchValue(this.data);

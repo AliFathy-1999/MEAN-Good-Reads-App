@@ -10,12 +10,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class CategoriesPopupComponent implements OnInit {
   categoryForm:FormGroup;
-  categoryName!:String;
+  name!:String;
 
   constructor(private _category: CategoriesService,private _dialogRef:MatDialogRef<CategoriesPopupComponent>, @Inject(MAT_DIALOG_DATA) public data:any) {
 
     this.categoryForm = new FormGroup({
-      categoryName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+      name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     });
 
   }
@@ -26,7 +26,7 @@ export class CategoriesPopupComponent implements OnInit {
 
   submitCategory() {
     if(this.data){
-      this._category.updateCategory(this.data.id,this.categoryForm.value).subscribe((res)=>{
+      this._category.updateCategory(this.data._id,this.categoryForm.value).subscribe((res)=>{
         console.log(res);
         this._dialogRef.close(true);
       })

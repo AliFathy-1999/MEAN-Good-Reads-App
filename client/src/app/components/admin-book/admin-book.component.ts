@@ -24,11 +24,13 @@ books:Book[]=[]
 
 openDialog(){
  const dialogRef= this._dialog.open(CrudBookComponent);
- dialogRef.afterClosed().subscribe((res:any)=>{
+ dialogRef.afterClosed().subscribe({
+  next:(res:any)=>{
   if(res){
     this.getAllBooks();
   }
- })
+  }
+})
 }
 
   displayedColumns: string[] = ['id', 'photo', 'name','description', 'categoryId','authorId'

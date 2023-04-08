@@ -12,21 +12,21 @@
                                 <div class="form-group">
                                     <mat-form-field appearance="outline">
                                         <mat-label>Category Name</mat-label>
-                                        <input matInput type="text" class="form-control" formControlName="categoryName" name="categoryName"
+                                        <input matInput type="text" class="form-control" formControlName="name" name="name"
                                         id="categoryName" placeholder="Enter the category name">
                                       </mat-form-field>
 
-                                    <div *ngIf="categoryForm.get('categoryName')?.errors != null && categoryForm.get('categoryName')?.touched"
+                                    <div *ngIf="categoryForm.get('name')?.errors != null && categoryForm.get('name')?.touched"
                                         class="alert-danger mt-2">
                                         <p class="text-danger"
-                                            *ngIf="categoryForm.get('categoryName')?.errors?.['required']">First
+                                            *ngIf="categoryForm.get('name')?.errors?.['required']">First
                                             Name is
                                             required!</p>
                                         <p class="text-danger"
-                                            *ngIf="categoryForm.get('categoryName')?.errors?.['minlength']">First
+                                            *ngIf="categoryForm.get('name')?.errors?.['minlength']">First
                                             Name minmum length 3</p>
                                         <p class="text-danger"
-                                            *ngIf="categoryForm.get('categoryName')?.errors?.['maxlength']">First
+                                            *ngIf="categoryForm.get('name')?.errors?.['maxlength']">First
                                             Name maxmim length 15</p>
                                     </div>
                                 </div>

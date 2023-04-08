@@ -10,11 +10,11 @@ export class CategoriesService {
   constructor(private _http:HttpClient) { }
 
 addCategory(categoryData:object):Observable<any>{
-  return this._http.post('http://localhost:3000/category', categoryData);
+  return this._http.post('http://localhost:3000/admin/categories', categoryData);
 }
 
-getCategory():Observable<any>{
-  return this._http.get('http://localhost:3000/category')
+getCategory(page:number,limit:number):Observable<any>{
+  return this._http.get(`http://localhost:3000/admin/categories?page=${page}&limit=${limit}`);
 }
 
 getCategoryById(id:number):Observable<any>{
@@ -22,11 +22,11 @@ getCategoryById(id:number):Observable<any>{
 }
 
 updateCategory(id:number,data:object):Observable<any>{
-  return this._http.patch(`http://localhost:3000/category/${id}`,data)
+  return this._http.patch(`http://localhost:3000/admin/categories/${id}`,data)
 }
 
 deleteCategoryById(id:number):Observable<any>{
-  return this._http.delete(`http://localhost:3000/category/${id}`)
+  return this._http.delete(`http://localhost:3000/admin/categories/${id}`)
 }
 
 }

@@ -28,7 +28,7 @@ this.getAllCategories()
     })
    }
 
-  displayedColumns: string[] = ['id','categoryName','action'];
+  displayedColumns: string[] = ['_id','name','action'];
   dataSource = new MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -38,8 +38,9 @@ this.getAllCategories()
   }
 
   getAllCategories(){
-   this._category.getCategory().subscribe((res:any)=>{
-    this.dataSource=new MatTableDataSource(res);
+   this._category.getCategory(1,4).subscribe((res:any)=>{
+
+    this.dataSource=new MatTableDataSource(res.data.docs);
     this.dataSource.paginator=this.paginator
         })
   }
@@ -55,7 +56,7 @@ this.getAllCategories()
   getCategory(id:number){
     this._category.getCategoryById(id).subscribe(
       (res:any) => {
-        console.log(res.categoryName);
+        console.log(res.name);
       },
       (error) => {
         console.log(error);
