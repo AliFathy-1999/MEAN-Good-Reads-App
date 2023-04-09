@@ -53,6 +53,7 @@ import { ReadComponent } from './components/users-modules/user-profile-page/read
 import { CurrentlyReadingComponent } from './components/users-modules/user-profile-page/currently-reading/currently-reading.component';
 import { AllBooksComponent } from './components/users-modules/user-profile-page/all-books/all-books.component';
 import { SpinerComponent } from './core/spiner/spiner.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { SpinerComponent } from './core/spiner/spiner.component';
     CurrentlyReadingComponent,
     AllBooksComponent,
     SpinerComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
