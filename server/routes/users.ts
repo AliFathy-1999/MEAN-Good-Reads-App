@@ -23,8 +23,7 @@ router.post(
     } = req;
     const user = userController.create({ firstName, lastName, userName, email, password, pImage, role });
     const [err, data] = await asycnWrapper(user);
-    if (!userError.isEmpty()) return next({ err: userError.array()[0].msg });
-    if (err) return next(err);
+    if (err) return next({ err: userError.array()[0].msg });
     res.status(200).json({ message: 'User registered successfully' });
   }
 );

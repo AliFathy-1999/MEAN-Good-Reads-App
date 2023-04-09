@@ -133,9 +133,6 @@ schema.methods.verifyPassword = function verifyPassword(pass: string) {
   return bcryptjs.compareSync(pass, this.password);
 };
 
-// Get User Books
-// schema.statics.getUserBooks =
-
 const Users = model('Users', schema);
 
 module.exports = Users;
