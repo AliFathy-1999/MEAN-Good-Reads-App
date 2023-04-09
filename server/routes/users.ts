@@ -8,15 +8,16 @@ const userValidation = require('../Validations/userValidation');
 const { userAuth } = require('../middlewares/auth');
 const { usersValidator } = require('../Validations');
 const { validate } = require('../middlewares/validation');
+const cloudinary = require('cloudinary').v2;
 
 router.post(
   '/register',
   upload.single('pImage'),
   userValidation,
   async (req: any, res: Response, next: NextFunction) => {
-    let pImage = 'https://cdn-icons-png.flaticon.com/128/3899/3899618.png';
+    let pImage = 'https://res.cloudinary.com/dttgbrris/image/upload/v1681003634/3899618_mkmx9b.png';
     const userError: Result<ValidationError> = validationResult(req);
-    if (req.file) pImage = `../../../assets/profile-imgs/${req.file.filename}`;
+    if (req.file) pImage = req.file.path;
     const {
       body: { firstName, lastName, userName, email, password, role },
     } = req;

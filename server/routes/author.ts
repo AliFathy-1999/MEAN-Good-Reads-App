@@ -10,9 +10,9 @@ const { adminAuth } = require('../middlewares/auth');
  const authorValidation  = require('../Validations/author');
 router.post('/',adminAuth ,upload.single("authorImg"),authorValidation.validAddedAuthor , async (req:Request, res:Response, next:NextFunction) => {
     const authorError : Result<ValidationError> = validationResult(req);
-    let authorImg = "https://cdn-icons-png.flaticon.com/128/3899/3899618.png" 
+    let authorImg = "https://res.cloudinary.com/dttgbrris/image/upload/v1681003634/3899618_mkmx9b.png" 
     if(req.file)
-      authorImg = `../../../assets/author-imgs/${req.file.filename}`
+      authorImg = req.file.path
     const incrementalId = await Counter.findOneAndUpdate(
         {id:"authorInc"},
         { $inc: { seq: 1 } },
@@ -35,7 +35,7 @@ router.post('/',adminAuth ,upload.single("authorImg"),authorValidation.validAdde
   router.patch('/:id',adminAuth,upload.single("authorImg"), authorValidation.validEditedAuthor,async (req:Request, res:Response, next:NextFunction) => {
     let authorImg :any; 
     if(req.file)
-      authorImg = `../../../assets/author-imgs/${req.file.filename}`
+      authorImg = req.file.path
     const { params:{ id }} = req 
     const { body:{ firstName, lastName, bio, DOB } } = req; 
     const authorError : Result<ValidationError> = validationResult(req);
