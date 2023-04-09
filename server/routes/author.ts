@@ -5,7 +5,7 @@ import { AppError, asycnWrapper } from '../lib/index';
 const {upload} = require("../middlewares/imageMiddleware")
 const { authorController } = require("../controllers/index")
 const router : Router = express.Router();
-const { adminAuth } = require('../middlewares/auth');
+const { adminAuth,userAuth } = require('../middlewares/auth');
  const { Counter } = require("../DB/models/index")
  const authorValidation  = require('../Validations/author');
 router.post('/',adminAuth ,upload.single("authorImg"),authorValidation.validAddedAuthor , async (req:Request, res:Response, next:NextFunction) => {
@@ -70,7 +70,8 @@ router.post('/',adminAuth ,upload.single("authorImg"),authorValidation.validAdde
     if (!data) return next(new AppError (`No Author with ID ${req.params.id}`, 400)); 
     res.status(200).json({message:"Author deleted successfully"});
   });  
-  router.get('/:id', adminAuth ,authorValidation.checkvalidID, async (req:Request, res:Response, next:NextFunction) => { 
+  router.get('/:id', userAuth , async (req:Request, res:Response, next:NextFunction) => { 
+    //authorValidation.checkvalidID
     const authorError : Result<ValidationError> = validationResult(req);
     const { params:{ id }} = req 
     const author = authorController.singleAuthor(id);

@@ -34,7 +34,7 @@ const schema = new Schema<Book>(
 
     bookImage: {
       type: String,
-      default: 'https://cdn-icons-png.flaticon.com/128/3899/3899618.png',
+      default: 'https://res.cloudinary.com/dttgbrris/image/upload/v1681003634/3899618_mkmx9b.pngs',
     },
     description: {
       type: String,
