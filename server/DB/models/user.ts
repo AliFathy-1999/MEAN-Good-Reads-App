@@ -1,47 +1,49 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, Types, model } from 'mongoose';
 import { User, Role, Shelve } from '../schemaInterfaces';
-const validator = require('validator')
+const ObjectId = mongoose.Types.ObjectId;
+
+const validator = require('validator');
 const bcryptjs = require('bcryptjs');
 
 const schema = new Schema<User>(
   {
     firstName: {
       type: String,
-      minLength: [3,"First name must be at least 3 characters"],
-      maxLength: [15,"First name must be at less than 15 characters"],
-      required: [true, "First name is a required field"],
+      minLength: [3, 'First name must be at least 3 characters'],
+      maxLength: [15, 'First name must be at less than 15 characters'],
+      required: [true, 'First name is a required field'],
       trim: true,
     },
     lastName: {
       type: String,
-      minLength: 3,
-      maxLength: 15,
-      required: [true, "Last name is a required field"],
+      minLength: [3, 'Last name must be at least 3 characters'],
+      maxLength: [15, 'Last name must be at less than 15 characters'],
+      required: [true, 'Last name is a required field'],
       trim: true,
     },
     userName: {
       type: String,
-      minLength: [3,"Username must be at least 3 characters"],
-      maxLength: [30,"Username must be at less than 30 characters"],
-      required: [true, "Username is a required field"],
+      minLength: [3, 'Username must be at least 3 characters'],
+      maxLength: [30, 'Username must be at less than 30 characters'],
+      required: [true, 'Username is a required field'],
       trim: true,
       unique: true,
     },
     email: {
       type: String,
-      required: [true, "Email is a required field"],
+      required: [true, 'Email is a required field'],
       unique: true,
-        validate(value:string){
-            if(!validator.isEmail(value)){
-                throw new Error("Invalid email")
-            }
+      validate(value: string) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
         }
+      },
     },
     password: {
       type: String,
-      required: [true, "Password is a required field"],
+      required: [true, 'Password is a required field'],
       trim: true,
-      minlength: [6,"Password must be at least 6 characters"],
+      minlength: [6, 'Password must be at least 6 characters'],
       match: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/,
       //@iti43OS
       validate(value: string) {
@@ -54,7 +56,7 @@ const schema = new Schema<User>(
     },
     pImage: {
       type: String,
-      default: 'https://cdn-icons-png.flaticon.com/128/3899/3899618.png',
+      default: 'https://res.cloudinary.com/dttgbrris/image/upload/v1681003634/3899618_mkmx9b.png',
     },
     role: {
       type: String,
@@ -89,9 +91,8 @@ schema.methods.toJSON = function () {
   return userObject;
 };
 
-
 schema.statics.getBookById = async function (_id: number) {
- return await Users.aggregate([
+  return await Users.aggregate([
     {
       $match: { _id },
     },
@@ -123,7 +124,6 @@ schema.statics.getBookById = async function (_id: number) {
     },
   ]);
 };
-
 
 schema.pre('save', async function () {
   if (this.isModified('password')) this.password = await bcryptjs.hash(this.password, 10);

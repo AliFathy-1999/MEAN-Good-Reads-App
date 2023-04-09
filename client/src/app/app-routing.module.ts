@@ -19,6 +19,7 @@ import { UserTableComponent } from './components/users-modules/user-profile-page
 import { ReadComponent } from './components/users-modules/user-profile-page/read/read.component';
 import { CurrentlyReadingComponent } from './components/users-modules/user-profile-page/currently-reading/currently-reading.component';
 import { WantToReadComponent } from './components/users-modules/user-profile-page/want-to-read/want-to-read.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'read', component: ReadComponent },
   { path: 'current-reading', component: CurrentlyReadingComponent },
   { path: 'want-to-read', component: WantToReadComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

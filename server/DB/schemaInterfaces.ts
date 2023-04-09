@@ -1,6 +1,5 @@
 import { Document, Model, Types} from 'mongoose';
 
-
 enum Role {
   ADMIN = 'admin',
   USER = 'user',
@@ -12,6 +11,13 @@ enum Shelve {
   READING = 'reading',
   WANT2READ = 'want2read',
 }
+
+enum Entities {
+  AUTHORS = 0,
+  BOOKS = 1,
+  CATEGORIIES = 2,
+}
+
 
 type review = 
   {
@@ -42,7 +48,7 @@ interface Book extends Document
   categoryId:number,
   authorId:number,
   totalRating:number,
-  averageRating:number,
+  // averageRating:number,
   ratingsNumber:number,
   description?:string,
   reviews?: review[],
@@ -112,4 +118,4 @@ interface Author{
   DOB:Date,
   bio:string,
 }
-export { User , Role, Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category , Book , PaginatedCategories, review}
+export { User , Role, Entities ,Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category , Book , PaginatedCategories, review}

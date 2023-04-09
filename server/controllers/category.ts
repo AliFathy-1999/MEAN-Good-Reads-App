@@ -1,9 +1,10 @@
 import { ObjectId } from 'mongoose';
 import { Category, PaginatedCategories ,PaginatedBooks } from '../DB/schemaInterfaces';
 import { AppError } from '../lib';
-import mongoosePaginate from 'mongoose-paginate-v2';
+
 const Categories = require('../DB/models/category');
 const Books = require('../DB/models/book');
+
 
 const create = (data: Category) => Categories.create(data);
 

@@ -1,47 +1,38 @@
 import express, { Request, Response, Router, NextFunction } from 'express';
 const multer = require('multer');
 const path = require('path');
-const storage = multer.diskStorage({
-    destination: function(req:Request, file:any, cb:any){
-        let imagePath :string= ""
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder:async (req:Request,file:any) => {
+        let folderName;
         switch(file.fieldname){
             case "pImage":
-                imagePath = "../client/src/assets/profile-imgs"
+                folderName = "profile-imgs"
                 break;
             case "authorImg":
-                imagePath = "../client/src/assets/author-imgs"
+                folderName = "author-imgs"
                 break;
             case "bookImage":
-                    imagePath = "../client/src/assets/books-imgs"
+                folderName = "books-imgs"
                 break;
             default:
-                imagePath = "../client/src/assets/random-imgs"
-        }
-        cb(null, imagePath)
-    },
-    
-    
-    filename: function(req:any,file:any, cb:any){
-        const { body: { userName,firstName,lastName,name } } = req;
-        let uniqueName :string= ""
-        
-        switch(file.fieldname){
-                case "pImage":
-                    uniqueName = userName
-                    break;
-                case "authorImg":
-                    uniqueName = `${firstName}-${lastName}`
-                    break;
-                case "bookImage":
-                    uniqueName = `${name}`
-                    break;
-                default:
-                    uniqueName = `${Date.now()}`
-        }
-        const myFileName = `${uniqueName}-${file.originalname}`
-        cb(null, myFileName)
+                folderName = `random-imgs`
     }
-})
+        return folderName
+    },
+      allowedFormats: ['jpg', 'jpeg', 'png','tiff'], 
+      public_id: async (req:Request, file:any) => {
+        const myFileName = `${Date.now()}-${file.originalname}`
+        return myFileName;
+    },
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET
+    },
+  });
 const upload= multer ({
     storage,
     limits:{

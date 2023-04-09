@@ -11,7 +11,7 @@ const router: Router = express.Router();
 router.post('/', adminAuth, upload.single('bookImage'), validate(booksValidator.bookData), async (req: Request, res: Response, next: NextFunction) => {
     let bookImage;
     if (req.file) {
-      bookImage = `${process.env.BOOKS_IMAGES + req.file.filename}`;
+      bookImage = req.file.path;
     }
     const { name, categoryId, authorId, description } = req.body;
     const book = booksController.create({ name: trimText(name), categoryId, authorId, bookImage, description });
@@ -33,7 +33,7 @@ router.get('/', adminAuth, validate(paginationOptions), async (req: Request, res
 router.patch('/:id', adminAuth, validate(booksValidator.bookId), validate(booksValidator.bookEdit), async (req: Request, res: Response, next: NextFunction) => {
   let bookImage;
   if (req.file) {
-    bookImage = `${process.env.BOOKS_IMAGES + req.file.filename}`;
+    bookImage = req.file.path;
   }
   const { name, categoryId, authorId, description } = req.body;
 

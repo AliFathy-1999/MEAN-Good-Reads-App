@@ -15,7 +15,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 }
 );
 
-router.get('/:id', validate(paginationOptions), validate(categoriesValidator.paginationOptions), async (req: Request, res: Response, next: NextFunction) => {
+router.get('/:id', validate(paginationOptions), async (req: Request, res: Response, next: NextFunction) => {
   const {page, limit } = req.query;    
   const books = categoriesController.getCategoyBooks(req.params.id, {page, limit});
   const [err, data] = await asycnWrapper(books);

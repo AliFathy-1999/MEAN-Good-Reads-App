@@ -1,4 +1,5 @@
 const Authors = require('../DB/models/author');
+const Books = require('../DB/models/book');
 import { Author } from "../DB/schemaInterfaces";
 
 const createAuthor = (data:Author) => Authors.create(data)
@@ -9,7 +10,9 @@ const updateAuthor = (id:number,data:Author) => Authors.findOneAndUpdate({_id:id
 
 const deleteAuthor = (id:number) => Authors.findOneAndDelete({_id:id});
 
-const singleAuthor = (id:number) :Author => Authors.findOne({_id:id});
+const singleAuthor = (id:number) :Author => {
+  return Books.findOne({authorId:id}).select("name bookImage ratingsNumber averageRating").populate({ path: 'authorId', select: 'firstName lastName authorImg bio' });
+}
 
 module.exports = {
     createAuthor,

@@ -40,7 +40,7 @@ const schema = new Schema<Author>(
     },
     authorImg: {
       type: String,
-      default: 'https://cdn-icons-png.flaticon.com/128/3899/3899618.png',
+      default: 'https://res.cloudinary.com/dttgbrris/image/upload/v1681003634/3899618_mkmx9b.png',
     },
   },
   {
