@@ -17,4 +17,8 @@ export class UserBooksService {
   getBookById(id:number): Observable<Book>{
     return this._http.get<Book>(`http://localhost:3000/books/${id}`);
    }
+
+   bookReview(id:number,data:object):Observable<any>{
+    return this._http.patch(`http://localhost:3000/books/${id}/reviews`,data)
+   }
 }

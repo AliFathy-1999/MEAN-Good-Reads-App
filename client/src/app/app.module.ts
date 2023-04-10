@@ -54,6 +54,8 @@ import { CurrentlyReadingComponent } from './components/users-modules/user-profi
 import { AllBooksComponent } from './components/users-modules/user-profile-page/all-books/all-books.component';
 import { SpinerComponent } from './core/spiner/spiner.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
+import { StarRatingConfigService, StarRatingModule } from 'angular-star-rating';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,8 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
     MatSelectModule,
     MatOptionModule,
     MatToolbarModule,
+    NgbModule,
+    StarRatingModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },

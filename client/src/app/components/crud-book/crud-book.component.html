@@ -32,9 +32,9 @@
               </mat-form-field>
               <div class="dialogVal alert-danger"
                 *ngIf="bookForm.get('description')?.errors != null && bookForm.get('description')?.touched">
-                <p class="text-danger" *ngIf="bookForm.get('description')?.errors?.['required']">Book Name is required!
+                <p class="text-danger" *ngIf="bookForm.get('description')?.errors?.['required']">Description is required!
                 </p>
-                <p class="text-danger" *ngIf="bookForm.get('description')?.errors?.['minlength']">Book Name minmum
+                <p class="text-danger" *ngIf="bookForm.get('description')?.errors?.['minlength']">Description minmum
                   length 3</p>
               </div>
             </div>

@@ -10,9 +10,9 @@
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="photo">
+      <ng-container matColumnDef="bookImage">
         <th mat-header-cell *matHeaderCellDef> Photo </th>
-        <td mat-cell *matCellDef="let element"> <img class="imgBook" width="50px" height="50px" src="{{element.photo}}"> </td>
+        <td mat-cell *matCellDef="let element"> <img class="imgBook" width="50px" height="50px" src="{{element.bookImage}}"> </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
@@ -49,8 +49,12 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
-    </mat-paginator>
-  </div>
+    <mat-paginator [pageSizeOptions]="[10]" (page)="onPageChanged($event)"></mat-paginator>
+
+    <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
+<span>>></span>
+   </button>
+    
+    <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+<span>>></span>
+    </button>
