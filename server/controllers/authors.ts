@@ -11,9 +11,22 @@ const updateAuthor = (id:number,data:Author) => Authors.findOneAndUpdate({_id:id
 const deleteAuthor = (id:number) => Authors.findOneAndDelete({_id:id});
 
 const singleAuthor = (id:number) :Author => {
-  return Books.findOne({authorId:id}).select("name bookImage ratingsNumber averageRating").populate({ path: 'authorId', select: 'firstName lastName authorImg bio' });
-}
+  return Books
+  .find({authorId:id})
+  .select("name bookImage ratingsNumber averageRating")
+  // return Books.aggregate([
+  //   {$lookup: {
+  //     From: 'Authors',
+  //     LocalField: '_id',
+  //     foreignField: 'authorId',
+  //     as: 'Author_Books'
+  //   },{
+  //     $limit:1
+  //   }}
+  // ]);
+  // .populate({ path: 'authorId', select: 'firstName lastName authorImg bio' });
 
+} 
 module.exports = {
     createAuthor,
     getAuthors,
