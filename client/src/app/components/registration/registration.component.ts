@@ -97,10 +97,14 @@ export class RegistrationComponent implements OnInit {
           if (res.message === 'User registered successfully') {
             this.successMessage = 'Signed up successfully!';
             this.registrationForm.reset();
+            this.toastr.error(res.message);
+
+            console.log(res);
           }
         },
         (error: HttpErrorResponse) => {
-          this.toastr.error(error.error.err);
+          this.toastr.error(error.error.message);
+          console.log(error);
         }
       );
     }

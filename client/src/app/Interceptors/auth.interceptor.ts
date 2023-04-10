@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { SpinerService } from '../core/spiner/spiner.service';
 
@@ -11,11 +12,19 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const myToken = this.authService.getToken();
     if (myToken) {
-      const Modifiedrequest = request.clone({
+      const modifiedRequest = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${myToken}`),
       });
-      console.log(Modifiedrequest, next);
-      return next.handle(Modifiedrequest);
+      console.log(modifiedRequest, next);
+      return next.handle(modifiedRequest).pipe(
+        tap((response) => {
+          console.log(response);
+        }),
+        catchError((error) => {
+          console.log(error);
+          return throwError(error);
+        })
+      );
     }
     console.log(request, next);
 
