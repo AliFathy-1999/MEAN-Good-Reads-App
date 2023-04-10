@@ -54,6 +54,13 @@ schema.methods.toJSON = function () {
   delete authorObject.__v;
   return authorObject;
 };
+schema.virtual('authorbooks', {
+  ref: 'Books',
+  localField: '_id',
+  foreignField: 'authorId',
+  justOne: true,
+  options: { select: 'firstName lastName authorImg bio' },
+});
 
 const Author = model('Authors', schema);
 

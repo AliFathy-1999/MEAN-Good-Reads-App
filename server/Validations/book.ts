@@ -22,10 +22,6 @@ const bookEdit = {
         authorId: Joi.number(),
         categoryId: Joi.number(),
         description: Joi.string().trim().min(30).max(200),
-        reviews: Joi.object().keys({
-            user: Joi.number().required(),
-            comment: Joi.string().trim().min(3).max(140).required(),
-        }).min(1)
     }),
 }
 

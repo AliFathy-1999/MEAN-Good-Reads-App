@@ -8,7 +8,7 @@ const userValidation = require('../Validations/userValidation');
 const { userAuth } = require('../middlewares/auth');
 const { usersValidator } = require('../Validations');
 const { validate } = require('../middlewares/validation');
-const cloudinary = require('cloudinary').v2;
+
 
 router.post(
   '/register',
@@ -23,7 +23,7 @@ router.post(
     } = req;
     const user = userController.create({ firstName, lastName, userName, email, password, pImage, role });
     const [err, data] = await asycnWrapper(user);
-    if (err) return next({ err: userError.array()[0].msg });
+    if (err) return next({ message: userError.array()[0].msg });
     res.status(200).json({ message: 'User registered successfully' });
   }
 );
@@ -55,7 +55,6 @@ router.get('/books/:id', async (req: Request, res: Response, next: NextFunction)
 
   const user = userController.getUserBooks(id);
   const [err, data] = await asycnWrapper(user);
-  console.log(data);
   if (err) return next(err);
   res.json(data);
 });

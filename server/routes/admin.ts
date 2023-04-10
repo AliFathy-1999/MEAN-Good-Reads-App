@@ -7,10 +7,13 @@ import { asycnWrapper } from '../lib/index';
 
 const bookRoute = require("./admin_books");
 const categoryRoute = require("./admin_category");
+const authorRoute = require("./admin_authors");
 
 const router : Router = express.Router();
+
 router.use('/books', bookRoute);
 router.use('/categories', categoryRoute);
+router.use('/authors', authorRoute);
 
 router.post('/signin', validate(usersValidator.signIn), adminAuth,async (req:Request, res:Response, next:NextFunction) => {
     const { body: { userName, password } } = req;
