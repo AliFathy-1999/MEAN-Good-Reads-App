@@ -44,6 +44,10 @@ const schema = new Schema<Book>(
       type: Number,
       default: 0,
     },
+    totalRating: {
+      type:Number,
+      default:0
+    },
     reviews: {
       type: [
         {
@@ -100,23 +104,10 @@ schema.statics.getNewId = async () => {
   return categoryCounter.seq;
 };
 
-schema.virtual('totalRating').get(function () {
-  if (!this.reviews?.length) return 0;
-  const sum = this.reviews.reduce((acc, cur) => acc + cur.rating.valueOf(), 0);
-  return sum;
-});
-
 schema.virtual('averageRating').get(function () {
   if (this.ratingsNumber === 0) return 0;
   return Math.floor(this.totalRating / this.ratingsNumber);
 });
-
-// Validate Author and Category IDs Related to each Book entry
-schema.statics.checkReferenceValidation = async (references: { categoryId: number; authorId: number }) => {
-  const relatedCategory = await Categoris.findById(references.categoryId);
-  const relatedAuthor = await Authors.findById(references.authorId);
-  if (!(relatedAuthor && relatedCategory)) throw new AppError("Category or Author isn't valid", 422);
-};
 
 // Set Incremantal Id pre saving document
 schema.pre('save', { document: true, query: true }, async function () {

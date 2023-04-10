@@ -1,5 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose';
-import {  Shelve } from '../schemaInterfaces';
+import {  Shelf } from '../schemaInterfaces';
 
 
 const schema = new Schema(
@@ -12,22 +12,24 @@ const schema = new Schema(
     books: {
         type: [
           {
-            rating: Number,
-            book: {
+            bookId: {
               type: Number,
               ref: 'Books',
             },
-            shelve: {
+            shelf: {
               type: String,
-              enum: Object.values(Shelve),
-              default: Shelve.WANT2READ,
+              enum: Object.values(Shelf),
+              default: Shelf.WANT2READ,
             },
+            rating:{
+              type:Number,
+              default:0
+            }
           },
         ],
       },
   },
 );
-
 
 const UserBooks = model('UserBooks', schema);
 module.exports = UserBooks;

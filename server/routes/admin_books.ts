@@ -9,10 +9,9 @@ import { AppError, asycnWrapper, trimText } from '../lib/index';
 const router: Router = express.Router();
 
 router.post('/', adminAuth, upload.single('bookImage'), validate(booksValidator.bookData), async (req: Request, res: Response, next: NextFunction) => {
-    let bookImage;
-    if (req.file) {
-      bookImage = req.file.path;
-    }
+
+    // if (!req.file) return next(new AppError('Please Upload Book cover', 400))
+    let bookImage = req.file?.path
     const { name, categoryId, authorId, description } = req.body;
     const book = booksController.create({ name: trimText(name), categoryId, authorId, bookImage, description });
     const [err, data] = await asycnWrapper(book);
@@ -35,6 +34,7 @@ router.patch('/:id', adminAuth, validate(booksValidator.bookId), validate(booksV
   if (req.file) {
     bookImage = req.file.path;
   }
+
   const { name, categoryId, authorId, description } = req.body;
   const book = booksController.editBook(req.params.id, { name, bookImage, categoryId, authorId, description });
   const [err, data] = await asycnWrapper(book);
@@ -43,11 +43,8 @@ router.patch('/:id', adminAuth, validate(booksValidator.bookId), validate(booksV
   res.status(200).json({ success: true, data });
 });
 
-router.delete(
-  '/:id',
-  adminAuth,
-  validate(booksValidator.bookId),
-  async (req: Request, res: Response, next: NextFunction) => {
+
+router.delete('/:id', adminAuth, validate(booksValidator.bookId), async (req: Request, res: Response, next: NextFunction) => {
     const deletedBook = booksController.deleteBook(req.params.id);
     const [err, data] = await asycnWrapper(deletedBook);
     if (err) return next(err);
