@@ -11,18 +11,18 @@
 
 .dialog{
     width: 750px;
-    height: 450px;
+    height: 520px;
 }
 
 .dialogVal{
 text-align: right;
 margin-top: -25px;
-margin-right:14%;
+margin-right:34%;
 }
 
 .catVal{
 margin-top: -25px;
-margin-left: 6%;
+margin-left: 1%;
 }
 
 
@@ -121,6 +121,16 @@ input:focus {
 @media (max-width: 715px) {
     .dialogVal{
     text-align: left;
-    margin-left: 25px;
+    margin-left: -20%;
+}
+}
+
+@media (max-width: 700px) {
+    .dialogVal{
+    text-align: left;
+    margin-left: -20%;
+}
+.dialog{
+    height: 700px;
 }
 }
