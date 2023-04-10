@@ -17,7 +17,7 @@ constructor(private _books:UserBooksService,private route:ActivatedRoute){}
   }
 
 getAllBooks(){
-this._books.getAllBooks(2,2).subscribe((res:any)=>{
+this._books.getAllBooks(1,10).subscribe((res:any)=>{
   this.books=res.data.docs
   console.log(this.books)
 })
