@@ -8,8 +8,9 @@ const Users = require('../DB/models/user');
 
 const verifyToken = async (bearerToken: string) => {
   bearerToken = bearerToken.split(' ')[1];
+  if(!bearerToken) return new AppError('Sign in again',401); 
   const decoded = jwt.verify(bearerToken, process.env.TOKEN_KEY);
-  const user = await Users.findOne({ userName: decoded.userName });
+  const user = await Users.findById( decoded.userId);
   if(!user) return new AppError('un-authenticated',401); 
   return user;
 };

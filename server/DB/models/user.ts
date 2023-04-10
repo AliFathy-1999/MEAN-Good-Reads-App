@@ -1,5 +1,5 @@
 import mongoose, { Schema, Types, model } from 'mongoose';
-import { User, Role, Shelve } from '../schemaInterfaces';
+import { User, Role, Shelf } from '../schemaInterfaces';
 const ObjectId = mongoose.Types.ObjectId;
 
 const validator = require('validator');
@@ -62,21 +62,6 @@ const schema = new Schema<User>(
       type: String,
       enum: Object.values(Role),
       default: Role.USER,
-    },
-    books: {
-      type: [
-        {
-          book: {
-            type: Number,
-            ref: 'Books',
-          },
-          shelve: {
-            type: String,
-            enum: Object.values(Shelve),
-            default: Shelve.WANT2READ,
-          },
-        },
-      ],
     },
   },
   {

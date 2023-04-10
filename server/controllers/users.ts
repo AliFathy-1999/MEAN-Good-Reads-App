@@ -6,7 +6,7 @@ import { AppError, asycnWrapper } from '../lib/index';
 const userBooks = require("../DB/models/userBooks")
 let mongoose = require('mongoose');
 const createToken = (user: User) => {
-  const token = jwt.sign({ userName: user.userName }, process.env.TOKEN_KEY, { expiresIn: '7d' });
+  const token = jwt.sign({ userName: user.userName, userId:user._id }, process.env.TOKEN_KEY, { expiresIn: '14d' });
   return token;
 };
 
