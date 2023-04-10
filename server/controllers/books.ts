@@ -1,10 +1,16 @@
 import { Book, PaginatedBooks } from '../DB/schemaInterfaces';
 import { AppError, trimText } from '../lib';
-import { AnyObject, ObjectId } from 'mongoose';
+import { ObjectId } from 'mongoose';
+
 const Books = require('../DB/models/book');
+const Categoris = require('../DB/models/category');
+const Authors = require('../DB/models/author');
+
 
 const create = async (data: Book) => {
-  Books.checkReferenceValidation({ authorId: data.authorId, categoryId: data.categoryId });
+  const relatedCategory = await Categoris.findById(data.categoryId);
+  const relatedAuthor = await Authors.findById(data.authorId);
+  if (!(relatedAuthor && relatedCategory)) throw new AppError("Category or Author isn't valid", 422);
   return Books.create(data);
 };
 
@@ -34,8 +40,10 @@ const getBooks_fullInfo = async (options: { page: number; limit: number }) => {
 const editBook = async (id:number, data: { name:string, bookImage:string, categoryId:number, authorId:number, description:string }) => {
   const book = await Books.findById(id);
   if (!book) throw new AppError(" Book doesn't exist ", 422);
-  Books.checkReferenceValidation({ authorId: data.authorId, categoryId: data.categoryId });
-  if(data.name) data.name = trimText(data.name);
+  const relatedCategory = await Categoris.findById(data.categoryId);
+  const relatedAuthor = await Authors.findById(data.authorId);
+  if (!(relatedAuthor && relatedCategory)) throw new AppError("Category or Author isn't valid", 422);
+   if(data.name) data.name = trimText(data.name);
   return Books.findByIdAndUpdate(id, { ...data }, { new: true });
 };
 

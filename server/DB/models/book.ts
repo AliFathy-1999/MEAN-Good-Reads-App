@@ -1,11 +1,8 @@
-import { Schema, model, ObjectId } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
+import { Book, BookModel, Entities } from '../schemaInterfaces';
 
-import { Book, BookModel } from '../schemaInterfaces';
-import { AppError } from '../../lib';
-
-const Categoris = require('./category');
-const Authors = require('./author');
+const Counters = require('./counter')
 
 const schema = new Schema<Book>(
   {
@@ -92,14 +89,19 @@ schema.methods.toJSON = function () {
 schema.plugin(mongoosePaginate);
 
 // Get new Incremental ID For Book Document
-schema.statics.getNewId = async () =>
-  await Books.find({})
-    .sort('-createdAt')
-    .limit(1)
-    .then((lastBook) => (lastBook[0] ? lastBook[0]._id + 1 : 0));
+  schema.statics.getNewId = async () => {
+    const categoryCounter = await Counters.findOneAndUpdate(
+      { id: Entities.BOOKS },
+      { $inc: { seq: 1 } },
+      { new: true }
+    );
+    if (!categoryCounter) {
+      Counters.create({ id: Entities.BOOKS, seq: 1 });
+      return 1;
+    }
+    return categoryCounter.seq;
+  };
 
-// schema.statics.getNewId = async () =>
-// await Books.findByIdAndUpdate(0, { $inc: { count: 1 } }, { new: true }).then((countDoc: any) =>  countDoc? countDoc.count : 0 ) ;
 
 schema.virtual('totalRating').get(function () {
   if (!this.reviews?.length) return 0;
@@ -111,14 +113,6 @@ schema.virtual('averageRating').get(function () {
   if (this.ratingsNumber === 0) return 0;
   return Math.floor(this.totalRating / this.ratingsNumber);
 });
-
-// Validate Author and Category IDs Related to each Book entry
-schema.statics.checkReferenceValidation = async (references: { categoryId: number; authorId: number }) => {
-  const relatedCategory = await Categoris.findById(references.categoryId);
-  const relatedAuthor = await Authors.findById(references.authorId);
-  if (!(relatedAuthor && relatedCategory)) return new AppError("Category or Author isn't valid", 422);
-  return
-};
 
 
 // Set Incremantal Id pre saving document
