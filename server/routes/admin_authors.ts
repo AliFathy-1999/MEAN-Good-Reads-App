@@ -50,9 +50,9 @@ router.post('/',adminAuth ,upload.single("authorImg"),authorValidation.validAdde
   });  
 
 
-  router.get('/:pageNumber/:limit', adminAuth ,authorValidation.validatePagination, async (req:Request, res:Response, next:NextFunction) => { 
-    const { params:{ limit,pageNumber }} = req 
-    const author = authorController.getAuthors(+limit,+pageNumber);
+  router.get('/', adminAuth ,authorValidation.validatePagination, async (req:Request, res:Response, next:NextFunction) => { 
+    const { query:{ limit,page }} = req 
+    const author = authorController.getAuthors({page,limit});
     const [err, data] = await asycnWrapper(author);
     const authorError : Result<ValidationError> = validationResult(req);
     // if (!authorError.isEmpty()) return next({ err: authorError.array()[0]?.msg });
