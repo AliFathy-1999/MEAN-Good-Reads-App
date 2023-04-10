@@ -116,7 +116,8 @@ schema.virtual('averageRating').get(function () {
 schema.statics.checkReferenceValidation = async (references: { categoryId: number; authorId: number }) => {
   const relatedCategory = await Categoris.findById(references.categoryId);
   const relatedAuthor = await Authors.findById(references.authorId);
-  if (!(relatedAuthor && relatedCategory)) throw new AppError("Category or Author isn't valid", 422);
+  if (!(relatedAuthor && relatedCategory)) return new AppError("Category or Author isn't valid", 422);
+  return
 };
 
 

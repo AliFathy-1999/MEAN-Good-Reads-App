@@ -36,11 +36,7 @@ router.patch('/:id', adminAuth, validate(booksValidator.bookId), validate(booksV
     bookImage = req.file.path;
   }
   const { name, categoryId, authorId, description } = req.body;
-
-  const book = booksController.editBook({
-    _id: req.params.id,
-    newValues: { name: trimText(name), bookImage, categoryId, authorId, description },
-  });
+  const book = booksController.editBook(req.params.id, { name, bookImage, categoryId, authorId, description });
   const [err, data] = await asycnWrapper(book);
   if (err) return next(err);
   if (!data) return next(new AppError(`No book with ID ${req.params.id}`, 400));
