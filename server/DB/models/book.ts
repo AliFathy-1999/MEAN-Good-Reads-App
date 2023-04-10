@@ -1,7 +1,9 @@
 import { Schema, model } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { Book, BookModel, Entities } from '../schemaInterfaces';
-
+import { AppError } from '../../lib';
+const Categoris = require('../models/category')
+const Authors = require('../models/author')
 const Counters = require('./counter');
 
 const schema = new Schema<Book>(

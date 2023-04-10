@@ -1,11 +1,11 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import {  Shelve } from '../schemaInterfaces';
 
 
 const schema = new Schema(
   {
     userId:{
-        type:Number,
+        type:mongoose.Types.ObjectId,
         ref: 'User',
     },
 
@@ -30,5 +30,5 @@ const schema = new Schema(
 
 
 const UserBooks = model('UserBooks', schema);
-
+module.exports = UserBooks;
 export { UserBooks };
