@@ -77,7 +77,116 @@ button:hover {
 	transition: 0.32s ease-in-out;
 	background-color: #FFFFFF;
     color: #EF9A53;
+	border-color: #EF9A53;
 }
+
+
+.leftSign {
+	padding:11px 29px;
+	border: none;
+	background-color: #EF9A53;
+	border-radius: 25px;
+	color: #f2f2f2;
+	position: relative;
+	margin-left: 10px;
+	font-size: 19px;
+  }
+  
+  .leftSign svg {
+	position: absolute;
+	top: 8px;
+	margin-left: 15px;
+	width: 28px;
+	height: 28px;
+	opacity: 0;
+	transform: translateX(75%) scaleX(0.1);
+	transform-origin: center;
+	transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1), opacity .4s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+  
+  .st0 {
+	fill: #E5EFF5;
+  }
+  
+  .leftSign:hover {
+	cursor: pointer;
+	border: 1px solid #EF9A53;
+
+  }
+  
+  .leftSign:hover svg {
+	opacity: 1;
+	transform: translateX(30px) scaleX(1);
+  }
+  
+  .leftSign:hover span {
+	transform: translateX(-15px);
+  }
+  
+  .leftSign span {
+	display: inline-block;
+	transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+
+
+.rightSign a{
+	transition: 0.32s ease-in-out;
+	background-color: #FFFFFF;
+    color: #EF9A53;
+	font-weight: bold;
+	padding: 12px 35px;
+	font-size: 14px;
+	letter-spacing: 1px;
+	border-radius: 20px;
+}
+
+.button.radius {
+	padding:11px 29px;
+	border: none;
+	background-color: #f2f2f2;
+	border-radius: 25px;
+	color: #EF9A53;
+	position: relative;
+	margin-left: 10px;
+	font-size: 19px;
+  }
+  
+  .button.radius svg {
+	position: absolute;
+	top: 8px;
+	margin-left: 15px;
+	width: 28px;
+	height: 28px;
+	opacity: 0;
+	transform: translateX(75%) scaleX(0.1);
+	transform-origin: center;
+	transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1), opacity .4s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+  
+  .st0 {
+	fill: #EF9A53;
+  }
+  
+  .button.radius:hover {
+	cursor: pointer;
+  }
+  
+  .button.radius:hover svg {
+	opacity: 1;
+	transform: translateX(30px) scaleX(1);
+  }
+  
+  .button.radius:hover span {
+	transform: translateX(-15px);
+  }
+  
+  .button.radius span {
+	display: inline-block;
+	transition: transform .5s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+  
+  
+
 
 form {
 	background-color: #FFFFFF;

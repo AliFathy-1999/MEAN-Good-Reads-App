@@ -13,9 +13,7 @@
     background-position: center;
     border: 1px solid #ccc;
 }
-/* mat-card-header{
-    margin-left: 20%;
-} */
+
 .book-title {
     font-weight: 500;
     font-size: 24px;
@@ -26,6 +24,45 @@
     font-size: 18px;
     color: #666;
 
+}
+
+#line{
+    width: 70%;
+    margin: auto;
+}
+
+.form-group #starRate{
+    margin-top: 2%;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 2%;
+    margin-left: 40%;
+    color: #ffc107;
+}
+
+#review-text{
+    margin: auto;
+    height: 100px;
+}
+
+#review-text:focus{
+border: 1px solid #fb4e3e;
+outline: none;
+}
+
+.btn-block{
+  margin-left: 45%;
+  background-color: #fb4e3e;  
+  color: #fff;
+  padding: 10px;
+  margin-top: 2%;
+}
+
+button:hover{
+    background-color: #fff;  
+    color: #fb4e3e;
+    border: 1px solid #fb4e3e;
 }
 
 .book-category {
@@ -56,7 +93,6 @@
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 16px;
-
 }
 
 .review-card {

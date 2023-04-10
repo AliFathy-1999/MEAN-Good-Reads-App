@@ -11,8 +11,8 @@
                 <div class="col-md-10 ">
                     <mat-card-header>
                         <mat-card-title class="book-title">{{ book.name}}</mat-card-title>
-                        <!-- <mat-card-subtitle class="book-author">{{ book.authorId.firstName }} {{book.authorId.lastName}}</mat-card-subtitle> -->
-                        <!-- <mat-card-subtitle class="book-category">{{ book.categoryId.name }}</mat-card-subtitle> -->
+                        <mat-card-subtitle class="book-author">{{ book.authorId.firstName }} {{book.authorId.lastName}}</mat-card-subtitle>
+                        <mat-card-subtitle class="book-category">{{ book.categoryId.name }}</mat-card-subtitle>
 
                     </mat-card-header>
                 </div>
@@ -26,11 +26,16 @@
                     </mat-card-content>
                     <mat-card-content>
                         <p class="book-description">{{ book.description }}</p>
+                        <br/>
                     </mat-card-content>
+                    <hr id="line"/>
                     <mat-card-content>
                         <form [formGroup]="userReview" (ngSubmit)="onSubmit(book._id)">
                             <div class="form-group">
-                              <textarea class="form-control w-75" id="review-text" formControlName="comment" name="comment"></textarea>
+                                <ngb-rating id="starRate" [max]="5" formNameControl="rating" (rateChange)="onRateChange($event)" [readonly]="false"></ngb-rating>
+                            </div>
+                            <div class="form-group">
+                              <textarea class="form-control w-50" id="review-text" formControlName="comment" name="comment"></textarea>
                               <div class="dialogVal alert-danger"
                               *ngIf="userReview.get('comment')?.errors != null && userReview.get('comment')?.touched">
                               <p class="text-danger" *ngIf="userReview.get('comment')?.errors?.['required']">Your comment is required!
@@ -39,9 +44,11 @@
                                 length 3</p>
                                 <p class="text-danger" *ngIf="userReview.get('comment')?.errors?.['minlength']">your comment maximum
                                     length 140</p>
+                                <div *ngIf="errorMessage" class="alert mt-3 alert-danger text-center"
+                                role="alert">{{errorMessage}}</div>
                             </div>
                             </div>
-                            <ngb-rating [max]="5" formNameControl="rating" (rateChange)="onRateChange($event)" [readonly]="false"></ngb-rating>
+
 
                             <div>
                                 <button class="btn btn-block">Add Your Review</button>
