@@ -22,15 +22,6 @@ export class CrudBookComponent implements OnInit {
   file: any;
 
   onFileSelected(event: any) {
-    // const file= event.target as HTMLInputElement
-    // if(file.files)
-    // {
-    //   var reader= new FileReader();
-    //   reader.onload = (event:any) => {
-    //     this.bookForm.value.bookImage=event.target.result;
-    //  }
-    //   reader.readAsDataURL(file.files[0]);
-    // }
     this.file = event.target.files;
   }
 
@@ -51,8 +42,36 @@ export class CrudBookComponent implements OnInit {
 
   submitData(bookForm: FormGroup) {
     if (this.data) {
-      this._book.editBook(this.data.id, this.bookForm.value).subscribe({
+      const updatedValues :any = {};
+      let hasUpdatedImage = false; 
+      for (const key in bookForm.value) {
+        if (bookForm.value.hasOwnProperty(key)) {
+          const currentValue = bookForm.value[key];
+          const originalValue = this.data[key];
+          if (currentValue !== originalValue) {
+            updatedValues[key] = currentValue;
+            if (key === "bookImage" && currentValue) {
+              hasUpdatedImage = true;
+            }
+          }
+        }
+      }
+      console.log(updatedValues);
+      const formData = new FormData();
+      if (hasUpdatedImage) {
+        formData.append("bookImage", this.file[0]);
+        console.log(formData.get('bookImage'))
+        delete updatedValues["bookImage"];
+      }
+      for (const key in updatedValues) {
+        if (updatedValues.hasOwnProperty(key)) {
+          formData.append(key, updatedValues[key]);
+          console.log(formData.get('bookImage'))
+        }
+      }
+      this._book.editBook(this.data.id, updatedValues).subscribe({
         next:(res: any) => {
+          console.log(updatedValues)
           console.log(res.data);
           this._dialogRef.close(true);
         },
@@ -89,8 +108,8 @@ export class CrudBookComponent implements OnInit {
       });
     }
     }
+    
   }
-
   // addBook(bookForm: FormGroup) {
   //   const formData = new FormData();
   //   formData.append('name', bookForm.get('name')?.value);

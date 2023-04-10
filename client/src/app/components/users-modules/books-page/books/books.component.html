@@ -13,7 +13,9 @@
                             <a class="card-link">
                                 <mat-card-title class="card-title"[routerLink]="['/books',book._id]">{{ book.name }}</mat-card-title>
                             </a>
-                            <mat-card-subtitle class="card-subtitle">{{ book.authorId.firstName }}{{ book.authorId.lastName }}</mat-card-subtitle>
+                            <a class="card-link"> 
+                            <mat-card-subtitle class="card-subtitle" [routerLink]="['/author',book.authorId._id]">{{ book.authorId._id }}{{ book.authorId.lastName }}</mat-card-subtitle>
+                            </a>
                         </mat-card-content>
 
                     </mat-card>

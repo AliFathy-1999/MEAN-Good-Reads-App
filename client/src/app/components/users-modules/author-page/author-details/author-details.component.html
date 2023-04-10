@@ -4,17 +4,16 @@
         <mat-card class="book-card">
             <div class="row">
                 <div class="col-md-2">
-                    <div class="book-image" [style.background-image]="'url(' + author.imageUrl + ')'"></div>
+                    <div class="book-image" [style.background-image]="'url(' + author.author.authorImg + ')'"></div>
                 </div>
                 <div class="col-md-10 ">
                     <mat-card-header>
-                        <mat-card-title class="book-title">{{ author.name }}</mat-card-title>
-                        <mat-card-subtitle class="book-category">{{ author.dob }}</mat-card-subtitle>
+                        <mat-card-title class="book-title">{{ author.author.firstName }} {{ author.author.lastName }}</mat-card-title>
 
                     </mat-card-header>
 
                     <mat-card-content>
-                        <p class="book-description">{{ author.bio }}</p>
+                        <p class="book-description">{{ author.author.bio }}</p>
                     </mat-card-content>
 
                 </div>
@@ -26,16 +25,17 @@
             <mat-card-title class="review-heading">Books</mat-card-title>
         </mat-card-header>
 
+        <div *ngFor="let authorBooks of author.authorBooks">
         <mat-card-content>
             <div class="review-section p-3 row">
                 <mat-card class="review-card">
                     <mat-card-header>
                         <div class="review-header mb-3">
                             <div class="col-md-2">
-                                <div class="book-image" [style.background-image]="'url(' + book.imageUrl + ')'"></div>
+                                <div class="book-image" [style.background-image]="'url(' + authorBooks.bookImage + ')'"></div>
                             </div>
                             <div class="user-info">
-                                <p class="user-name">Book Name</p>
+                                <p class="user-name">{{authorBooks.name}}</p>
                             </div>
                         </div>
                     </mat-card-header>
@@ -70,5 +70,6 @@
 
             </div>
         </mat-card-content>
+        </div>
     </div>
 </section>

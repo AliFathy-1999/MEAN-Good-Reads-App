@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'books', component: BooksComponent },
   { path: 'books/:id', component: BookDetailsComponent },
   { path: 'user/authors', component: AuthorCardsComponent },
-  { path: 'user/author', component: AuthorDetailsComponent },
+  { path: 'author/:id', component: AuthorDetailsComponent },
   { path: 'categories', component: CategoryCardsComponent },
   { path: 'categories/:id', component: CategoryComponent },
   { path: 'user/profile', component: UserTableComponent },
