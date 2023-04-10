@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from 'src/app/dataTypes/typesModule';
 import { UserBooksService } from 'src/app/services/user-books.service';
 
@@ -20,10 +20,10 @@ export class BookDetailsComponent implements OnInit {
   book: any |undefined
   comment!:string
   rating!:any
-  constructor(private _book:UserBooksService, private route:ActivatedRoute) {
+  constructor(private _book:UserBooksService, private route:ActivatedRoute,private router:Router) {
     this.userReview=new FormGroup({
       comment:new FormControl(null ,[Validators.required,Validators.maxLength(140),Validators.minLength(3)]),
-      rating:new FormControl(null,Validators.required)
+      rating:new FormControl(1,Validators.required)
     })
   }
 
@@ -36,19 +36,17 @@ this.route.params.subscribe(params=>this.getBookById(params['id']))
   }
 
 onSubmit(id:number){
-const formData= new FormData();
-formData.append('comment', this.userReview.get('comment')?.value);
-formData.append('rating',this.rating)
-
-// console.log(formData.get('comment'))
-// console.log(formData.get('rating'))
-
-this._book.bookReview(id,formData).subscribe((res:any)=>{
-// console.log(formData.get('comment'))
-// console.log(formData.get('rating'))
-console.log(res)
-})
-}
+    // const formData= new FormData();
+    // formData.append('comment', this.userReview.get('comment')?.value);
+    // formData.append('rating',this.rating) 
+    this._book.bookReview(id,this.userReview.value).subscribe({next:(res:any)=>{
+    console.log(res)
+    }, error: (HttpErrorResponse) => {
+      if(HttpErrorResponse.error.message === "jwt malformed"){
+        this.router.navigate(['']);
+      }
+    }})
+   }
 
   getBookById(id:number){
     this._book.getBookById(id).subscribe((res:any)=>{

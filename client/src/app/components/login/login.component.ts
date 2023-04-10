@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+  errorMessage!: string;
   loginForm:FormGroup
   userName:String="";
   password:String="";
@@ -27,19 +27,22 @@ this.loginForm = new FormGroup({
 
 login() {
     console.log(this.loginForm.value);
-    this._AuthService.login(this.loginForm.value).subscribe(
+    this._AuthService.login(this.loginForm.value).subscribe({next:
       (res) => {
-        // this._cookieService.delete('token');
+        this._cookieService.delete('token');
         console.log(res.token);
         console.log(res);
         this._cookieService.set('token', res.token);
         this._router.navigate(['/','home'])
 
       },
-      (error: HttpErrorResponse) => {
-        console.error('Error status code:', error.status);
-        console.error('Error message:', error.message);
-      }
-    );
+      error: (HttpErrorResponse) => {
+        console.log(HttpErrorResponse)
+        if(HttpErrorResponse.error.message==="un-authenticated"){
+          this.errorMessage="Check Your Username or Password"
+        }
+        }
+             }       )
+      };
 }
-}
+

@@ -12,6 +12,8 @@ import { BooksService } from 'src/app/services/books.service';
 })
 export class CrudBookComponent implements OnInit {
   //  bookForm:FormGroup;
+  nameMessage!:string
+  catMessage!:string
   name!: String;
   description!: String;
   categoryId!: Number;
@@ -37,18 +39,11 @@ export class CrudBookComponent implements OnInit {
     private _dialogRef: MatDialogRef<CrudBookComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    //  this.bookForm = new FormGroup({
-    //     bookImage: new FormControl(null),
-    //     name : new FormControl(null,[Validators.required,Validators.minLength(3)]),
-    //     description:new FormControl(null,[Validators.required,]),
-    //     categoryId:new FormControl(null,[Validators.required]),
-    //     authorId:new FormControl(null,[Validators.required]),
-    //   })
   }
 
   bookForm = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-    description: new FormControl(null, [Validators.required]),
+    description: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(120)]),
     categoryId: new FormControl(null, [Validators.required]),
     authorId: new FormControl(null, [Validators.required]),
     bookImage: new FormControl(null),
@@ -82,10 +77,14 @@ export class CrudBookComponent implements OnInit {
         next:(res: any)=> {
           this._dialogRef.close(true);
           console.log(res);
-          console.log(formData.get('name'));
         },
         error: (HttpErrorResponse) => {
           console.log(HttpErrorResponse);
+          if(HttpErrorResponse.error.message===" Value of field name is Duplicated please choose another one"){
+            this.nameMessage="The name is already entered before"
+          }else if(HttpErrorResponse.error.message === "Category or Author isn't valid"){
+            this.catMessage="Category or Author number is wrong"
+          }
         }
       });
     }
