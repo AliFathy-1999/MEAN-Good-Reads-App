@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { Book, BookModel, Entities } from '../schemaInterfaces';
 
-const Counters = require('./counter')
+const Counters = require('./counter');
 
 const schema = new Schema<Book>(
   {
@@ -61,7 +61,7 @@ const schema = new Schema<Book>(
           rating: {
             type: Number,
             required: true,
-            default:0
+            default: 0,
           },
         },
       ],
@@ -89,19 +89,14 @@ schema.methods.toJSON = function () {
 schema.plugin(mongoosePaginate);
 
 // Get new Incremental ID For Book Document
-  schema.statics.getNewId = async () => {
-    const categoryCounter = await Counters.findOneAndUpdate(
-      { id: Entities.BOOKS },
-      { $inc: { seq: 1 } },
-      { new: true }
-    );
-    if (!categoryCounter) {
-      Counters.create({ id: Entities.BOOKS, seq: 1 });
-      return 1;
-    }
-    return categoryCounter.seq;
-  };
-
+schema.statics.getNewId = async () => {
+  const categoryCounter = await Counters.findOneAndUpdate({ id: Entities.BOOKS }, { $inc: { seq: 1 } }, { new: true });
+  if (!categoryCounter) {
+    Counters.create({ id: Entities.BOOKS, seq: 1 });
+    return 1;
+  }
+  return categoryCounter.seq;
+};
 
 schema.virtual('totalRating').get(function () {
   if (!this.reviews?.length) return 0;
@@ -114,6 +109,12 @@ schema.virtual('averageRating').get(function () {
   return Math.floor(this.totalRating / this.ratingsNumber);
 });
 
+// Validate Author and Category IDs Related to each Book entry
+schema.statics.checkReferenceValidation = async (references: { categoryId: number; authorId: number }) => {
+  const relatedCategory = await Categoris.findById(references.categoryId);
+  const relatedAuthor = await Authors.findById(references.authorId);
+  if (!(relatedAuthor && relatedCategory)) throw new AppError("Category or Author isn't valid", 422);
+};
 
 // Set Incremantal Id pre saving document
 schema.pre('save', { document: true, query: true }, async function () {
