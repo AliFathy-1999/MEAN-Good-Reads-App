@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { UserAuthorService } from 'src/app/services/user-author.service';
 
@@ -10,8 +11,12 @@ import { UserAuthorService } from 'src/app/services/user-author.service';
 export class AuthorDetailsComponent {
   author!:any
   stars: string[] = ['star', 'star', 'star', 'star_half', 'star_border'];
-
+  totalDocs!:number
+  totalPages!:number
+  pageSize!:number
   selectedValue: string | undefined;
+  currentPageIndex:number=1
+
 
   constructor(private _author:UserAuthorService,private route:ActivatedRoute) {}
 
@@ -21,14 +26,47 @@ export class AuthorDetailsComponent {
 
 
 getAuthor(id:number){
-this._author.getAuthorsById(id).subscribe({next:res=>{
+this._author.getAuthorsById(id,1,3).subscribe({next:res=>{
   console.log(res)
   this.author=res
+  this.totalDocs=res.data.totaalDocs
+  this.totalPages=res.data.totalPages
 }})
 }
 
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 50];
+onPageChanged(event:PageEvent){
 
+  const newpageSize=event.pageSize
+  const newPageIndex=event.pageIndex
+  if( newPageIndex!== this.currentPageIndex || newpageSize !== this.pageSize){
+    this.currentPageIndex=newPageIndex;
+    this.pageSize=newpageSize;
+    this._author.getAuthorsById(this.author._id,this.currentPageIndex,this.pageSize).subscribe({
+      next:res=>{
+        this.author=res
+      }
+    })
+  }
+}
+
+onPerviousPage(){
+  if (this.currentPageIndex > 1) {
+    this.currentPageIndex--;
+    this._author.getAuthorsById(this.author.author._id,this.currentPageIndex,3).subscribe((result) => {
+      this.author = result;
+      this.totalDocs = result.data.totaalDocs;
+    })
+}
+}
+
+onNextPage(){
+  if(this.currentPageIndex<this.totalPages){
+    this.currentPageIndex++;
+    this._author.getAuthorsById(this.author.author._id,this.currentPageIndex,3).subscribe((result)=>{
+      this.author=result;
+      this.totalDocs = result.data.totaalDocs;
+    })
+  }
+}
 
 }

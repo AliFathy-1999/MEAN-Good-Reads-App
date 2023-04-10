@@ -25,7 +25,7 @@
             <mat-card-title class="review-heading">Books</mat-card-title>
         </mat-card-header>
 
-        <div *ngFor="let authorBooks of author.authorBooks">
+        <div *ngFor="let authorBooks of author.data.docs">
         <mat-card-content>
             <div class="review-section p-3 row">
                 <mat-card class="review-card">
@@ -56,20 +56,22 @@
                         </mat-card-content>
                     </div>
                     <mat-card-content>
-                        <p class="review-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Aenean nec dui eget velit
-                            euismod eleifend. Proin quis malesuada justo. Pellentesque euismod mi vitae felis
-                            accumsan, id commodo
-                            libero iaculis. Nunc non leo tincidunt, vestibulum velit vel, convallis velit. Donec
-                            quis ultricies magna,
-                            vel volutpat arcu. Curabitur vitae erat quis velit semper euismod.</p>
+                        <p class="review-description">{{authorBooks.reviews.comment}}</p>
                     </mat-card-content>
-
-
                 </mat-card>
-
             </div>
         </mat-card-content>
         </div>
     </div>
 </section>
+<mat-paginator [pageSizeOptions]="[3]"
+               (page)="onPageChanged($event)"
+               hidePrevNextButtons>
+</mat-paginator>
+<button mat-icon-button (click)="onPerviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
+    <span>>></span>
+       </button>
+    {{currentPageIndex}}
+        <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+    <span>>></span>
+        </button>

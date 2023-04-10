@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 })
 export class UserAuthorService {
 
+
   constructor(private _http:HttpClient) { }
 
-  getAuthorsById(id:number):Observable<any>{
-   return this._http.get(`http://localhost:3000/authors/${id}`)
+  getAuthorsById(id:number,page:number,limit:number):Observable<any>{
+   return this._http.get(`http://localhost:3000/authors/${id}?page=${page}&limit=${limit}`)
   }
 }

@@ -6,6 +6,11 @@
     box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
+.mat-paginator-navigation-previous,
+.mat-paginator-navigation-next {
+  display: none;
+}
+
 .book-image {
     height: 225px;
     width: 155px;
