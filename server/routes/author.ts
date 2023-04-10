@@ -11,13 +11,14 @@ const { userAuth } = require('../middlewares/auth');
   router.get('/:id', userAuth ,authorValidation.checkvalidID, async (req:Request, res:Response, next:NextFunction) => { 
     const authorError : Result<ValidationError> = validationResult(req);
     const { params:{ id }} = req 
-    const author = await Authors.findOne({_id:id}).select('firstName lastName authorImg bio');
-    const authorBooks = authorController.singleAuthor(id);
+    const { query: { page, limit } } = req;  
+    const author = await Authors.findOne({_id:id}).select('firstName lastName authorImg bio').lean();
+    const authorBooks = authorController.singleAuthor(id,page, limit);
     let [err, data] = await asycnWrapper(authorBooks);
     if (!authorError.isEmpty()) return next( new AppError(authorError.array()[0]?.msg , 422));
     if (err) return next(err);
     if (!data) return next( new AppError (`No Author with ID ${req.params.id}`, 400)); 
-    res.status(200).send({author,authorBooks:data});
+    res.status(200).send({author, data ,result: data.totalDocs});
   }); 
 
 module.exports = router;

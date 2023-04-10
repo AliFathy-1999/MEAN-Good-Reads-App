@@ -16,6 +16,7 @@ app.use('/admin', routes.adminRoute);
 app.use('/books', routes.bookRoute);
 app.use('/authors', routes.authorRoute);
 app.use('/categories', routes.CategoryRoute);
+app.use('/user', routes.userBooksRoute);
 
 // const errorHandler: ErrorRequestHandler = (err, req:Request, res:Response, next:NextFunction) => {
 //     res.status(400).json({message: err.message});

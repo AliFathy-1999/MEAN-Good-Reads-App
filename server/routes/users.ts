@@ -9,7 +9,6 @@ const { userAuth } = require('../middlewares/auth');
 const { usersValidator } = require('../Validations');
 const { validate } = require('../middlewares/validation');
 
-
 router.post(
   '/register',
   upload.single('pImage'),
@@ -48,14 +47,5 @@ router.get('/', userAuth, async (req: Request, res: Response, next: NextFunction
     next(err);
   }
 });
-router.get('/books/:id', async (req: Request, res: Response, next: NextFunction) => {
-  const {
-    params: { id },
-  } = req;
 
-  const user = userController.getUserBooks(id);
-  const [err, data] = await asycnWrapper(user);
-  if (err) return next(err);
-  res.json(data);
-});
 module.exports = router;

@@ -1,10 +1,9 @@
-import { Document, Model, Types} from 'mongoose';
+import { Document, Model, Types } from 'mongoose';
 
 enum Role {
   ADMIN = 'admin',
   USER = 'user',
 }
-
 
 enum Shelve {
   READ = 'read',
@@ -18,40 +17,38 @@ enum Entities {
   CATEGORIIES = 2,
 }
 
+type review = {
+  comment: String;
+  user: Types.ObjectId;
+  rating: Number;
+};
 
-type review = 
-  {
-    comment: String,
-    user: Types.ObjectId,
-    rating:Number,
-  }
-
-
-interface User{
-  firstName:string,
-  lastName:string,
-  email:string,
-  password:string,
-  userName:string,
-  pImage?:string,
-  role:Role,
-  books?:[{
-    book:number,
-    shelve:Shelve
-  }],
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  userName: string;
+  pImage?: string;
+  role: Role;
+  books?: [
+    {
+      book: number;
+      shelve: Shelve;
+    }
+  ];
 }
-interface Book extends Document
-{
-   _id:number,
-  name:string,
-  bookImage:string,
-  categoryId:number,
-  authorId:number,
-  totalRating:number,
+interface Book extends Document {
+  _id: number;
+  name: string;
+  bookImage: string;
+  categoryId: number;
+  authorId: number;
+  totalRating: number;
   // averageRating:number,
-  ratingsNumber:number,
-  description?:string,
-  reviews?: review[],
+  ratingsNumber: number;
+  description?: string;
+  reviews?: review[];
 }
 
 interface PaginatedBooks {
@@ -68,11 +65,10 @@ interface PaginatedBooks {
   meta?: any;
 }
 
-interface Category extends Document{
-  _id:number,
-  name:string
+interface Category extends Document {
+  _id: number;
+  name: string;
 }
-
 
 interface PaginatedCategories {
   docs: Category[];
@@ -88,34 +84,64 @@ interface PaginatedCategories {
   meta?: any;
 }
 
-
-interface counter extends Document{
-  _id:number,
-  count:number,
+interface counter extends Document {
+  _id: number;
+  count: number;
 }
-
 
 interface BookModel extends Model<Book> {
   getNewId: () => Promise<number>;
 }
-
 
 interface categoryModel extends Model<Category> {
   getNewId: () => Promise<number>;
 }
 interface counterModel extends Model<counter> {}
 
-interface Counter{
-  id:String,
-  seq:Number,
+interface Counter {
+  id: String;
+  seq: Number;
 }
-interface Author{
-  _id:Number,
-  authorImg?:string,
-  firstName:string,
-  lastName:string, 
-  history:string, 
-  DOB:Date,
-  bio:string,
+interface Author {
+  _id: Number;
+  authorImg?: string;
+  firstName: string;
+  lastName: string;
+  history: string;
+  DOB: Date;
+  bio: string;
 }
-export { User , Role, Entities ,Counter, Author, categoryModel, PaginatedBooks, BookModel, Shelve, counterModel, Category , Book , PaginatedCategories, review}
+interface UserBooks {
+  populate: (options: any) => any;
+  books: {
+    book: {
+      _id: string;
+      name: string;
+      bookImage: string;
+      authorId: {
+        firstName: string;
+        lastName: string;
+      };
+      ratingsNumber: number;
+      averageRating: number;
+    };
+  }[];
+}
+
+export {
+  User,
+  Role,
+  Entities,
+  Counter,
+  Author,
+  categoryModel,
+  PaginatedBooks,
+  BookModel,
+  Shelve,
+  counterModel,
+  Category,
+  Book,
+  PaginatedCategories,
+  review,
+  UserBooks,
+};

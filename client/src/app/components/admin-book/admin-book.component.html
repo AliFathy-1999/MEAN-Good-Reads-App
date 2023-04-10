@@ -31,8 +31,8 @@
       </ng-container>
 
        <ng-container matColumnDef="authorId">
-        <th mat-header-cell *matHeaderCellDef> Author Id </th> 
-        <td mat-cell *matCellDef="let element"> {{element.authorId}} </td> 
+        <th mat-header-cell *matHeaderCellDef> Author Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.authorId}} </td>
        </ng-container>
 
       <ng-container matColumnDef="action">
@@ -54,7 +54,7 @@
     <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
 <span>>></span>
    </button>
-    
+
     <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
 <span>>></span>
     </button>

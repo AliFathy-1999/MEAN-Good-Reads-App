@@ -1,8 +1,7 @@
 import { Schema, model } from 'mongoose';
 const validator = require('validator');
 import { Author } from '../schemaInterfaces';
-const bcryptjs = require('bcryptjs');
-
+import mongoosePaginate from 'mongoose-paginate-v2';
 const schema = new Schema<Author>(
   {
     _id: {
@@ -54,14 +53,7 @@ schema.methods.toJSON = function () {
   delete authorObject.__v;
   return authorObject;
 };
-schema.virtual('authorbooks', {
-  ref: 'Books',
-  localField: '_id',
-  foreignField: 'authorId',
-  justOne: true,
-  options: { select: 'firstName lastName authorImg bio' },
-});
-
+schema.plugin(mongoosePaginate);
 const Author = model('Authors', schema);
 
 module.exports = Author;
