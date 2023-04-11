@@ -26,7 +26,8 @@ export class RegistrationComponent implements OnInit {
     private _router: Router,
     private http: HttpClient,
     private _AuthService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
   ) {}
 
   registrationForm = new FormGroup({
@@ -96,9 +97,9 @@ export class RegistrationComponent implements OnInit {
         (res) => {
           if (res.message === 'User registered successfully') {
             this.successMessage = 'Signed up successfully!';
+           this.router.navigate(['/admin']);
             this.registrationForm.reset();
-            this.toastr.error(res.message);
-
+            this.toastr.success(res.message);
             console.log(res);
           }
         },
