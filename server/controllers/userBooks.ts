@@ -1,15 +1,14 @@
-import { UserBooks } from '../DB/models/userBooks';
-// import { User, UserBooksType } from '../DB/schemaInterfaces';
 const Users = require('../DB/models/user');
+const UserBooks = require('../DB/models/userBooks');
 import { AppError, asycnWrapper } from '../lib/index';
 import { Types } from 'mongoose';
 
 const getUserById = async (userId: String) => {
-  const userPromise = Users.findById(userId);
-  console.log('userPromise:', userPromise); // Add this line
+  const userPromise = Users.findOne({ userId: userId });
+  console.log('userPromise:', userPromise);
   const [userErr, user] = await asycnWrapper(userPromise);
-  console.log('userErr:', userErr); // Add this line
-  console.log('user:', user); // Add this line
+  console.log('userErr:', userErr);
+  console.log('user:', user);
   if (userErr || !user) {
     throw new AppError('User not found', 404);
   }
@@ -17,9 +16,9 @@ const getUserById = async (userId: String) => {
 };
 
 const getUserBooks = async (userId: string) => {
-  console.log('userId:', userId); // Add this line
+  console.log('userId:', userId);
 
-  const userBooks = await UserBooks.findOne({ userId }).populate({
+  const userBooks = await UserBooks.findOne({ userId: userId }).populate({
     path: 'books.book',
     select: 'name bookImage authorId averageRating ratingsNumber',
     populate: {
@@ -27,6 +26,7 @@ const getUserBooks = async (userId: string) => {
       select: 'firstName lastName',
     },
   });
+  console.log(userBooks);
 
   if (!userBooks) {
     throw new AppError('User not found', 404);
