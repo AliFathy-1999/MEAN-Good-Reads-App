@@ -33,4 +33,3 @@ const schema = new Schema(
 
 const UserBooks = model('UserBooks', schema);
 module.exports = UserBooks;
-export { UserBooks };

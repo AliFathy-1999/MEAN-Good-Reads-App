@@ -58,7 +58,7 @@ const schema = new Schema<Book>(
             maxlength: 140,
           },
 
-          user: {
+          userId: {
             type: Schema.Types.ObjectId,
             ref: 'Users',
             required: true,
@@ -108,6 +108,15 @@ schema.virtual('averageRating').get(function () {
   if (this.ratingsNumber === 0) return 0;
   return Math.floor(this.totalRating / this.ratingsNumber);
 });
+
+
+schema.virtual('usersReviews', {
+  ref: 'UserBooks',
+  localField: 'reviews.userId',
+  foreignField: 'userId',
+  // justOne: true
+});
+
 
 // Set Incremantal Id pre saving document
 schema.pre('save', { document: true, query: true }, async function () {

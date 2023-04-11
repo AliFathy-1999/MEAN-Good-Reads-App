@@ -23,7 +23,6 @@ type review =
   {
     comment: String,
     user: Types.ObjectId,
-    rating:Number,
   }
 
 

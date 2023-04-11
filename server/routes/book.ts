@@ -26,13 +26,6 @@ router.get('/popular',  async (req: Request, res: Response, next: NextFunction) 
 })  
 
 
-router.get('/auth', async (req: Request, res: Response, next: NextFunction) =>{
-  const authors = authorController.getPopularAuthors();
-  const [err, data] = await asycnWrapper(authors);
-  if (err) return next(err);
-  res.status(200).json({ success: true, data });
-})  
-
 router.get('/:id', validate(booksValidator.bookId), async (req: Request, res: Response, next: NextFunction) => {
 const book = booksController.getBookById_fullInfo(req.params.id);
 const [err, data] = await asycnWrapper(book);
