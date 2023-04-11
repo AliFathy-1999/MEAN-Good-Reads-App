@@ -3,7 +3,7 @@
 	<div class="form-container sign-in-container">
 		<form [formGroup]="loginForm" (ngSubmit)="login()">
 			<h2>Welcome Back!</h2>
-			<h3 id="sign">Sign in</h3>
+			<h3 id="sign" style="text-align:left;">Sign in</h3>
 			<input type="text" placeholder="Username" minlength="8" id="userName" name="userName"
 				formControlName="userName" />
 			<p class="val_text text-danger"
@@ -18,8 +18,8 @@
 				required</p>
 			<p class="val_text text-danger" *ngIf="loginForm.get('password')?.errors?.['minlength']">Minimum length is 8
 			</p>
-			<div *ngIf="errorMessage" class="alert mt-3 alert-danger text-center"
-			role="alert">{{errorMessage}}</div>
+			<!-- <div *ngIf="errorMessage" class="alert mt-3 alert-danger text-center"
+			role="alert">{{errorMessage}}</div> -->
 
 			<button class="leftSign" [disabled]="loginForm.invalid">
 				<svg class="icon-arrow after" version="1.1" id="Capa_1"

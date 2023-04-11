@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -16,7 +17,8 @@ export class LoginComponent {
   loginForm:FormGroup
   userName:String="";
   password:String="";
-constructor(private _AuthService :AuthService, private _cookieService:CookieService, private _router:Router){
+constructor(private _AuthService :AuthService, private _cookieService:CookieService, private _router:Router,private toastr: ToastrService,
+  ){
 
 this.loginForm = new FormGroup({
   userName : new FormControl(null,[Validators.required,Validators.minLength(8)]),
@@ -34,12 +36,12 @@ login() {
         console.log(res);
         this._cookieService.set('token', res.token);
         this._router.navigate(['/','home'])
-
       },
       error: (HttpErrorResponse) => {
         console.log(HttpErrorResponse)
         if(HttpErrorResponse.error.message==="un-authenticated"){
           this.errorMessage="Check Your Username or Password"
+          this.toastr.error(this.errorMessage)
         }
         }
              }       )
