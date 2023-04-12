@@ -3,27 +3,27 @@
     <div class="container pt-5">
         <h2 class="text-center mb-5 heading">Authors</h2>
         <div class="row">
-            <ng-container *ngFor="let author of authors; let i = index;">
+            <!-- <ng-container *ngFor="let author of authors; let i = index;"> -->
                 <div class="col-md-3 mb-4">
                     <mat-card class="h-100">
                         <div mat-card-header>
-                            <div class="book-image" [style.background-image]="'url(' + author.imageUrl + ')'"></div>
+                            <!-- <div class="book-image" [style.background-image]="'url(' + author.imageUrl + ')'"></div> -->
                         </div>
                         <mat-card-content class="card-content">
                             <a class="card-link">
-                                <mat-card-title class="card-title">{{ author.name }}</mat-card-title>
+                                <!-- <mat-card-title class="card-title">{{ author.name }}</mat-card-title> -->
                             </a>
                         </mat-card-content>
 
                     </mat-card>
                 </div>
                 <div class="clearfix d-md-none"></div> <!-- add clearfix to clear the float on small devices -->
-                <div *ngIf="(i + 1) % 4 === 0" class="col-md-12 mt-4"></div>
-            </ng-container>
-            <div class="col-md-12 mt-4">
+                <!-- <div *ngIf="(i + 1) % 4 === 0" class="col-md-12 mt-4"></div> -->
+            <!-- </ng-container> -->
+            <!-- <div class="col-md-12 mt-4">
                 <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
                     [length]="authors.length"></mat-paginator>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

@@ -61,7 +61,7 @@ export class CrudBookComponent implements OnInit {
       if (hasUpdatedImage) {
         formData.append("bookImage", this.file[0]);
         console.log(formData.get('bookImage'))
-        delete updatedValues["bookImage"];
+        // delete updatedValues["bookImage"];
       }
       for (const key in updatedValues) {
         if (updatedValues.hasOwnProperty(key)) {

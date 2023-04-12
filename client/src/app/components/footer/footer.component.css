@@ -5,6 +5,10 @@ footer {
     background-color: #1D1D1D;
 }
 
+.userPages{
+    text-decoration: none;
+}
+
 footer h5 {
     color: #f65d4e;
     font-size: 18px;

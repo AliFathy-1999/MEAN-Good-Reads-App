@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h5>Good Reads</h5>
+                <h5>Bookery</h5>
                 <p>A platform for book lovers to discover, share, and discuss their favorite reads.</p>
             </div>
             <div class="col-md-3">
-                <h5>Categories</h5>
+                <a class="userPages" [routerLink]="['/categories']"><h5>Categories</h5></a>
                 <ul class="list-unstyled">
                     <li><a href="#">Fiction</a></li>
                     <li><a href="#">Non-Fiction</a></li>
@@ -16,7 +16,7 @@
                 </ul>
             </div>
             <div class="col-md-3">
-                <h5>Authors</h5>
+                <a class="userPages" [routerLink]="['user/authors']"><h5>Authors</h5></a>
                 <ul class="list-unstyled">
                     <li><a href="#">Jane Austen</a></li>
                     <li><a href="#">Agatha Christie</a></li>
@@ -28,7 +28,7 @@
             <div class="col-md-3">
                 <h5>Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#">Home</a></li>
+                    <li><a [routerLink]="['']">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Terms &amp; Conditions</a></li>
                 </ul>

@@ -20,10 +20,12 @@ import { ReadComponent } from './components/users-modules/user-profile-page/read
 import { CurrentlyReadingComponent } from './components/users-modules/user-profile-page/currently-reading/currently-reading.component';
 import { WantToReadComponent } from './components/users-modules/user-profile-page/want-to-read/want-to-read.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
+import { UserHomeComponent } from './components/user-home/user-home.component';
+import { LoginAdminComponent } from './components/login-admin/login-admin.component';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
-  { path: 'admin', component: LoginComponent },
+  { path: 'user', component: LoginComponent },
   { path: 'home', component: TestHomeComponent, canActivate: [AuthGuard] },
   { path: 'admin/books', component: AdminBookComponent,canActivate: [AuthGuard] },
   { path: 'crud', component: CrudBookComponent },
@@ -39,7 +41,10 @@ const routes: Routes = [
   { path: 'read', component: ReadComponent },
   { path: 'current-reading', component: CurrentlyReadingComponent },
   { path: 'want-to-read', component: WantToReadComponent },
+  {path:'user/home',component:UserHomeComponent},
+  {path:'admin',component:LoginAdminComponent},
   { path: '**', component: NotFoundComponent },
+
 ];
 
 @NgModule({
