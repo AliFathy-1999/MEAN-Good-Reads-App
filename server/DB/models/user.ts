@@ -1,7 +1,5 @@
 import mongoose, { Schema, Types, model } from 'mongoose';
 import { User, Role, Shelf } from '../schemaInterfaces';
-const ObjectId = mongoose.Types.ObjectId;
-
 const validator = require('validator');
 const bcryptjs = require('bcryptjs');
 
@@ -47,9 +45,7 @@ const schema = new Schema<User>(
       match: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/,
       //@iti43OS
       validate(value: string) {
-        if (value.includes('password')) {
-          throw new Error("Password cannot contain 'password'");
-        } else if (!value.match(/(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/)) {
+        if (!value.match(/(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]/)) {
           throw new Error('Password must contain at least one number , Capital letter and one special character');
         }
       },
