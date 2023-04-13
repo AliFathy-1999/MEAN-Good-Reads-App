@@ -1,40 +1,13 @@
-import { User, UserBooks } from '../DB/schemaInterfaces';
 const Users = require('../DB/models/user');
+const Books = require('../DB/models/book');
+
+const UserBooks = require('../DB/models/userBooks');
 import { AppError, asycnWrapper } from '../lib/index';
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
-// Get All user Book's
-const getUserBooks = async (userId: string) => {
-  console.log();
-
-  const user = await getUserById(userId);
-  await populateUserBooks(user);
-
-  const books = mapUserBooks(user);
-
-  const userData = {
-    id: user._id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    userName: user.userName,
-    image: user.pImage,
-    books: books,
-  };
-  return userData;
-};
-
-const getUserById = async (userId: String) => {
-  const userPromise = Users.findById(userId);
-  const [userErr, user] = await asycnWrapper(userPromise);
-  if (userErr || !user) {
-    throw new AppError('User not found', 404);
-  }
-  return user;
-};
-
-const populateUserBooks = async (user: UserBooks) => {
-  const populateBooks = user.populate({
-    path: 'books.book',
+const getUserBooks = async (user: string) => {
+  const userBooks = await UserBooks.find({ user: user }).populate({
+    path: 'book.bookId',
     select: 'name bookImage authorId averageRating ratingsNumber',
     populate: {
       path: 'authorId',
@@ -42,52 +15,53 @@ const populateUserBooks = async (user: UserBooks) => {
     },
   });
 
-  const [populateErr] = await asycnWrapper(populateBooks);
-  if (populateErr) {
-    throw new AppError('Error while populating books', 500);
+  if (!userBooks) {
+    throw new AppError('User not found', 404);
   }
+  return userBooks;
 };
 
-const mapUserBooks = (user: any) => {
-  return user.books.map((book: any) => {
-    return {
-      bookId: book.book._id,
-      name: book.book.name,
-      cover: book.book.bookImage,
-      author: `${book.book.authorId.firstName} ${book.book.authorId.lastName}`,
-      rating: book.book.ratingsNumber,
-      averageRating: book.book.averageRating,
-    };
-  });
+const updateAvgRating = async (bookId: number, rating: number, previousRating: number) => {
+  const book = await Books.findById(bookId);
+  if (previousRating) {
+    book.totalRating = book.totalRating - previousRating + Number(rating);
+    console.log(book.totalRating);
+  } else {
+    book.totalRating = book.totalRating + Number(rating);
+    book.ratingsNumber++;
+  }
+  book.save();
 };
 
-// Update rate and status
-const updateBook = async (userId: string, bookId: string, newRate: number, newShelf: string) => {
-  const user = await getUserById(userId);
+const updateUserBooks = async (userId: string, bookId: number, shelf: string, rating?: number, review?: string) => {
+  let previousRating = 0;
+  userId = userId.trim();
 
-  const book = await user.books.find((book: any) => book.book.toString() === bookId.toString());
-  console.log(book);
-
-  if (!book) {
-    throw new Error("Book not found in user's list");
-  }
-
-  book.rate = newRate;
-
-  book.shelve = newShelf;
-  await user.save();
-
-  return {
-    bookId: book.book._id,
-    name: book.book.name,
-    cover: book.book.bookImage,
-    author: `${book.book.authorId.firstName} ${book.book.authorId.lastName}`,
-    rating: book.book.ratingsNumber,
-    averageRating: book.book.averageRating,
+  const filter = { user: userId, 'book.bookId': bookId };
+  const existingBookUpdate = {
+    $set: {
+      'book.shelf': shelf,
+      'book.rating': rating,
+      'book.review': review,
+    },
   };
+
+  const options = { setDefaultsOnInsert: true, upsert: true, rawResult: true };
+
+  const updatedExistingBook = await UserBooks.findOneAndUpdate(filter, existingBookUpdate, options);
+
+  console.log(updatedExistingBook);
+
+  if (updatedExistingBook.lastErrorObject.updatedExisting) {
+    previousRating = updatedExistingBook.value.book.rating;
+  }
+
+  if (rating) updateAvgRating(bookId, rating, previousRating);
+
+  return updatedExistingBook;
 };
 
 module.exports = {
   getUserBooks,
-  updateBook,
+  updateUserBooks,
 };

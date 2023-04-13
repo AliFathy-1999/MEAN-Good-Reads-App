@@ -27,7 +27,7 @@ export class RegistrationComponent implements OnInit {
     private http: HttpClient,
     private _AuthService: AuthService,
     private toastr: ToastrService,
-    private router:Router
+    private router: Router
   ) {}
 
   registrationForm = new FormGroup({
@@ -92,12 +92,13 @@ export class RegistrationComponent implements OnInit {
       formData.append('confirmPassword', registrationForm.get('confirmPassword')?.value);
       formData.append('userName', registrationForm.get('userName')?.value);
       formData.append('pImage', this.file[0]);
-
       this._AuthService.register(formData).subscribe(
         (res) => {
+          console.log(formData.get('firstName'));
+
           if (res.message === 'User registered successfully') {
             this.successMessage = 'Signed up successfully!';
-           this.router.navigate(['/user']);
+            this.router.navigate(['/user']);
             this.registrationForm.reset();
             this.toastr.success(res.message);
             console.log(res);

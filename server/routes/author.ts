@@ -5,8 +5,15 @@ const { authorController } = require("../controllers/index")
 const router : Router = express.Router();
 const { userAuth } = require('../middlewares/auth');
 const { validate } = require('../middlewares/validation');
-const { authorValidator,paginationOptions } = require('../Validations');
+const { authorValidator } = require('../Validations');
  const Authors = require('../DB/models/author')
+
+  router.get('/popular',async (req:Request, res:Response, next:NextFunction) => {  
+    const author = authorController.getPopularAuthors();
+    const [err, data] = await asycnWrapper(author);
+    if (err) return next(err);
+    res.status(200).json(data);
+  });  
   router.get('/:id', userAuth ,validate(authorValidator.checkvalidID), async (req:Request, res:Response, next:NextFunction) => { 
     const { params:{ id }} = req 
     const { query: { page, limit } } = req;  
@@ -16,6 +23,5 @@ const { authorValidator,paginationOptions } = require('../Validations');
     if (err) return next(err);
     if (!data) return next( new AppError (`No Author with ID ${id}`, 400)); 
     res.status(200).send({author, data ,result: data.totalDocs});
-  }); 
-
+  });
 module.exports = router;

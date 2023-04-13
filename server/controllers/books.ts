@@ -18,7 +18,7 @@ const create = async (data: Book) => {
   return Books.create(data);
 };
 
-const getBookById = (_id: number) => Books.findById(_id).select('-averageRating -ratingsNumber -reviews');
+const getBookById = (_id: number) => Books.findById(_id); //.select('-averageRating -ratingsNumber -reviews');
 
 const editBook = async (
   id: number,
@@ -46,7 +46,7 @@ const getBookById_fullInfo = (_id: number) =>
     .populate({ path: 'authorId', select: 'firstName lastName' })
     .populate({ path: 'categoryId', select: 'name' })
     .populate({ path: 'reviews.user', select: 'firstName lastName userName -_id' })
-    .select(' -reviews._id -createdAt -updatedAt -totalRating')
+    //.select(' -reviews._id -createdAt -updatedAt -totalRating')
     .exec();
 
 const getBooks_fullInfo = async (options: { page: number; limit: number }) => {
@@ -110,7 +110,12 @@ const editBookReviews = async (data: {
   }
 };
 
-const updateBooks = async(data: { bookId: number, shelf: string, userId: ObjectId, review: { comment: string; rating: number };}) => {
+const updateBooks = async (data: {
+  bookId: number;
+  shelf: string;
+  userId: ObjectId;
+  review: { comment: string; rating: number };
+}) => {
   try {
     //  Add book if it isn't in user collection
     let userData = await Users.findOneAndUpdate(
@@ -130,7 +135,14 @@ const updateBooks = async(data: { bookId: number, shelf: string, userId: ObjectI
       if (data.review.rating) {
         averageRating_offset = Number(data.review.rating) - (userData.books[0] ? userData.books[0].rating : 0);
       }
-      await asycnWrapper(editBookReviews({ bookId: data.bookId, comment: data.review.comment, averageRating_offset, userId: data.userId}));
+      await asycnWrapper(
+        editBookReviews({
+          bookId: data.bookId,
+          comment: data.review.comment,
+          averageRating_offset,
+          userId: data.userId,
+        })
+      );
     }
     return userData;
   } catch (err) {
