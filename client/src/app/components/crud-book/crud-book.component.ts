@@ -34,7 +34,7 @@ export class CrudBookComponent implements OnInit {
 
   bookForm = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-    description: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(120)]),
+    description: new FormControl(null, [Validators.required, Validators.minLength(30), Validators.maxLength(120)]),
     categoryId: new FormControl(null, [Validators.required]),
     authorId: new FormControl(null, [Validators.required]),
     bookImage: new FormControl(null),

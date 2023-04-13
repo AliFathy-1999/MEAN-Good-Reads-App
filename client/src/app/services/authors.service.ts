@@ -26,7 +26,7 @@ export class AuthorsService {
   }
 
   deleteAuthor(id: number): Observable<any> {
-    const url = `http://localhost:3000/authors/${id}`;
+    const url = `http://localhost:3000/admin/authors/${id}`;
     return this.httpClient.delete(url);
   }
 
@@ -42,7 +42,7 @@ export class AuthorsService {
     this.authArr.push(author);
     console.log(authorForm.get('authorImg'));
 
-    return this.httpClient.post('http://localhost:3000/authors', authorForm);
+    return this.httpClient.post('http://localhost:3000/admin/authors', authorForm);
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
@@ -51,7 +51,7 @@ export class AuthorsService {
   }
 
   updateAuthor(id: number, formData: FormData): Observable<any> {
-    const url = `http://localhost:3000/authors/${id}`;
+    const url = `http://localhost:3000/admin/authors/${id}`;
     return this.httpClient.patch(url, formData);
   }
 }
