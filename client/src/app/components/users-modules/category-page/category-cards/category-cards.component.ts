@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Category } from 'src/app/dataTypes/typesModule';
 import { UserCategoryService } from 'src/app/services/user-category.service';
 
@@ -8,14 +9,6 @@ import { UserCategoryService } from 'src/app/services/user-category.service';
   styleUrls: ['./category-cards.component.css'],
 })
 export class CategoryCardsComponent implements OnInit{
-  // categories = [
-  //   { id: 1, name: 'Science Fiction', icon: 'science' },
-  //   { id: 2, name: 'Fantasy', icon: 'terrain' },
-  //   { id: 3, name: 'Mystery', icon: 'mystery' },
-  //   { id: 4, name: 'Romance', icon: 'favorite' },
-  //   { id: 5, name: 'Thriller', icon: 'dangerous' },
-  //   { id: 6, name: 'Historical Fiction', icon: 'history' },
-  // ];
 
   categories:Category[]=[]
 

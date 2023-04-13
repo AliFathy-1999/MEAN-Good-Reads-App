@@ -5,6 +5,7 @@ import { AuthorsService } from '../../services/authors.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-authors-table',
@@ -18,10 +19,13 @@ export class AuthorsTableComponent implements OnInit {
   selectedFile: File | undefined;
   page: number = 1;
   count: number = 0;
-  pageSize: number = 4;
+  pageSize!:number;
+  data!:number;
+  totalCount!:number;
+  totalPages!: number;
   collectionSize: number = 100;
   @ViewChild('authorForm') form: NgForm | undefined;
-
+  currentPageIndex:number=1
   authorsForm = new FormGroup({
     firstName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
     lastName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
@@ -58,7 +62,8 @@ export class AuthorsTableComponent implements OnInit {
   getAuthors() {
     this.authorsService.getAuthorsApi(1, 10).subscribe((data: any) => {
       this.authArr = data;
-
+      // this.totalCount=res.data.docs.totaalDocs
+      // this.totalPages=res.data.totalPages
       return this.authArr;
     });
   }
@@ -81,6 +86,43 @@ export class AuthorsTableComponent implements OnInit {
 
   onFileSelected(event: any) {
     this.file = event.target.files;
+  }
+
+
+  onPageChanged(event: PageEvent) {
+    const newPageIndex = event.pageIndex;
+    const newPageSize = event.pageSize;
+    if (newPageIndex !== this.currentPageIndex || newPageSize !== this.pageSize) {
+      this.currentPageIndex = newPageIndex;
+      this.pageSize = newPageSize;
+      this.authorsService.getAuthorsApi(this.currentPageIndex, this.pageSize).subscribe((result) => {
+        this.data = result.data;
+        this.totalCount = result.totalCount;
+      });
+    }
+  }
+  
+  onPreviousPage() {
+    if (this.currentPageIndex > 1) {
+      this.currentPageIndex--;
+      this.authorsService.getAuthorsApi(this.currentPageIndex, 10).subscribe((result) => {
+        this.data = result.data;
+        this.totalCount = result.totalCount;
+
+      });
+    }
+  }
+  
+  onNextPage() {
+    console.log(this.currentPageIndex)
+    if (this.currentPageIndex < this.totalPages) {
+      console.log(this.currentPageIndex)
+      this.currentPageIndex++;
+      this.authorsService.getAuthorsApi(this.currentPageIndex, 10).subscribe((result) => {
+        this.data = result.data;
+        this.totalCount = result.totalCount;
+      });
+    }
   }
 
   onDelete(id: number) {

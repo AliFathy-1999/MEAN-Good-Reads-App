@@ -110,30 +110,7 @@ export class CrudBookComponent implements OnInit {
     }
     
   }
-  // addBook(bookForm: FormGroup) {
-  //   const formData = new FormData();
-  //   formData.append('name', bookForm.get('name')?.value);
-  //   formData.append('description', bookForm.get('description')?.value);
-  //   formData.append('categoryId', bookForm.get('categoryId')?.value);
-  //   formData.append('authorId', bookForm.get('authorId')?.value);
-  //   formData.append('bookImage', this.file[0]);
-  //   console.log(formData);
-  //   console.log(formData.get('name'));
-  //   console.log(formData.get('description'));
-  //   console.log(formData.get('categoryId'));
-  //   console.log(formData.get('authorId'));
-  //   console.log(formData.get('bookImage'));
-  //   this._book.addBook(formData).subscribe(
-  //     (res: any) => {
-  //       this._dialogRef.close(true);
-  //       console.log(res);
-  //       console.log(formData.get('name'));
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+
 
   ngOnInit(): void {
     this.bookForm.patchValue(this.data);

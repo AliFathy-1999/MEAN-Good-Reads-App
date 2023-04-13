@@ -25,7 +25,6 @@ this.loginForm = new FormGroup({
 }
 
 login() {
-    console.log(this.loginForm.value);
     this._AuthService.login(this.loginForm.value).subscribe({next:
       (res) => {
         this._cookieService.delete('token');

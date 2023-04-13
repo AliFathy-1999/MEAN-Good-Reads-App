@@ -13,6 +13,10 @@ export class AuthService {
   isLogged(): boolean {
     return this._cookieService.get('token') != null;
   }
+  LogOut(){
+    return this._cookieService.delete('token');
+  }
+
 
   getToken(): string | null {
     return this._cookieService.get('token') || null;

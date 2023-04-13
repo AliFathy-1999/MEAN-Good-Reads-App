@@ -26,7 +26,7 @@ import { LoginAdminComponent } from './components/login-admin/login-admin.compon
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
   { path: 'user', component: LoginComponent },
-  { path: 'home', component: TestHomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: TestHomeComponent,canActivate: [AuthGuard] },
   { path: 'admin/books', component: AdminBookComponent,canActivate: [AuthGuard] },
   { path: 'crud', component: CrudBookComponent },
   { path: 'author', component: AuthorsTableComponent },
