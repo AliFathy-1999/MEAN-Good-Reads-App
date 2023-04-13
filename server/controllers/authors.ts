@@ -18,10 +18,59 @@ const singleAuthor = (id:number, page: number, limit: number ) :Promise<Paginate
   if (!limit) limit = 3;
   return Books.paginate({authorId:id}, {limit,page,select:selection})
 }
+const getPopularAuthors = () => {
+  return Books.aggregate([
+    {
+      $match: {
+        ratingsNumber: { $gt: 0 },
+      },
+    },
+    {
+      $project:{
+        _id: 1,
+        firstName: 1, 
+        lastName: 1, 
+        authorImg: 1,
+        authorId:1,
+        avgRating: {  $divide: ['$totalRating', '$ratingsNumber'],},
+        totalRating: 1,   
+        ratingsNumber: 1,             
+    }
+    },
+    {
+      $sort: { avgRating: -1 },
+    },
+    {
+      $limit: 5,
+    },
+    {
+      $lookup: {
+        from: 'authors',
+        localField: 'authorId', 
+        foreignField: '_id',
+        as: 'author'
+      }
+    },
+    {
+      $group:{
+        _id:"$author._id",
+        authors:{$addToSet:"$author"}
+      }
+    },{
+      $project:{
+        _id:0,
+        authors:1
+      }
+    }
+
+  ])
+  }
+
 module.exports = {
     createAuthor,
     getAuthors,
     updateAuthor,
     deleteAuthor,
-    singleAuthor
+    singleAuthor,
+    getPopularAuthors
 }

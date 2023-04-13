@@ -51,5 +51,11 @@ router.get('/authors',userAuth,async (req:Request, res:Response, next:NextFuncti
   const [err, data] = await asycnWrapper(author);
   if (err) return next(err);
   res.status(200).json(data);
-}); 
+});
+// router.get('/authors/popular',async (req:Request, res:Response, next:NextFunction) => {  
+//   const author = authorController.getPopularAuthors();
+//   const [err, data] = await asycnWrapper(author);
+//   if (err) return next(err);
+//   res.status(200).json(data);
+// }); 
 module.exports = router;
