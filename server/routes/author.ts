@@ -17,5 +17,4 @@ const { authorValidator,paginationOptions } = require('../Validations');
     if (!data) return next( new AppError (`No Author with ID ${id}`, 400)); 
     res.status(200).send({author, data ,result: data.totalDocs});
   }); 
-
 module.exports = router;

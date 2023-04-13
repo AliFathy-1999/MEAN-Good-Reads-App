@@ -6,7 +6,8 @@ import { asycnWrapper } from '../lib/index';
 const { userAuth } = require('../middlewares/auth');
 const { usersValidator } = require('../Validations');
 const { validate } = require('../middlewares/validation');
-
+const { authorValidator,paginationOptions } = require('../Validations');
+const { authorController } = require("../controllers/index")
 router.post(
   '/register',
   upload.single('pImage'),
@@ -16,6 +17,8 @@ router.post(
     const {
       body: { firstName, lastName, userName, email, password, role },
     } = req;
+    console.log(role);
+    
     const user = userController.create({ firstName, lastName, userName, email, password, pImage, role });
     const [err, data] = await asycnWrapper(user);
     if (err) return next(err);
@@ -42,5 +45,11 @@ router.get('/', userAuth, async (req: Request, res: Response, next: NextFunction
     next(err);
   }
 });
-
+router.get('/authors',userAuth,async (req:Request, res:Response, next:NextFunction) => { 
+  const { query:{ limit,page }} = req 
+  const author = authorController.getAuthors({page,limit});
+  const [err, data] = await asycnWrapper(author);
+  if (err) return next(err);
+  res.status(200).json(data);
+}); 
 module.exports = router;
