@@ -26,7 +26,7 @@ export class AuthorDetailsComponent {
 
 
 getAuthor(id:number){
-this._author.getAuthorsById(id,1,3).subscribe({next:res=>{
+this._author.getAuthorsById(id,this.currentPageIndex,3).subscribe({next:res=>{
   console.log(res)
   this.author=res
   this.totalDocs=res.data.totaalDocs

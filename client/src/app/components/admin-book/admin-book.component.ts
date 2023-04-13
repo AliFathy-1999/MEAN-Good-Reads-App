@@ -46,14 +46,13 @@ openDialog(){
   }
 
 getAllBooks(){
-  this._book.getAllBooks(1,10).subscribe((res:any)=>{
+  this._book.getAllBooks(this.currentPageIndex, 10).subscribe((res:any)=>{
   this.books=res.data.docs;
-  this.totalCount=res.data.docs.totaalDocs
+  this.totalCount=res.data.totalDocs
   this.totalPages=res.data.totalPages
-console.log(res)
-  console.log(this.books)
+  console.log(res)
   this.dataSource=new MatTableDataSource(this.books);
-  this.dataSource.paginator=this.paginator
+  this.dataSource.paginator=this.paginator;
   })
 }
 
@@ -70,9 +69,9 @@ onPageChanged(event: PageEvent) {
     this.currentPageIndex = newPageIndex;
     this.pageSize = newPageSize;
     this._book.getAllBooks(this.currentPageIndex, this.pageSize).subscribe((result) => {
-      this.data = result.data;
-      this.totalCount = result.totalCount;
-      this.dataSource = new MatTableDataSource(result.data.docs);
+      this.books=result.data.docs;
+      this.totalCount = result.data.totalDocs;
+      this.dataSource = new MatTableDataSource(this.books);
       this.dataSource.paginator = this.paginator;
     });
   }
@@ -82,9 +81,9 @@ onPreviousPage() {
   if (this.currentPageIndex > 1) {
     this.currentPageIndex--;
     this._book.getAllBooks(this.currentPageIndex, 10).subscribe((result) => {
-      this.data = result.data;
-      this.totalCount = result.totalCount;
-      this.dataSource = new MatTableDataSource(result.data.docs);
+      this.books = result.data.docs;
+      this.totalCount = result.data.totalDocs;
+      this.dataSource = new MatTableDataSource(this.books);
       this.dataSource.paginator = this.paginator;
     });
   }
@@ -96,9 +95,9 @@ onNextPage() {
     console.log(this.currentPageIndex)
     this.currentPageIndex++;
     this._book.getAllBooks(this.currentPageIndex, 10).subscribe((result) => {
-      this.data = result.data;
-      this.totalCount = result.totalCount;
-      this.dataSource = new MatTableDataSource(result.data.docs);
+      this.books = result.data.docs;
+      this.totalCount = result.data.totalDocs;
+      this.dataSource = new MatTableDataSource(this.books);
       this.dataSource.paginator = this.paginator;
     });
   }
@@ -107,7 +106,7 @@ onNextPage() {
 openEditDialog(data:any){
   const dialogRef=this._dialog.open(CrudBookComponent,{
     data
-  })
+   })
   dialogRef.afterClosed().subscribe((res:any)=>{
     if(res){
       this.getAllBooks();

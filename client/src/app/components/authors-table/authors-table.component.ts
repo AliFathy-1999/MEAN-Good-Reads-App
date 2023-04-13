@@ -60,7 +60,7 @@ export class AuthorsTableComponent implements OnInit {
   }
 
   getAuthors() {
-    this.authorsService.getAuthorsApi(1, 4).subscribe((data: any) => {
+    this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((data: any) => {
       this.authArr = data.docs;
       this.totalCount=data.totaalDocs
       this.totalPages=data.totalPages
