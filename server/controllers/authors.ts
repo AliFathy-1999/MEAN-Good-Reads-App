@@ -1,6 +1,5 @@
 const Authors = require('../DB/models/author');
 const Books = require('../DB/models/book');
-import { Promise } from "mongoose";
 import { Author,Book, PaginatedBooks } from "../DB/schemaInterfaces";
 
 const createAuthor = (data:Author) => Authors.create(data)

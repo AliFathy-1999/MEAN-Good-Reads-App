@@ -11,8 +11,8 @@ const paginationOptions = {
 module.exports = {
     usersValidator: require('./user'),
     booksValidator: require('./book'),
+    authorValidator:require('./author'),
     categoriesValidator: require('./category'),
-    userValidations: require('./userValidation'),
     paginationOptions
   };
   
