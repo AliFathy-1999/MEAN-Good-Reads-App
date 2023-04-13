@@ -18,6 +18,10 @@ export class AuthService {
   }
 
 
+  getUserData(page:number,limit:number):Observable<any>{
+    return this._HttpClient.get(`http://localhost:3000/users?page=${page}&limit=${limit}`)
+  }
+
   getToken(): string | null {
     return this._cookieService.get('token') || null;
   }
