@@ -18,7 +18,7 @@ const { authorValidator } = require('../Validations');
     const { params:{ id }} = req 
     const { query: { page, limit } } = req;  
     const author = await Authors.findOne({_id:id}).select('firstName lastName authorImg bio').lean();
-    const authorBooks = authorController.singleAuthor(id,page, limit);
+    const authorBooks = authorController.authorBooks(id,page, limit);
     let [err, data] = await asycnWrapper(authorBooks);
     if (err) return next(err);
     if (!data) return next( new AppError (`No Author with ID ${id}`, 400)); 

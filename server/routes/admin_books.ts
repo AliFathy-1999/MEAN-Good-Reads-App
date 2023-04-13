@@ -1,19 +1,18 @@
 import express, { Request, Response, Router, NextFunction } from 'express';
 const { booksController } = require('../controllers/index');
 const { booksValidator, paginationOptions } = require('../Validations');
-const { upload } = require('../middlewares/imageMiddleware');
+const { checkImage } = require('../middlewares/imageMiddleware');
 const { validate } = require('../middlewares/validation');
 const { adminAuth } = require('../middlewares/auth');
 import { AppError, asycnWrapper, trimText } from '../lib/index';
 
 const router: Router = express.Router();
 
-router.post('/', adminAuth, upload.single('bookImage'), validate(booksValidator.bookData), async (req: Request, res: Response, next: NextFunction) => {
-
-    // if (!req.file) return next(new AppError('Please Upload Book cover', 400))
-    let bookImage = req.file?.path
+router.post('/', adminAuth, checkImage, validate(booksValidator.bookData), async (req: Request, res: Response, next: NextFunction) => {
+    // let bookImage = req.file? req.file.path : undefined
+    console.log(req.file);  
     const { name, categoryId, authorId, description } = req.body;
-    const book = booksController.create({ name: trimText(name), categoryId, authorId, bookImage, description });
+    const book = booksController.create({ name: trimText(name), categoryId, authorId, bookImage:req.file,  description });
     const [err, data] = await asycnWrapper(book);
     if (err) return next(err);
     res.status(201).json({ success: true, data });
@@ -29,14 +28,10 @@ router.get('/', adminAuth, validate(paginationOptions), async (req: Request, res
   }
 );
 
-router.patch('/:id', adminAuth, validate(booksValidator.bookId), validate(booksValidator.bookEdit), async (req: Request, res: Response, next: NextFunction) => {
-  let bookImage;
-  if (req.file) {
-    bookImage = req.file.path;
-  }
-
+router.patch('/:id', adminAuth, checkImage, validate(booksValidator.bookId), validate(booksValidator.bookEdit), async (req: Request, res: Response, next: NextFunction) => {
   const { name, categoryId, authorId, description } = req.body;
-  const book = booksController.editBook(req.params.id, { name, bookImage, categoryId, authorId, description });
+  // let bookImage = req.file? req.file.path : undefined
+  const book = booksController.editBook(req.params.id, { name, bookImage:req.file, categoryId, authorId, description });
   const [err, data] = await asycnWrapper(book);
   if (err) return next(err);
   if (!data) return next(new AppError(`No book with ID ${req.params.id}`, 400));
