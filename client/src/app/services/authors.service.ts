@@ -46,7 +46,7 @@ export class AuthorsService {
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
-    const url = `http://localhost:3000/authors/${page}/${limit}`;
+    const url = `http://localhost:3000/admin/authors?page=${page}&limit=${limit}`;
     return this.httpClient.get(url);
   }
 

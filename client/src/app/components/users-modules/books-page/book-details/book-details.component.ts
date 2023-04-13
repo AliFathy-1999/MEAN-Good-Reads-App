@@ -44,7 +44,7 @@ onSubmit(id:number){
     console.log(res)
     }, error: (HttpErrorResponse) => {
       if(HttpErrorResponse.error.message === "jwt malformed"){
-        this.router.navigate(['']);
+        this.router.navigate(['/user']);
       }{
       if(HttpErrorResponse.error.message ===`${this.comment}}is not allowed to be empty`){
         this.errorMessage="Comment can't be Empty"

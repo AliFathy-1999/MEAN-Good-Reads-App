@@ -130,9 +130,20 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="mt-5 item-center">
+            <!-- <div class="mt-5 item-center">
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
-            </div>
+            </div> -->
+            <mat-paginator [pageSizeOptions]="[4]"
+            (page)="onPageChanged($event)"
+            hidePrevNextButtons style="display: none;"> 
+</mat-paginator>
+<button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
+ <img src="../../../assets/previous.png">
+</button>
+Page {{currentPageIndex}}
+  <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+<img src="../../../assets/next.png">
+  </button>
 
         </div>
     </div>

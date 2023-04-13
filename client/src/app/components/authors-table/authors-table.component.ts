@@ -60,10 +60,10 @@ export class AuthorsTableComponent implements OnInit {
   }
 
   getAuthors() {
-    this.authorsService.getAuthorsApi(1, 10).subscribe((data: any) => {
-      this.authArr = data;
-      // this.totalCount=res.data.docs.totaalDocs
-      // this.totalPages=res.data.totalPages
+    this.authorsService.getAuthorsApi(1, 4).subscribe((data: any) => {
+      this.authArr = data.docs;
+      this.totalCount=data.totaalDocs
+      this.totalPages=data.totalPages
       return this.authArr;
     });
   }
@@ -96,8 +96,8 @@ export class AuthorsTableComponent implements OnInit {
       this.currentPageIndex = newPageIndex;
       this.pageSize = newPageSize;
       this.authorsService.getAuthorsApi(this.currentPageIndex, this.pageSize).subscribe((result) => {
-        this.data = result.data;
-        this.totalCount = result.totalCount;
+        this.authArr = result.docs;
+        this.totalCount = result.totalDocs;
       });
     }
   }
@@ -105,9 +105,9 @@ export class AuthorsTableComponent implements OnInit {
   onPreviousPage() {
     if (this.currentPageIndex > 1) {
       this.currentPageIndex--;
-      this.authorsService.getAuthorsApi(this.currentPageIndex, 10).subscribe((result) => {
-        this.data = result.data;
-        this.totalCount = result.totalCount;
+      this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((result) => {
+        this.authArr = result.docs;
+        this.totalCount = result.totaalDocs;
 
       });
     }
@@ -118,9 +118,9 @@ export class AuthorsTableComponent implements OnInit {
     if (this.currentPageIndex < this.totalPages) {
       console.log(this.currentPageIndex)
       this.currentPageIndex++;
-      this.authorsService.getAuthorsApi(this.currentPageIndex, 10).subscribe((result) => {
-        this.data = result.data;
-        this.totalCount = result.totalCount;
+      this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((result) => {
+        this.authArr = result.docs;
+        this.totalCount = result.totalDocs;
       });
     }
   }

@@ -11,7 +11,7 @@
                         </div>
                         <mat-card-content class="card-content">
                             <a class="card-link">
-                                <mat-card-title class="card-title">{{ book.name }}</mat-card-title>
+                                <mat-card-title class="card-title" [routerLink]="['/books',book._id]">{{ book.name }}</mat-card-title>
                             </a>
                             <!-- <mat-card-subtitle class="card-subtitle">{{ book.author }}</mat-card-subtitle> -->
                         </mat-card-content>

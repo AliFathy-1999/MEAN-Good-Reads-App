@@ -11,19 +11,19 @@ export class AuthorCardsComponent implements OnInit{
 constructor(private _author:UserAuthorService){}
 
   ngOnInit(): void {
-//  this.getAuthors()
+ this.getAuthors()
   }
 
   author:any
 
-// getAuthors(){
-//   this._author.getAuthors(1,10).subscribe({next:(res)=>{
+getAuthors(){
+  this._author.getAuthors(1,5).subscribe({next:(res)=>{
 
-//     console.log(res)
-//     this.author=res;
+    console.log(res)
+    this.author=res;
 
-//   }})
-// }
+  }})
+}
 
   pageSize = 8;
   pageSizeOptions = [4, 8, 12];
