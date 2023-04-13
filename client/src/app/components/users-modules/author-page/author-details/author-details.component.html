@@ -62,16 +62,17 @@
             </div>
         </mat-card-content>
         </div>
-    </div>
-</section>
-<mat-paginator [pageSizeOptions]="[3]"
+        <mat-paginator [pageSizeOptions]="[3]"
                (page)="onPageChanged($event)"
                hidePrevNextButtons style="display: none;"> 
 </mat-paginator>
 <button mat-icon-button (click)="onPerviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
-    <span>>></span>
-       </button>
-    {{currentPageIndex}}
-        <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
-    <span>>></span>
-        </button>
+    <img src="../../../assets/previous.png">
+</button>
+Page {{currentPageIndex}}
+     <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+<img src="../../../assets/next.png">
+     </button>
+    </div>
+</section>
+

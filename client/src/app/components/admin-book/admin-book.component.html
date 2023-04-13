@@ -52,9 +52,9 @@
     <mat-paginator [pageSizeOptions]="[10]" (page)="onPageChanged($event)" style="display: none;"></mat-paginator>
 
     <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
-<span><<</span>
-   </button>
-{{currentPageIndex}}
-    <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
-<span>>></span>
-    </button>
+      <img src="../../../assets/previous.png">
+      </button>
+   Page {{currentPageIndex}}
+       <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+<img src="../../../assets/next.png">
+       </button>

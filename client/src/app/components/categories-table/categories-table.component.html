@@ -31,10 +31,15 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                       showFirstLastButtons
-                       aria-label="Select page of periodic elements">
-        </mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10]" (page)="onPageChanged($event)" style="display: none;"></mat-paginator>
+
+        <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
+       <img src="../../../assets/previous.png">
+       </button>
+    Page {{currentPageIndex}}
+        <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+<img src="../../../assets/next.png">
+        </button>
       </div> 
 
 </div>

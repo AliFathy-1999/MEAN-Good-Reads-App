@@ -1,5 +1,5 @@
 import {AfterViewInit, Component,OnInit,ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/dataTypes/typesModule';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -13,7 +13,12 @@ import { MatDialog } from '@angular/material/dialog';
 export class CategoriesTableComponent implements AfterViewInit,OnInit{
 
 constructor(private _category:CategoriesService, private _dialog:MatDialog){}
-
+books!:any
+data: any;
+totalCount!:number
+pageSize!:number
+currentPageIndex:number=1
+totalPages!:number
 
 ngOnInit(): void {
 this.getAllCategories()
@@ -39,11 +44,56 @@ this.getAllCategories()
 
   getAllCategories(){
    this._category.getCategory(1,4).subscribe((res:any)=>{
-
-    this.dataSource=new MatTableDataSource(res.data.docs);
+    this.books=res.data.docs;
+    this.totalCount=res.data.docs.totaalDocs
+    this.totalPages=res.data.totalPages
+    this.dataSource=new MatTableDataSource(this.books);
     this.dataSource.paginator=this.paginator
         })
   }
+
+
+  onPageChanged(event: PageEvent) {
+    const newPageIndex = event.pageIndex;
+    const newPageSize = event.pageSize;
+    if (newPageIndex !== this.currentPageIndex || newPageSize !== this.pageSize) {
+      this.currentPageIndex = newPageIndex;
+      this.pageSize = newPageSize;
+      this._category.getCategory(this.currentPageIndex, this.pageSize).subscribe((result) => {
+        this.data = result.data;
+        this.totalCount = result.totalCount;
+        this.dataSource = new MatTableDataSource(result.data.docs);
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+  }
+  
+  onPreviousPage() {
+    if (this.currentPageIndex > 1) {
+      this.currentPageIndex--;
+      this._category.getCategory(this.currentPageIndex, 10).subscribe((result) => {
+        this.data = result.data;
+        this.totalCount = result.totalCount;
+        this.dataSource = new MatTableDataSource(result.data.docs);
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+  }
+  
+  onNextPage() {
+    console.log(this.currentPageIndex)
+    if (this.currentPageIndex < this.totalPages) {
+      console.log(this.currentPageIndex)
+      this.currentPageIndex++;
+      this._category.getCategory(this.currentPageIndex, 10).subscribe((result) => {
+        this.data = result.data;
+        this.totalCount = result.totalCount;
+        this.dataSource = new MatTableDataSource(result.data.docs);
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+  }
+
 
   deleteCategory(id:number){
     this._category.deleteCategoryById(id).subscribe((res:any)=>{
