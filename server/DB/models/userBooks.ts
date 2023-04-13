@@ -1,30 +1,33 @@
 import mongoose, { Schema, model } from 'mongoose';
 import { Shelf } from '../schemaInterfaces';
-
+import { string } from 'joi';
 const schema = new Schema({
-  userId: {
+  user: {
     type: mongoose.Types.ObjectId,
-    ref: 'User',
+    ref: 'Users',
   },
 
-  books: {
-    type: [
-      {
-        book: {
-          type: mongoose.Types.ObjectId,
-          ref: 'Books',
-        },
-        shelf: {
-          type: String,
-          enum: Object.values(Shelf),
-          default: Shelf.WANT2READ,
-        },
-        rating: {
-          type: Number,
-          default: 0,
-        },
+  book: {
+    type: {
+      bookId: {
+        type: Number,
+        ref: 'Books',
       },
-    ],
+      shelf: {
+        type: String,
+        enum: Object.values(Shelf),
+        default: Shelf.WANT2READ,
+      },
+      rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        default: 0,
+      },
+      review: {
+        type: String,
+      },
+    },
   },
 });
 

@@ -10,22 +10,19 @@ router.get('/books/:id', async (req: Request, res: Response, next: NextFunction)
   } = req;
 
   const user = userBooksController.getUserBooks(id);
-  console.log(user);
-
   const [err, data] = await asycnWrapper(user);
   if (err) return next(err);
   res.json(data);
 });
 
-router.patch('/books/:bookId', userAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/books/:bookId', async (req: Request, res: Response, next: NextFunction) => {
   const { bookId } = req.params;
-  const { newRate, newShelf } = req.body;
-  const userId = req.user._id;
-  console.log(userId);
+  const { newShelf, newRate, newReview } = req.body;
+  const userId = '6435c45d1f5b7be94015b2e4';
 
   try {
-    const updatedBook = await userBooksController.updateBook(userId, bookId, newRate, newShelf);
-    res.json(updatedBook);
+    const updatedBooks = await userBooksController.updateUserBooks(userId, bookId, newShelf, newRate, newReview);
+    res.json(updatedBooks);
   } catch (error) {
     next(error);
   }
