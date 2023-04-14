@@ -49,9 +49,7 @@
                         </mat-form-field>
                         <mat-card-content>
                             <div class="book-rating d-block">
-                                <ng-container *ngFor="let star of stars">
-                                    <mat-icon class="star-icon">{{ star }}</mat-icon>
-                                </ng-container>
+                              <ngb-rating [(rate)]="currentRate" [max]="5" class="fs-1 star-icon" ></ngb-rating>
                             </div>
                         </mat-card-content>
                     </div>
@@ -64,7 +62,7 @@
         </div>
         <mat-paginator [pageSizeOptions]="[3]"
                (page)="onPageChanged($event)"
-               hidePrevNextButtons style="display: none;"> 
+               hidePrevNextButtons style="display: none;">
 </mat-paginator>
 <button mat-icon-button (click)="onPerviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
     <img src="../../../assets/previous.png">

@@ -16,7 +16,7 @@ export class AuthorDetailsComponent {
   pageSize!:number
   selectedValue: string | undefined;
   currentPageIndex:number=1
-
+  currentRate:number = 0
 
   constructor(private _author:UserAuthorService,private route:ActivatedRoute) {}
 
