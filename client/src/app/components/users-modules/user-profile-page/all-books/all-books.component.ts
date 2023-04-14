@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserBooksService } from 'src/app/services/user-books.service';
 
 @Component({
   selector: 'app-all-books',
   templateUrl: './all-books.component.html',
   styleUrls: ['./all-books.component.css'],
 })
-export class AllBooksComponent {
+export class AllBooksComponent{
+
+
   userProfileData = [
     {
       coverImage: '../../../../../assets/books-imgs/the-curious.jpg',
@@ -21,4 +24,5 @@ export class AllBooksComponent {
 
   // Define the table columns
   tableColumns = ['coverImage', 'photo', 'name', 'author', 'rating', 'averageRating', 'shelf'];
+
 }

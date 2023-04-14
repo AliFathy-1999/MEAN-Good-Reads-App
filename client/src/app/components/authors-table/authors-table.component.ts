@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-authors-table',
@@ -14,34 +15,36 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class AuthorsTableComponent implements OnInit {
   authArr: Array<any> = [];
+  Oldauthor: any;
   newAuthArr: Array<Author> = [];
-  file: any = null;
+  file = [];
+
   selectedFile: File | undefined;
   page: number = 1;
   count: number = 0;
-  pageSize!:number;
-  data!:number;
-  totalCount!:number;
+  pageSize!: number;
+  data!: number;
+  totalCount!: number;
   totalPages!: number;
   collectionSize: number = 100;
+  imageUrl: SafeUrl | undefined;
+
   @ViewChild('authorForm') form: NgForm | undefined;
-  currentPageIndex:number=1
+  currentPageIndex: number = 1;
   authorsForm = new FormGroup({
     firstName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
     lastName: new FormControl([Validators.minLength(3), Validators.maxLength(15)]),
-    DOB: new FormControl('01/04/1998', [Validators.required, this.validateDOB.bind(this)]),
-    bio: new FormControl('Please Add The Author Bio Here', [Validators.maxLength(300), Validators.minLength(30)]),
-    authorImg: new FormControl(null, [Validators.required]),
+    DOB: new FormControl(null, [this.validateDOB.bind(this)]),
+    bio: new FormControl([Validators.maxLength(300), Validators.minLength(30)]),
   });
 
   constructor(
     private authorsService: AuthorsService,
     private deletePopup: MatDialog,
     private authService: AuthService,
-    private toastr: ToastrService
-  ) {
-    console.log(this.authArr);
-  }
+    private toastr: ToastrService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   validateDOB(control: AbstractControl): { [key: string]: boolean } | null {
     const DOB = new Date(control.value);
@@ -55,39 +58,38 @@ export class AuthorsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAuthors();
+    this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((result) => {
+      this.authArr = result.docs;
+      this.totalCount = result.totalDocs;
+    });
     console.log(this.authArr);
   }
 
   getAuthors() {
     this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((data: any) => {
       this.authArr = data.docs;
-      this.totalCount=data.totaalDocs
-      this.totalPages=data.totalPages
+      this.totalCount = data.totaalDocs;
+      this.totalPages = data.totalPages;
       return this.authArr;
     });
   }
 
   onEdit(id: number, authorForm: any) {
-    this.authArr.forEach((author) => {
-      author.isEdit = author._id === id;
-      console.log((author.isEdit = author._id === id));
-    });
+    this.Oldauthor = this.authArr.find((author) => author._id === id);
+    console.log(this.Oldauthor);
 
-    const author = this.authorsService.getAuthorById(id);
-    console.log(author, typeof id, id);
-    // Set the form controls to the existing values
-    authorForm.controls['firstName'].setValue(author?.firstName);
-    authorForm.controls['lastName'].setValue(author?.lastName);
-    authorForm.controls['DOB'].setValue(author?.DOB);
-    authorForm.controls['bio'].setValue(author?.bio);
-    authorForm.controls['authorImg'].setValue(author?.authorImg);
+    if (Array.isArray(this.authArr)) {
+      this.authArr.forEach((author) => {
+        author.isEdit = author._id === id;
+      });
+    }
+
+    this.authorsForm.get('DOB')?.setValue(this.Oldauthor.DOB.split('T')[0]);
   }
 
   onFileSelected(event: any) {
     this.file = event.target.files;
   }
-
 
   onPageChanged(event: PageEvent) {
     const newPageIndex = event.pageIndex;
@@ -101,22 +103,21 @@ export class AuthorsTableComponent implements OnInit {
       });
     }
   }
-  
+
   onPreviousPage() {
     if (this.currentPageIndex > 1) {
       this.currentPageIndex--;
       this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((result) => {
         this.authArr = result.docs;
         this.totalCount = result.totaalDocs;
-
       });
     }
   }
-  
+
   onNextPage() {
-    console.log(this.currentPageIndex)
+    console.log(this.currentPageIndex);
     if (this.currentPageIndex < this.totalPages) {
-      console.log(this.currentPageIndex)
+      console.log(this.currentPageIndex);
       this.currentPageIndex++;
       this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((result) => {
         this.authArr = result.docs;
@@ -129,7 +130,6 @@ export class AuthorsTableComponent implements OnInit {
     if (confirm('Are you sure you want to delete this author?')) {
       this.authorsService.deleteAuthor(id).subscribe(
         () => {
-          // If the delete request is successful, remove the author from the array of authors
           this.toastr.success('Deleted Succesfully');
           this.authArr = this.authArr.filter((a) => a._id !== id);
         },
@@ -146,33 +146,41 @@ export class AuthorsTableComponent implements OnInit {
       return;
     }
     const author = this.authArr.find((author) => author._id === id);
+    console.log(author);
 
     if (!author) {
       this.toastr.error(`Author with ID ${id} not found.`);
       return;
     }
 
+    console.log(this.Oldauthor);
+
     const formData = new FormData();
-    formData.append('firstName', authorsForm.get('firstName')?.value);
-    formData.append('lastName', authorsForm.get('lastName')?.value);
-    formData.append('DOB', authorsForm.get('DOB')?.value);
-    formData.append('bio', authorsForm.get('bio')?.value);
-    formData.append('authorImg', this.file[0]);
+    formData.append(
+      'firstName',
+      authorsForm.get('firstName')?.value ? this.Oldauthor.firstName : authorsForm.get('firstName')?.value
+    );
+    formData.append(
+      'lastName',
+      authorsForm.get('lastName')?.value ? this.Oldauthor.lastName : authorsForm.get('lastName')?.value
+    );
+    formData.append('DOB', authorsForm.get('DOB')?.value ? authorsForm.get('DOB')?.value : this.Oldauthor.DOB);
+    formData.append('bio', authorsForm.get('bio')?.value ? authorsForm.get('bio')?.value : this.Oldauthor.bio);
+    formData.append('authorImg', this.file && this.file.length > 0 ? this.file[0] : this.Oldauthor.authorImg);
+    console.log(this.file);
+    console.log(this.file[0]);
 
-    console.log(formData.get('bio'));
-
+    console.log(this.file[0]);
+    console.log(this.Oldauthor.authorImg);
+    author.isEdit = false;
     this.authorsService.updateAuthor(id, formData).subscribe(
       () => {
-        console.log(`Author with ID ${id} updated successfully.`);
+        this.getAuthors();
         author.isEdit = false;
         this.toastr.success(`Author with ID ${id} updated successfully.`);
-
-        this.authorsService.getAuthorsApi(1, 5).subscribe((data: any) => {
-          this.authArr = data;
-        });
       },
       (error: any) => {
-        this.toastr.error(error.error.err);
+        this.toastr.error(error.error.message);
       }
     );
   }

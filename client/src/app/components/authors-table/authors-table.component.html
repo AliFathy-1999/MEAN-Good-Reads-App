@@ -21,9 +21,8 @@
                         <td>{{author._id}}</td>
                         <td>
                             <div *ngIf="author.isEdit">
-                                <input (change)="onFileSelected($event)" formControlName="authorImg" type="file"
-                                    [(ngModel)]="author.authorImg " class="form-control" id="imageUpload"
-                                    accept="image/*">
+                                <input (change)="onFileSelected($event)" type="file" class="form-control"
+                                    id="imageUpload" accept="image/*">
                             </div>
                             <div *ngIf="authorsForm.get('authorImg')?.errors != null && authorsForm.get('authorImg')?.touched"
                                 class="alert-danger mt-2">
@@ -97,12 +96,14 @@
                                     required!</p>
                             </div>
                             <div *ngIf="!author.isEdit">
-                                {{author.DOB}}
+                                {{ author.DOB | date }}
                             </div>
+
                         </td>
                         <td>
                             <div *ngIf="author.isEdit">
-                                <textarea formControlName="bio" class="form-control" id="bio"></textarea>
+                                <textarea formControlName="bio" class="form-control" id="bio"
+                                    [(ngModel)]="author.bio"></textarea>
                             </div>
                             <div *ngIf="!author.isEdit" style="max-width: 500px;">
                                 {{author.bio || 'Please Add The Author Bio Here'}}
@@ -133,17 +134,17 @@
             <!-- <div class="mt-5 item-center">
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
             </div> -->
-            <mat-paginator [pageSizeOptions]="[4]"
-            (page)="onPageChanged($event)"
-            hidePrevNextButtons style="display: none;"> 
-</mat-paginator>
-<button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
- <img src="../../../assets/previous.png">
-</button>
-Page {{currentPageIndex}}
-  <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
-<img src="../../../assets/next.png">
-  </button>
+            <mat-paginator [pageSizeOptions]="[4]" (page)="onPageChanged($event)" hidePrevNextButtons
+                style="display: none;">
+            </mat-paginator>
+            <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1"
+                style="margin-right: 1%;">
+                <img src="../../../assets/previous.png">
+            </button>
+            Page {{currentPageIndex}}
+            <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+                <img src="../../../assets/next.png">
+            </button>
 
         </div>
     </div>

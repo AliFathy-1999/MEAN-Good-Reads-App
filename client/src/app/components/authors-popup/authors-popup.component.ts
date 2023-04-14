@@ -35,7 +35,7 @@ export class AuthorsPopupComponent {
   authorsForm = new FormGroup({
     firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-    DOB: new FormControl('01/04/1998', [Validators.required, this.validateDOB.bind(this)]),
+    DOB: new FormControl(null, [Validators.required, this.validateDOB.bind(this)]),
     bio: new FormControl('Please Add The Autho Bio Here ', [Validators.maxLength(300), Validators.minLength(30)]),
     authorImg: new FormControl(null, [Validators.required]),
   });

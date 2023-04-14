@@ -11,7 +11,7 @@ import { RegistrationCardsComponentComponent } from './components/registration-c
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarHomeComponent } from './components/navbar-home/navbar-home.component';
 import { TestHomeComponent } from './components/test-home/test-home.component';
-import { TokenInterceptorInterceptor } from './token-interceptor.interceptor';
+// import { TokenInterceptorInterceptor } from './token-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminBookComponent } from './components/admin-book/admin-book.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -125,7 +125,6 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     // StarRatingModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true },
     HttpInterceptorProviders,
     FormsModule,
   ],

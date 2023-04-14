@@ -12,7 +12,6 @@ export class UserNavbarComponent implements OnInit{
 user!:any;
 constructor(private _cookieService:CookieService, private _router:Router,private _auth:AuthService){}
   ngOnInit(): void {
-this.getUser()
   }
 
 logout(){

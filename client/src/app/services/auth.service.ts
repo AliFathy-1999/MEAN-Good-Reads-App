@@ -27,10 +27,12 @@ export class AuthService {
   }
 
   register(formData: object): Observable<any> {
-    return this._HttpClient.post('http://localhost:3000/users/register', formData);
+    return this._HttpClient.post('http://localhost:3000/register', formData);
   }
 
   login(loginData: object): Observable<any> {
-    return this._HttpClient.post('http://localhost:3000/users/signin', loginData);
+    const headers = { 'Content-Type': 'application/json' };
+    // const options = { withCredentials: true };
+    return this._HttpClient.post('http://localhost:3000/signin', loginData,{ headers});
   }
 }

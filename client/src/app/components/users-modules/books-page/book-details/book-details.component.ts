@@ -18,11 +18,11 @@ export class BookDetailsComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 50];
   userReview!:FormGroup
   book: any |undefined
-  comment!:string
+  review!:string
   rating!:any
-  constructor(private _book:UserBooksService, private route:ActivatedRoute,private router:Router) {
+  constructor(private _book:UserBooksService, private route:ActivatedRoute,private router:Router,private _route:ActivatedRoute) {
     this.userReview=new FormGroup({
-      comment:new FormControl('',[Validators.maxLength(140),Validators.minLength(3)]),
+      review:new FormControl('',[Validators.maxLength(140),Validators.minLength(3)]),
       rating:new FormControl(1,Validators.required)
     })
   }
@@ -37,16 +37,16 @@ this.route.params.subscribe(params=>this.getBookById(params['id']))
 
 onSubmit(id:number){
     const formData= new FormData();
-    formData.append('comment', this.userReview.get('comment')?.value);
+    formData.append('review', this.userReview.get('review')?.value);
     formData.append('rating',this.rating) 
     console.log(formData)
-    this._book.bookReview(id,formData).subscribe({next:(res:any)=>{
+    this._book.bookReview(this._route.snapshot.params['id'],formData).subscribe({next:(res:any)=>{
     console.log(res)
     }, error: (HttpErrorResponse) => {
       if(HttpErrorResponse.error.message === "jwt malformed"){
         this.router.navigate(['/user']);
       }{
-      if(HttpErrorResponse.error.message ===`${this.comment}}is not allowed to be empty`){
+      if(HttpErrorResponse.error.message ===`${this.review}}is not allowed to be empty`){
         this.errorMessage="Comment can't be Empty"
       }}
     }})

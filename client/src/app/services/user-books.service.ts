@@ -24,6 +24,13 @@ export class UserBooksService {
    }
    
    bookReview(id:number,data:object):Observable<any>{
-    return this._http.patch(`localhost:3000/user/books/${id}`,data)
+    return this._http.patch(`http://localhost:3000/user/books/${id}`,data)
    }
+getUserBooks():Observable<any>{
+  return this._http.get('http://localhost:3000/user/books')
 }
+
+getPopular():Observable<any>{
+  return this._http.get('http://localhost:3000/books/popular')
+}
+  }
