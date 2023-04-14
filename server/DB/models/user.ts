@@ -72,39 +72,6 @@ schema.methods.toJSON = function () {
   return userObject;
 };
 
-schema.statics.getBookById = async function (_id: number) {
-  return await Users.aggregate([
-    {
-      $match: { _id },
-    },
-    {
-      $lookup: {
-        from: 'Books',
-        localField: 'books.book',
-        foreignField: '_id',
-        as: 'UserBooks',
-      },
-    },
-
-    {
-      $lookup: {
-        from: 'Authors',
-        localField: 'UserBooks.authorId',
-        foreignField: '_id',
-        as: 'UserBooks',
-      },
-    },
-
-    {
-      $lookup: {
-        from: 'Categories',
-        localField: 'UserBooks.categoryId',
-        foreignField: '_id',
-        as: 'UserBooks',
-      },
-    },
-  ]);
-};
 
 schema.pre('save', async function () {
   if (this.isModified('password')) this.password = await bcryptjs.hash(this.password, 10);

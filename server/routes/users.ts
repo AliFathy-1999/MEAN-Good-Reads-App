@@ -6,37 +6,38 @@ import { asycnWrapper } from '../lib/index';
 const { userAuth } = require('../middlewares/auth');
 const { usersValidator } = require('../Validations');
 const { validate } = require('../middlewares/validation');
-const { authorValidator,paginationOptions } = require('../Validations');
-const { authorController } = require("../controllers/index")
-router.post(
-  '/register',
-  upload.single('pImage'),
-  validate(usersValidator.signUp),
-  async (req: any, res: Response, next: NextFunction) => {
+const { authorController } = require('../controllers/index');
+
+
+router.post('/register', upload.single('pImage'), validate(usersValidator.signUp), async (req: any, res: Response, next: NextFunction) => {
     const pImage = req.file?.path;
     const {
       body: { firstName, lastName, userName, email, password, role },
     } = req;
-    console.log(role);
-    
     const user = userController.create({ firstName, lastName, userName, email, password, pImage, role });
     const [err, data] = await asycnWrapper(user);
     if (err) return next(err);
-    res.status(200).json({ message: 'User registered successfully',data });
-  });
+    res.status(200).json({ message: 'User registered successfully', data });
+  }
+);
+
 
 router.post('/signin', validate(usersValidator.signIn), async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const {
-      body: { userName, password },
-    } = req;
-    const token = await userController.signIn({ userName, password });
-    // res.cookie('token',token, { httpOnly: true }).status(200).json({ token });
-    res.status(200).json({ token });
+    const { userName, password } = req.body;
+    const { token, user } = await userController.signIn({ userName, password });
+    res.cookie('access_token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production'})
+      .status(200).json({ token, user })
   } catch (err) {
     next(err);
   }
 });
+
+
+router.use(userAuth)
+
+router.get("/logout", userAuth , (req:Request, res:Response) => {
+  return res.clearCookie("access_token").status(200).json({ message: "Successfully logged out" })});
 
 router.get('/', userAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -45,17 +46,19 @@ router.get('/', userAuth, async (req: Request, res: Response, next: NextFunction
     next(err);
   }
 });
-router.get('/authors',userAuth,async (req:Request, res:Response, next:NextFunction) => { 
-  const { query:{ limit,page }} = req 
-  const author = authorController.getAuthors({page,limit});
+
+
+
+// what is this?
+router.get('/authors', async (req: Request, res: Response, next: NextFunction) => {
+  const {
+    query: { limit, page },
+  } = req;
+  const author = authorController.getAuthors({ page, limit });
   const [err, data] = await asycnWrapper(author);
   if (err) return next(err);
   res.status(200).json(data);
 });
-// router.get('/authors/popular',async (req:Request, res:Response, next:NextFunction) => {  
-//   const author = authorController.getPopularAuthors();
-//   const [err, data] = await asycnWrapper(author);
-//   if (err) return next(err);
-//   res.status(200).json(data);
-// }); 
+
+
 module.exports = router;

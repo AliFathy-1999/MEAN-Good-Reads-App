@@ -8,7 +8,9 @@ import { AppError, asycnWrapper, trimText } from '../lib/index';
 
 const router: Router = express.Router();
 
-router.post('/', adminAuth, checkImage, validate(booksValidator.bookData), async (req: Request, res: Response, next: NextFunction) => {
+router.use(adminAuth)
+
+router.post('/',  checkImage, validate(booksValidator.bookData), async (req: Request, res: Response, next: NextFunction) => {
     // let bookImage = req.file? req.file.path : undefined
     console.log(req.file);  
     const { name, categoryId, authorId, description } = req.body;
@@ -19,7 +21,7 @@ router.post('/', adminAuth, checkImage, validate(booksValidator.bookData), async
   }
 );
 
-router.get('/', adminAuth, validate(paginationOptions), async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', validate(paginationOptions), async (req: Request, res: Response, next: NextFunction) => {
     const {page, limit } = req.query;    
     const books = booksController.getPaginatedBooks({ page, limit });
     const [err, data] = await asycnWrapper(books);
@@ -28,7 +30,7 @@ router.get('/', adminAuth, validate(paginationOptions), async (req: Request, res
   }
 );
 
-router.patch('/:id', adminAuth, checkImage, validate(booksValidator.bookId), validate(booksValidator.bookEdit), async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:id', checkImage, validate(booksValidator.bookId), validate(booksValidator.bookEdit), async (req: Request, res: Response, next: NextFunction) => {
   const { name, categoryId, authorId, description } = req.body;
   // let bookImage = req.file? req.file.path : undefined
   const book = booksController.editBook(req.params.id, { name, bookImage:req.file, categoryId, authorId, description });
@@ -39,7 +41,7 @@ router.patch('/:id', adminAuth, checkImage, validate(booksValidator.bookId), val
 });
 
 
-router.delete('/:id', adminAuth, validate(booksValidator.bookId), async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:id', validate(booksValidator.bookId), async (req: Request, res: Response, next: NextFunction) => {
     const deletedBook = booksController.deleteBook(req.params.id);
     const [err, data] = await asycnWrapper(deletedBook);
     if (err) return next(err);

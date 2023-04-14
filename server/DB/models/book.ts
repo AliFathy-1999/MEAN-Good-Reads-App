@@ -1,9 +1,6 @@
 import { Schema, model } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { Book, BookModel, Entities } from '../schemaInterfaces';
-import { AppError } from '../../lib';
-const Categoris = require('../models/category')
-const Authors = require('../models/author')
 const Counters = require('./counter');
 
 const schema = new Schema<Book>(
@@ -86,9 +83,6 @@ schema.methods.toJSON = function () {
   const book = this;
   const bookObject = book.toObject();
   delete bookObject.__v;
-  // delete bookObject.createdAt;
-  // delete bookObject.updatedAt;
-  delete bookObject.totalRating;
   return bookObject;
 };
 
@@ -106,15 +100,7 @@ schema.statics.getNewId = async () => {
 
 schema.virtual('averageRating').get(function () {
   if (this.ratingsNumber === 0) return 0;
-  return Math.floor(this.totalRating / this.ratingsNumber);
-});
-
-
-schema.virtual('usersReviews', {
-  ref: 'UserBooks',
-  localField: 'reviews.userId',
-  foreignField: 'userId',
-  // justOne: true
+  return Math.floor((this.totalRating / this.ratingsNumber)/5);
 });
 
 

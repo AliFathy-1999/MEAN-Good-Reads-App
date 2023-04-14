@@ -1,6 +1,5 @@
 import { Book, PaginatedBooks } from '../DB/schemaInterfaces';
-import { AppError, asycnWrapper, trimText } from '../lib';
-const { upload, checkImage } = require('../middlewares/imageMiddleware');
+import { AppError,  trimText } from '../lib';
 
 const Books = require('../DB/models/book');
 const Categoris = require('../DB/models/category');
@@ -10,7 +9,6 @@ const UserBooks = require('../DB/models/userBooks');
 const getBooks = () => Books.find({});
 
 // Admin Panel
-
 const create = async (data: Book) => {
   const relatedCategory = await Categoris.findById(data.categoryId);
   const relatedAuthor = await Authors.findById(data.authorId);
@@ -19,7 +17,7 @@ const create = async (data: Book) => {
   return Books.create(data);
 };
 
-const getBookById = (_id: number) => Books.findById(_id); //.select('-averageRating -ratingsNumber -reviews');
+const getBookById = (_id: number) => Books.findById(_id); 
 
 const editBook = async (
   id: number,
@@ -49,14 +47,15 @@ const getBookById_fullInfo = async (id: number) => {
     .select('  -createdAt -updatedAt -totalRating')
     .exec();
 
-  const reviews = await UserBooks.find({ 'book.bookId': id })
+  const reviews = await UserBooks.find({ book: id })
     .populate({ path: 'user', select: 'firstName lastName userName  ' })
-    .select('book.review book.rating firstName lastName userName  ');
+    .select('review rating firstName lastName userName  ');
   return { book, reviews };
 };
 
 const getBooks_fullInfo = async (options: { page: number; limit: number }) => {
   if (!options.limit) options.limit = 10;
+  if (!options.page) options.page = 1;
   const result = (await Books.paginate(
     {},
     {
@@ -70,6 +69,7 @@ const getBooks_fullInfo = async (options: { page: number; limit: number }) => {
 
 const getPaginatedBooks = async (options: { page: number; limit: number }): Promise<PaginatedBooks> => {
   if (!options.limit) options.limit = 10;
+  if (!options.page) options.page = 1;
   const result = (await Books.paginate({}, options)) as PaginatedBooks;
   return result as PaginatedBooks;
 };
@@ -82,15 +82,29 @@ const getPopularBooks = async () =>
       },
     },
     {
-      $addFields: {
-        avgRating: {
-          $divide: ['$totalRating', '$ratingsNumber'],
-        },
+      $project: {
+        name: 1,
+        bookImage: 1,
+        description: 1,
+        popularity: {
+          $add: [
+            {
+              $multiply: [
+                {
+                  $divide: [{ $divide: ['$totalRating', '$ratingsNumber']},5]},.7]},
+            {
+              $multiply: [
+                {
+                  $divide: ['$ratingsNumber',.3]},
+          ],
+        }
+      ]
       },
+    }
     },
-
+    
     {
-      $sort: { avgRating: -1, ratingsNumber: -1 },
+      $sort: { popularity: -1 },
     },
 
     {
@@ -98,8 +112,8 @@ const getPopularBooks = async () =>
     },
   ]);
 
-  
-module.exports = {
+
+  module.exports = {
   create,
   getBooks,
   getBookById,

@@ -2,16 +2,19 @@ import express, { Application, NextFunction, Request, Response, ErrorRequestHand
 import { AppError } from './lib';
 const { handleResponseError } = require('./lib/handlingErrors');
 const app: Application = express();
+const cookieParser = require("cookie-parser");
 const cors = require('cors');
 
 const routes = require('./routes/index.ts');
 require('./DB/connects');
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
-app.use('/users', routes.userRoute);
+
+app.use('/', routes.userRoute);
 app.use('/admin', routes.adminRoute);
 app.use('/books', routes.bookRoute);
 app.use('/authors', routes.authorRoute);

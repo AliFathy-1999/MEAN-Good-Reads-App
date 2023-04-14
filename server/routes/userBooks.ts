@@ -1,29 +1,36 @@
-import express, { Request, Response, Router, NextFunction, ErrorRequestHandler } from 'express';
+import express, { Request, Response, Router, NextFunction } from 'express';
+const { booksValidator, paginationOptions } = require('../Validations');
 const { userBooksController } = require('../controllers/index');
-const router: Router = express.Router();
+const { validate } = require('../middlewares/validation');
 const { userAuth } = require('../middlewares/auth');
 import { asycnWrapper } from '../lib/index';
 
-router.get('/books/:id', userAuth, async (req: Request, res: Response, next: NextFunction) => {
-  const {
-    params: { id },
-  } = req;
+const router: Router = express.Router();
 
-  const user = userBooksController.getUserBooks(id);
+router.use(userAuth);
+
+router.get('/books', validate(paginationOptions), async (req: Request, res: Response, next: NextFunction) => {
+  const { page, limit } = req.query;
+  const user = userBooksController.getUserBooks(req.user._id, { page, limit });
   const [err, data] = await asycnWrapper(user);
   if (err) return next(err);
-  res.json(data);
+  res.status(200).json({ success: true, data, result: data.length });
 });
 
-router.patch('/books/:bookId',userAuth ,async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/books/:bookId', validate(booksValidator.updateUserBook), async (req: Request, res: Response, next: NextFunction) => {
   const { bookId } = req.params;
-  const { newShelf, newRate, newReview } = req.body;
-// edit to object 
+  const { rating, review, shelf } = req.body;
   try {
-    const updatedBooks = await userBooksController.updateUserBooks({userId: req.user._id, bookId, newShelf, newRate, newReview});
-    res.json(updatedBooks);
-  } catch (error) {
-    next(error);
+    const message = await userBooksController.updateUserBooks({
+      userId: req.user._id,
+      bookId,
+      shelf,
+      review,
+      rating,
+    });
+    res.status(200).json({ success: true, message });
+  } catch (err) {
+    return next(err);
   }
 });
 

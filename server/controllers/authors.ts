@@ -19,18 +19,13 @@ const authorBooks = (id: number, page: number, limit: number): PaginatedBooks =>
   return Books.paginate({ authorId: id }, { limit, page, select: selection }) as PaginatedBooks;
 };
 
-// {$sort:{name:-1, score:-1}},
-// {$group:{_id:"$name",items:{$push:{score:"$score"}}}},
-// {$project:{items:{$slice:["$items", 2]}}}])
-// .pretty()
-
 const getPopularAuthors = () => {
   return Books.aggregate([
-  /*  {
+   {
       $match: {
         ratingsNumber: { $gt: 0 },
       },
-    },*/
+    },
     {
       $lookup: {
         from: 'authors',

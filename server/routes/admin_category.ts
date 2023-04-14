@@ -7,7 +7,9 @@ import { AppError, asycnWrapper, trimText } from '../lib/index';
 
 const router : Router = express.Router();
 
-router.post("/", adminAuth, validate(categoriesValidator.categoryData), async (req: Request, res: Response, next: NextFunction) => {
+router.use(adminAuth)
+
+router.post("/",  validate(categoriesValidator.categoryData), async (req: Request, res: Response, next: NextFunction) => {
     const category = categoriesController.create({ name: trimText(req.body.name) });
     const [err, data] = await asycnWrapper(category);
     if (err) return next(err);
@@ -15,8 +17,7 @@ router.post("/", adminAuth, validate(categoriesValidator.categoryData), async (r
   }
   );
   
-  
-router.get('/',validate(paginationOptions) ,adminAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/',validate(paginationOptions), async (req: Request, res: Response, next: NextFunction) => {
     const {page, limit } = req.query;    
     const categories = categoriesController.getPaginatedCategories({page, limit });
     const [err, data] = await asycnWrapper(categories);
@@ -25,7 +26,7 @@ router.get('/',validate(paginationOptions) ,adminAuth, async (req: Request, res:
   }
   );
   
-router.patch("/:id", adminAuth, validate(categoriesValidator.categoryId), validate(categoriesValidator.categoryData), async (req: Request, res: Response, next: NextFunction) => {
+router.patch("/:id", validate(categoriesValidator.categoryId), validate(categoriesValidator.categoryData), async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { name } = req.body;
     const category = categoriesController.editCategory({ id, name: trimText(name) });
@@ -37,7 +38,7 @@ router.patch("/:id", adminAuth, validate(categoriesValidator.categoryId), valida
   
   );
   
-router.delete("/:id", adminAuth, validate(categoriesValidator.categoryId), async (req: Request, res: Response, next: NextFunction) => {
+router.delete("/:id", validate(categoriesValidator.categoryId), async (req: Request, res: Response, next: NextFunction) => {
       const deletedCategory = categoriesController.deleteCategory(req.params.id);
       const [err, data] = await asycnWrapper(deletedCategory);
       if (err) return next(err);

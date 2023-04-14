@@ -42,8 +42,10 @@ const schema = new Schema<Author>(
       default: 'https://res.cloudinary.com/dttgbrris/image/upload/v1681003634/3899618_mkmx9b.png',
     },
   },
-  {
+  { 
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 
@@ -53,7 +55,13 @@ schema.methods.toJSON = function () {
   delete authorObject.__v;
   return authorObject;
 };
+
 schema.plugin(mongoosePaginate);
+
+schema.virtual('fullName').get(function () {
+  return `${this.firstName}  ${this.lastName}`;
+});
+
 const Author = model('Authors', schema);
 
 module.exports = Author;

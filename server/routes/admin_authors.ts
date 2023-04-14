@@ -3,14 +3,16 @@ import express, {Request, Response , Router,NextFunction} from 'express';
 import { AppError, asycnWrapper } from '../lib/index';
 const {upload} = require("../middlewares/imageMiddleware")
 const { authorController } = require("../controllers/index")
-const router : Router = express.Router();
 const { adminAuth } = require('../middlewares/auth');
 const { Counter } = require("../DB/models/index")
 const { validate } = require('../middlewares/validation');
 const { authorValidator,paginationOptions } = require('../Validations');
 
-router.post('/',adminAuth ,upload.single("authorImg"),validate(authorValidator.validateAuthor),async (req:Request, res:Response, next:NextFunction) => {
-    // const authorImg = req.file?.path
+const router : Router = express.Router();
+router.use(adminAuth)
+
+router.post('/', upload.single("authorImg"),validate(authorValidator.validateAuthor),async (req:Request, res:Response, next:NextFunction) => {
+    const authorImg = req.file?.path
     const incrementalId = await Counter.findOneAndUpdate(
         {id:"authorInc"},
         { $inc: { seq: 1 } },
@@ -33,7 +35,6 @@ router.post('/',adminAuth ,upload.single("authorImg"),validate(authorValidator.v
 
   router.patch(
     '/:id',
-    adminAuth,
     upload.single("authorImg"),
     validate(authorValidator.checkvalidID),
     validate(authorValidator.validateAuthor),
@@ -50,7 +51,7 @@ router.post('/',adminAuth ,upload.single("authorImg"),validate(authorValidator.v
   });  
 
 
-  router.get('/',adminAuth,validate(paginationOptions),async (req:Request, res:Response, next:NextFunction) => { 
+  router.get('/',validate(paginationOptions),async (req:Request, res:Response, next:NextFunction) => { 
       const { query:{ limit,page }} = req 
       const author = authorController.getAuthors({page,limit});
       const [err, data] = await asycnWrapper(author);
@@ -60,7 +61,6 @@ router.post('/',adminAuth ,upload.single("authorImg"),validate(authorValidator.v
 
   router.delete(
     '/:id',
-    adminAuth,
     validate(authorValidator.checkvalidID),
     async (req:Request, res:Response, next:NextFunction) => { 
       const { params:{ id }} = req 

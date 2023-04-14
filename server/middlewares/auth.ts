@@ -6,21 +6,18 @@ const jwt = require('jsonwebtoken');
 const Users = require('../DB/models/user');
 
 
-const verifyToken = async (bearerToken: string) => {
-  bearerToken = bearerToken.split(' ')[1];
-  if(!bearerToken) return new AppError('Sign in again',401); 
-  const decoded = jwt.verify(bearerToken, process.env.TOKEN_KEY);
+const verifyToken = async (token: string) => {
+  const decoded = jwt.verify(token, process.env.TOKEN_KEY);
   const user = await Users.findById( decoded.userId);
-  if(!user) return new AppError('un-authenticated',401); 
+  if(!user) throw new AppError('un-authenticated',401); 
   return user;
 };
 
 const userAuth = async (req: Request, res: Response, next: NextFunction) => {
-  let bearerToken = req.headers.authorization;
-  // let bearerToken = req.cookies.token;
+  const token = req.cookies.access_token;
   try {
-    if (!bearerToken) throw new Error('Un-Authenticated');
-    const result = await verifyToken(bearerToken);
+    if (!token) throw new AppError('Unauthorized', 403);
+    const result = await verifyToken(token);
     if (result.role !== Role.USER) throw new AppError('Unauthorized-User',403);
     req.user = result
     next();
@@ -30,11 +27,10 @@ const userAuth = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
-  let bearerToken = req.headers.authorization;
-  // let bearerToken = req.cookies.token;
+  const token = req.cookies.access_token;
   try {
-    if (!bearerToken) throw new Error('Unauthenticated-User');
-    const result = await verifyToken(bearerToken);
+    if (!token) throw new Error('Unauthenticated-User');
+    const result = await verifyToken(token);
     if (result.role !== Role.ADMIN) throw new AppError('Unauthorized-User',403);
     req.user = result;
     next();
