@@ -93,10 +93,7 @@ const getPopularBooks = async () =>
                 {
                   $divide: [{ $divide: ['$totalRating', '$ratingsNumber']},5]},.7]},
             {
-              $multiply: [
-                {
-                  $divide: ['$ratingsNumber',.3]},
-          ],
+              $multiply: ['$ratingsNumber',.3],
         }
       ]
       },
@@ -112,8 +109,8 @@ const getPopularBooks = async () =>
     },
   ]);
 
-
-  module.exports = {
+  
+module.exports = {
   create,
   getBooks,
   getBookById,

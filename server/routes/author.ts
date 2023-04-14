@@ -10,6 +10,8 @@ const { authorValidator } = require('../Validations');
 
 
 
+
+
 router.get('/popular', async (req: Request, res: Response, next: NextFunction) => {
   const author = authorController.getPopularAuthors();
   const [err, data] = await asycnWrapper(author);

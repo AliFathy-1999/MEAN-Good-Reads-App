@@ -4,6 +4,7 @@ const { userBooksController } = require('../controllers/index');
 const { validate } = require('../middlewares/validation');
 const { userAuth } = require('../middlewares/auth');
 import { asycnWrapper } from '../lib/index';
+import { log } from 'console';
 
 const router: Router = express.Router();
 
