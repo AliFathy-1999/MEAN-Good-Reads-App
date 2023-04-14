@@ -4,7 +4,7 @@ const router: Router = express.Router();
 const { userAuth } = require('../middlewares/auth');
 import { asycnWrapper } from '../lib/index';
 
-router.get('/books/:id', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/books/:id', userAuth, async (req: Request, res: Response, next: NextFunction) => {
   const {
     params: { id },
   } = req;
@@ -15,13 +15,12 @@ router.get('/books/:id', async (req: Request, res: Response, next: NextFunction)
   res.json(data);
 });
 
-router.patch('/books/:bookId', async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/books/:bookId',userAuth ,async (req: Request, res: Response, next: NextFunction) => {
   const { bookId } = req.params;
   const { newShelf, newRate, newReview } = req.body;
-  const userId = '6435c45d1f5b7be94015b2e4';
-
+// edit to object 
   try {
-    const updatedBooks = await userBooksController.updateUserBooks(userId, bookId, newShelf, newRate, newReview);
+    const updatedBooks = await userBooksController.updateUserBooks({userId: req.user._id, bookId, newShelf, newRate, newReview});
     res.json(updatedBooks);
   } catch (error) {
     next(error);

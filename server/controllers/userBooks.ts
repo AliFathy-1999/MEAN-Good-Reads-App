@@ -2,11 +2,10 @@ const Users = require('../DB/models/user');
 const Books = require('../DB/models/book');
 
 const UserBooks = require('../DB/models/userBooks');
-import { AppError, asycnWrapper } from '../lib/index';
-import mongoose, { Types } from 'mongoose';
+import { AppError, asycnWrapper, trimText } from '../lib/index';
 
-const getUserBooks = async (user: string) => {
-  const userBooks = await UserBooks.find({ user: user }).populate({
+const getUserBooks = async (user: string) =>
+  await UserBooks.find({ user: user }).populate({
     path: 'book.bookId',
     select: 'name bookImage authorId averageRating ratingsNumber',
     populate: {
@@ -14,12 +13,6 @@ const getUserBooks = async (user: string) => {
       select: 'firstName lastName',
     },
   });
-
-  if (!userBooks) {
-    throw new AppError('User not found', 404);
-  }
-  return userBooks;
-};
 
 const updateAvgRating = async (bookId: number, rating: number, previousRating: number) => {
   const book = await Books.findById(bookId);
@@ -33,16 +26,21 @@ const updateAvgRating = async (bookId: number, rating: number, previousRating: n
   book.save();
 };
 
-const updateUserBooks = async (userId: string, bookId: number, shelf: string, rating?: number, review?: string) => {
+const updateUserBooks = async (data: {
+  userId: string;
+  bookId: number;
+  shelf: string;
+  rating?: number;
+  review?: string;
+}) => {
   let previousRating = 0;
-  userId = userId.trim();
-
-  const filter = { user: userId, 'book.bookId': bookId };
+  const filter = { user: data.userId, 'book.bookId': data.bookId };
+  if(data.review) data.review = trimText(data.review)
   const existingBookUpdate = {
     $set: {
-      'book.shelf': shelf,
-      'book.rating': rating,
-      'book.review': review,
+      'book.shelf': data.shelf,
+      'book.rating': data.rating,
+      'book.review': data.review,
     },
   };
 
@@ -50,13 +48,11 @@ const updateUserBooks = async (userId: string, bookId: number, shelf: string, ra
 
   const updatedExistingBook = await UserBooks.findOneAndUpdate(filter, existingBookUpdate, options);
 
-  console.log(updatedExistingBook);
-
   if (updatedExistingBook.lastErrorObject.updatedExisting) {
     previousRating = updatedExistingBook.value.book.rating;
   }
 
-  if (rating) updateAvgRating(bookId, rating, previousRating);
+  if (data.rating) updateAvgRating(data.bookId, data.rating, previousRating);
 
   return updatedExistingBook;
 };
