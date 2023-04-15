@@ -20,7 +20,7 @@
                         
                         <div class="book-rating d-block">
                             <ng-container *ngFor="let star of stars">
-                                <mat-icon class="star-icon">{{ star }}</mat-icon>
+                                <!-- <mat-icon class="star-icon">{{ star }}</mat-icon> -->
                             </ng-container>
                         </div>
                     </mat-card-content>
@@ -30,12 +30,12 @@
                     </mat-card-content>
                     <hr id="line"/>
                     <mat-card-content>
-                        <form [formGroup]="userReview" (ngSubmit)="onSubmit(book.id)">
+                        <form [formGroup]="userReview" (ngSubmit)="onSubmit()">
                             <div class="form-group">
-                                <ngb-rating id="starRate" [max]="5" formNameControl="rating" (rateChange)="onRateChange($event)" [readonly]="false"></ngb-rating>
+                                <ngb-rating id="starRate" [max]="5" (rateChange)="onRateChange($event)" name="rating" [readonly]="false"></ngb-rating>
                             </div>
                             <div class="form-group">
-                              <textarea class="form-control w-50" id="review-text" formControlName="review" name="comment"></textarea>
+                              <textarea class="form-control w-50" id="review-text" formControlName="review" name="review"></textarea>
                               <div class="dialogVal alert-danger"
                               *ngIf="userReview.get('review')?.errors != null && userReview.get('review')?.touched">
                               <p class="text-danger" *ngIf="userReview.get('review')?.errors?.['required']">Your comment is required!

@@ -24,8 +24,17 @@
                 <div *ngIf="(i + 1) % 4 === 0" class="col-md-12 mt-4"></div>
             </ng-container>
             <div class="col-md-12 mt-4">
-                <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                    [length]="books.length"></mat-paginator>
+                
+                <mat-paginator [pageSizeOptions]="[10]"  [pageSize]="pageSize" [length]="totalCount" (page)="onPageChanged($event)" style="display: none;"></mat-paginator>
+
+                <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
+                  <img src="../../../assets/previous.png">
+                  </button>
+               Page {{currentPageIndex}}
+                   <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+            <img src="../../../assets/next.png">
+                   </button>
+
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@ export class UserBooksService {
     return this._http.get<Book>(`http://localhost:3000/books/${id}`);
    }
    
-   bookReview(id:number,data:object):Observable<any>{
+   bookReview(id:number,data:any):Observable<any>{
     return this._http.patch(`http://localhost:3000/user/books/${id}`,data)
    }
 getUserBooks():Observable<any>{

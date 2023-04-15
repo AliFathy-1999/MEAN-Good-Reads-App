@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/dataTypes/typesModule';
 import { UserBooksService } from 'src/app/services/user-books.service';
@@ -10,6 +11,10 @@ import { UserBooksService } from 'src/app/services/user-books.service';
 export class BooksComponent implements OnInit {
 
 books:Book[]=[]
+totalCount!:number
+pageSize!:number
+currentPageIndex:number=1
+totalPages!:number
 
 constructor(private _books:UserBooksService,private route:ActivatedRoute){}
   ngOnInit(): void {
@@ -18,12 +23,46 @@ constructor(private _books:UserBooksService,private route:ActivatedRoute){}
 
 getAllBooks(){
 this._books.getAllBooks(1,10).subscribe((res:any)=>{
-  this.books=res.data.docs
-  console.log(this.books)
+  this.books=res.data.docs;
+  this.totalCount=res.data.totalDocs;
+  this.totalPages=res.data.totalPages;
+    console.log(this.books)
 })
 }
 
-  // page = 1;
-  pageSize = 8;
-  pageSizeOptions = [4, 8, 12];
+onPageChanged(event: PageEvent) {
+  const newPageIndex = event.pageIndex;
+  const newPageSize = event.pageSize;
+  if (newPageIndex !== this.currentPageIndex || newPageSize !== this.pageSize) {
+    this.currentPageIndex = newPageIndex;
+    this.pageSize = newPageSize;
+    this._books.getAllBooks(this.currentPageIndex, this.pageSize).subscribe((result) => {
+      this.books=result.data.docs;
+      this.totalCount = result.data.totalDocs;
+    });
+  }
+}
+
+onPreviousPage() {
+  if (this.currentPageIndex > 1) {
+    this.currentPageIndex--;
+    this._books.getAllBooks(this.currentPageIndex, 10).subscribe((result) => {
+      this.books = result.data.docs;
+      this.totalCount = result.data.totalDocs;
+    });
+  }
+}
+
+onNextPage() {
+  console.log(this.currentPageIndex)
+  if (this.currentPageIndex < this.totalPages) {
+    console.log(this.currentPageIndex)
+    this.currentPageIndex++;
+    this._books.getAllBooks(this.currentPageIndex, 10).subscribe((result) => {
+      this.books = result.data.docs;
+      this.totalCount = result.data.totalDocs;
+    });
+  }
+}
+
 }

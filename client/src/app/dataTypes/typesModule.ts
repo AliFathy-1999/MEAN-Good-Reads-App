@@ -27,6 +27,7 @@ export interface Category {
 }
 
 export interface Book{
+  data: any;
   // data:{
     _id:number;
     name:string;
