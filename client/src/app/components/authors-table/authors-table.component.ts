@@ -17,7 +17,7 @@ export class AuthorsTableComponent implements OnInit {
   authArr: Array<any> = [];
   Oldauthor: any;
   newAuthArr: Array<Author> = [];
-  file = [];
+  file :any;
 
   selectedFile: File | undefined;
   page: number = 1;
@@ -61,6 +61,7 @@ export class AuthorsTableComponent implements OnInit {
     this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((result) => {
       this.authArr = result.docs;
       this.totalCount = result.totalDocs;
+      this.totalPages = result.totalPages;
     });
     console.log(this.authArr);
   }
@@ -76,7 +77,6 @@ export class AuthorsTableComponent implements OnInit {
 
   onEdit(id: number, authorForm: any) {
     this.Oldauthor = this.authArr.find((author) => author._id === id);
-    console.log(this.Oldauthor);
 
     if (Array.isArray(this.authArr)) {
       this.authArr.forEach((author) => {
@@ -115,7 +115,6 @@ export class AuthorsTableComponent implements OnInit {
   }
 
   onNextPage() {
-    console.log(this.currentPageIndex);
     if (this.currentPageIndex < this.totalPages) {
       console.log(this.currentPageIndex);
       this.currentPageIndex++;
@@ -146,14 +145,11 @@ export class AuthorsTableComponent implements OnInit {
       return;
     }
     const author = this.authArr.find((author) => author._id === id);
-    console.log(author);
 
     if (!author) {
       this.toastr.error(`Author with ID ${id} not found.`);
       return;
     }
-
-    console.log(this.Oldauthor);
 
     const formData = new FormData();
     formData.append(
@@ -166,12 +162,12 @@ export class AuthorsTableComponent implements OnInit {
     );
     formData.append('DOB', authorsForm.get('DOB')?.value ? authorsForm.get('DOB')?.value : this.Oldauthor.DOB);
     formData.append('bio', authorsForm.get('bio')?.value ? authorsForm.get('bio')?.value : this.Oldauthor.bio);
-    formData.append('authorImg', this.file && this.file.length > 0 ? this.file[0] : this.Oldauthor.authorImg);
-    console.log(this.file);
-    console.log(this.file[0]);
-
-    console.log(this.file[0]);
-    console.log(this.Oldauthor.authorImg);
+    // formData.append('authorImg', this.file && this.file.length > 0 ? this.file[0] : this.Oldauthor.authorImg);
+    if(this.file && this.file.length){
+      console.log(formData.get('authorImg'))
+      console.log(this.file[0])
+    formData.append('authorImg',this.file[0]);
+    }
     author.isEdit = false;
     this.authorsService.updateAuthor(id, formData).subscribe(
       () => {

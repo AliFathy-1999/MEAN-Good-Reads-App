@@ -2,6 +2,7 @@
 
 <section class="authorTable container">
     <app-authors-popup></app-authors-popup>
+
     <div class="row mt-5 mb-5 authorTable">
         <div class="col-12">
             <table class="table table-hover" [formGroup]="authorsForm" #authorForm="ngForm">
@@ -134,18 +135,17 @@
             <!-- <div class="mt-5 item-center">
                 <pagination-controls (pageChange)="page = $event"></pagination-controls>
             </div> -->
-            <mat-paginator [pageSizeOptions]="[4]" (page)="onPageChanged($event)" hidePrevNextButtons
-                style="display: none;">
-            </mat-paginator>
-            <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1"
-                style="margin-right: 1%;">
-                <img src="../../../assets/previous.png">
-            </button>
-            Page {{currentPageIndex}}
-            <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
-                <img src="../../../assets/next.png">
-            </button>
-
         </div>
+        <mat-paginator [pageSizeOptions]="[4]" (page)="onPageChanged($event)" hidePrevNextButtons
+        style="display: none;">
+    </mat-paginator>
+    <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1"
+        style="margin-right: 1%;">
+        <img src="../../../assets/previous.png">
+    </button>
+    Page {{currentPageIndex}}
+    <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+        <img src="../../../assets/next.png">
+    </button>
     </div>
 </section>

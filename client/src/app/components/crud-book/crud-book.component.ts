@@ -60,7 +60,9 @@ export class CrudBookComponent implements OnInit {
         'authorId',
         bookForm.get('authorId')?.value ? bookForm.get('authorId')?.value : this.oldData.authorId
       );
-      formData.append('bookImage', this.file && this.file.length > 0 ? this.file[0] : this.oldData.bookImage);
+      if(this.file && this.file.length){
+        formData.append('bookImage',this.file[0] )
+      }
       this._book.editBook(this.data.id, formData).subscribe({
         next:(res: any) => {
           console.log(res.data);
@@ -77,6 +79,13 @@ export class CrudBookComponent implements OnInit {
       formData.append('categoryId', bookForm.get('categoryId')?.value);
       formData.append('authorId', bookForm.get('authorId')?.value);
       formData.append('bookImage', this.file[0]);
+      console.log(formData.get('name'))
+      console.log(formData.get('description'))
+      console.log(formData.get('categoryId'))
+      console.log(formData.get('authorId'))
+      console.log(formData.get('bookImage'))
+
+
       this._book.addBook(formData).subscribe({next:(res: any)=> {
           this._dialogRef.close(true);
           console.log(res);

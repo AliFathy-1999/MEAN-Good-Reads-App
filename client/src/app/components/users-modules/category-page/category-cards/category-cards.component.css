@@ -22,3 +22,7 @@
     text-decoration: none;
     color: inherit;
 }
+
+.c-card {
+    padding: 0 !important;
+}

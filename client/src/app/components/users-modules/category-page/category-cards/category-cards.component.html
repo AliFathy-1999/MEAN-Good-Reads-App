@@ -1,9 +1,10 @@
 <app-category-header></app-category-header>
 <div class="container mt-5 mb-5">
     <div class="row">
+        <h1>Categories</h1>
         <div class="col-md-3" *ngFor="let category of categories">
             <mat-card class="category-card">
-                <mat-card-header>
+                <mat-card-header class="c-card">
                     <mat-card-title>
                         <!-- <mat-icon class="category-icon">{{category.icon}}</mat-icon> -->
                         <a routerLink="/categories/{{category._id}}" class="category-name">{{category.name}}</a>
