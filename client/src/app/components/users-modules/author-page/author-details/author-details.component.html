@@ -40,22 +40,28 @@
                         </div>
                     </mat-card-header>
                     <div class="col-md-4">
-                        <mat-form-field>
-                            <mat-select placeholder="Select status">
-                                <mat-option value="reading">Reading</mat-option>
-                                <mat-option value="read">Read</mat-option>
-                                <mat-option value="current">Current</mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                            <select class="btn btn-outline-primary " placeholder="Select status" (change)="addToShelf(authorBooks._id,$event.target)" >
+                                <option value="reading" selected disabled>Choose shelf</option>
+                                <option value="reading">Reading</option>
+                                <option value="read">Read</option>
+                                <option value="want2read">want to read</option>
+                            </select>
+
+
                         <mat-card-content>
                             <div class="book-rating d-block">
-                              <ngb-rating [(rate)]="currentRate" [max]="5" class="fs-1 star-icon" ></ngb-rating>
+                              <div class="mb-3">
+                                <form [formGroup]="ratingForm">
+                                <ngb-rating formControlName="rating" [max]="5" class="fs-1 star-icon"
+                                 (rateChange)="addRating(authorBooks._id,ratingForm)"></ngb-rating>
+                                </form>
+                              </div>
                             </div>
                         </mat-card-content>
                     </div>
-                    <mat-card-content>
-                        <!-- <p class="review-description">{{authorBooks.reviews.comment}}</p> -->
-                    </mat-card-content>
+                    <!-- <mat-card-content>
+                        <p class="review-description">{{authorBooks.reviews.comment}}</p>
+                    </mat-card-content> -->
                 </mat-card>
             </div>
         </mat-card-content>

@@ -1,7 +1,10 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { UserAuthorService } from 'src/app/services/user-author.service';
+import { UserBooksService } from 'src/app/services/user-books.service';
 
 @Component({
   selector: 'app-author-details',
@@ -16,9 +19,14 @@ export class AuthorDetailsComponent {
   pageSize!:number
   selectedValue: string | undefined;
   currentPageIndex:number=1
-  currentRate:number = 0
-
-  constructor(private _author:UserAuthorService,private route:ActivatedRoute) {}
+  currentRate:number = 5;
+  ratingForm = new FormGroup({
+    rating: new FormControl(''),
+  });
+  statusForm = new FormGroup({
+    shelf: new FormControl(''),
+  });
+  constructor(private toastr:ToastrService,private _author:UserAuthorService,private route:ActivatedRoute,private _userBooks:UserBooksService) {}
 
   ngOnInit(){
     this.route.params.subscribe(params=>this.getAuthor(params['id']))
@@ -67,5 +75,20 @@ onNextPage(){
       this.totalDocs = result.data.totaalDocs;
     })
   }
+}
+
+addRating(id:number,form: FormGroup){
+  this._userBooks.bookReview(id,form.value).subscribe((res:any)=>{
+    this.toastr.success("Rated successfully :)")
+  },(err)=>{
+    this.toastr.error(err.message)
+  })
+}
+addToShelf(id:number,event:any){
+  this._userBooks.bookReview(id,{shelf:event.value}).subscribe((res:any)=>{
+    this.toastr.success(`Book status is changed to ${event.value}`)
+  },(err)=>{
+    this.toastr.error(err.message)
+  })
 }
 }
