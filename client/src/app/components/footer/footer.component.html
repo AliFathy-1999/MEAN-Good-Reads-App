@@ -17,20 +17,14 @@
             </div>
             <div class="col-md-3">
                 <a class="userPages" [routerLink]="['user/authors']"><h5>Authors</h5></a>
-                <ul class="list-unstyled">
-                    <li><a href="#">Jane Austen</a></li>
-                    <li><a href="#">Agatha Christie</a></li>
-                    <li><a href="#">Stephen King</a></li>
-                    <li><a href="#">J.K. Rowling</a></li>
-                    <li><a href="#">George R.R. Martin</a></li>
+                <ul class="list-unstyled" *ngFor="let author of authors">
+                    <li><a routerLink="/author/{{author._id}}">{{author.firstName}}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a [routerLink]="['']">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Terms &amp; Conditions</a></li>
+                <h5>Books</h5>
+                <ul class="list-unstyled" *ngFor="let book of books">
+                    <li><a routerLink="/books/{{book._id}}">{{book.name}}</a></li>
                 </ul>
             </div>
         </div>

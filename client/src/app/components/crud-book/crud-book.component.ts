@@ -20,7 +20,8 @@ export class CrudBookComponent implements OnInit {
   authorId!: Number;
   bookImage!: any;
   file: any;
-
+  oldData:any
+  
   onFileSelected(event: any) {
     this.file = event.target.files;
   }
@@ -42,36 +43,26 @@ export class CrudBookComponent implements OnInit {
 
   submitData(bookForm: FormGroup) {
     if (this.data) {
-      const updatedValues :any = {};
-      let hasUpdatedImage = false; 
-      for (const key in bookForm.value) {
-        if (bookForm.value.hasOwnProperty(key)) {
-          const currentValue = bookForm.value[key];
-          const originalValue = this.data[key];
-          if (currentValue !== originalValue) {
-            updatedValues[key] = currentValue;
-            if (key === "bookImage" && currentValue) {
-              hasUpdatedImage = true;
-            }
-          }
-        }
-      }
-      console.log(updatedValues);
       const formData = new FormData();
-      if (hasUpdatedImage) {
-        formData.append("bookImage", this.file[0]);
-        console.log(formData.get('bookImage'))
-        // delete updatedValues["bookImage"];
-      }
-      for (const key in updatedValues) {
-        if (updatedValues.hasOwnProperty(key)) {
-          formData.append(key, updatedValues[key]);
-          console.log(formData.get('bookImage'))
-        }
-      }
-      this._book.editBook(this.data.id, updatedValues).subscribe({
+      formData.append(
+        'description',
+        bookForm.get('description')?.value ? bookForm.get('description')?.value : this.oldData.description
+      );
+      formData.append(
+        'name',
+        bookForm.get('name')?.value ? bookForm.get('name')?.value : this.oldData.name
+      );
+      formData.append(
+        'categoryId',
+        bookForm.get('categoryId')?.value ? bookForm.get('categoryId')?.value : this.oldData.categoryId
+      );
+      formData.append(
+        'authorId',
+        bookForm.get('authorId')?.value ? bookForm.get('authorId')?.value : this.oldData.authorId
+      );
+      formData.append('bookImage', this.file && this.file.length > 0 ? this.file[0] : this.oldData.bookImage);
+      this._book.editBook(this.data.id, formData).subscribe({
         next:(res: any) => {
-          console.log(updatedValues)
           console.log(res.data);
           this._dialogRef.close(true);
         },
@@ -86,14 +77,7 @@ export class CrudBookComponent implements OnInit {
       formData.append('categoryId', bookForm.get('categoryId')?.value);
       formData.append('authorId', bookForm.get('authorId')?.value);
       formData.append('bookImage', this.file[0]);
-      console.log(formData);
-      console.log(formData.get('name'));
-      console.log(formData.get('description'));
-      console.log(formData.get('categoryId'));
-      console.log(formData.get('authorId'));
-      console.log(formData.get('bookImage'));{
-      this._book.addBook(formData).subscribe({ 
-        next:(res: any)=> {
+      this._book.addBook(formData).subscribe({next:(res: any)=> {
           this._dialogRef.close(true);
           console.log(res);
         },
@@ -106,7 +90,7 @@ export class CrudBookComponent implements OnInit {
           }
         }
       });
-    }
+    
     }
     
   }
