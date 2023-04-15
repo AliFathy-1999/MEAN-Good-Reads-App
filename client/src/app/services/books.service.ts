@@ -44,4 +44,8 @@ export class BooksService {
     return this._HttpClient.patch(`http://localhost:3000/admin/books/${id}`, data,options);
     // return this._HttpClient.patch(`https://bookary.onrender.com/admin/books/${id}`, data);
   }
+
+  searchBooks(searchTerm: string): Observable<any[]> {
+    return this._HttpClient.get<any[]>(`${this.url}/books?keyWord=${searchTerm}`);
+  }
 }

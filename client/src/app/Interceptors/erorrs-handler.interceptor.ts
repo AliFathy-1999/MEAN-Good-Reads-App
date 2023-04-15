@@ -17,7 +17,9 @@ export class ErorrsHandlerInterceptor implements HttpInterceptor {
   constructor(private toastr: ToastrService, private spinnerService: SpinerService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.spinnerService.requestStarted();
+    if (request.url.endsWith('/register') || request.headers.get('X-Registration-Request')) {
+      this.spinnerService.requestStarted();
+    }
 
     return next.handle(request).pipe(
       tap(

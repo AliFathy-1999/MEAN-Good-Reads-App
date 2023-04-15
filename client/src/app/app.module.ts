@@ -122,6 +122,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     MatOptionModule,
     MatToolbarModule,
     NgbModule,
+    FormsModule,
     // StarRatingModule,
   ],
   providers: [HttpInterceptorProviders, FormsModule],
