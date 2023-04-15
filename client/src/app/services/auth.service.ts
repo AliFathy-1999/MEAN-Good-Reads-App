@@ -2,11 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { environment } from '../../../envs/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  url: string = environment.ENV_URL;
   token: string | null = this.getToken();
   constructor(private _HttpClient: HttpClient, private _cookieService: CookieService) {}
 
@@ -18,7 +20,7 @@ export class AuthService {
   }
 
   getUserData(page: number, limit: number): Observable<any> {
-    return this._HttpClient.get(`https://bookary.onrender.com/users?page=${page}&limit=${limit}`);
+    return this._HttpClient.get(`${this.url}/users?page=${page}&limit=${limit}`);
   }
 
   getToken(): string | null {
@@ -26,12 +28,12 @@ export class AuthService {
   }
 
   register(formData: object): Observable<any> {
-    return this._HttpClient.post('https://bookary.onrender.com/register', formData);
+    return this._HttpClient.post(`${this.url}/register`, formData);
   }
 
   login(loginData: object): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
     const options = { withCredentials: true };
-    return this._HttpClient.post('https://bookary.onrender.com/signin', loginData, { headers });
+    return this._HttpClient.post(`${this.url}/signin`, loginData, { headers });
   }
 }

@@ -4,7 +4,6 @@ import { TypesModule, User, Author } from '../dataTypes/typesModule';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-
 import { environment } from '../../../envs/environment';
 
 @Injectable({
@@ -13,8 +12,6 @@ import { environment } from '../../../envs/environment';
 export class AuthorsService {
   url: string = environment.ENV_URL;
   authArr: Array<Author> = [];
-
-  private apiUrl = 'https://bookary.onrender.com/authors';
 
   constructor(private authService: AuthService, private httpClient: HttpClient, private cookieService: CookieService) {}
 
@@ -29,7 +26,7 @@ export class AuthorsService {
   }
 
   deleteAuthor(id: number): Observable<any> {
-    const url = `https://bookary.onrender.com/admin/authors/${id}`;
+    const url = `${this.url}/admin/authors/${id}`;
     return this.httpClient.delete(url);
   }
 
@@ -45,16 +42,16 @@ export class AuthorsService {
     this.authArr.push(author);
     console.log(authorForm.get('authorImg'));
 
-    return this.httpClient.post('https://bookary.onrender.com/admin/authors', authorForm);
+    return this.httpClient.post(`${this.url}/admin/authors`, authorForm);
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
-    const url = `https://bookary.onrender.com/admin/authors?page=${page}&limit=${limit}`;
+    const url = `${this.url}/admin/authors?page=${page}&limit=${limit}`;
     return this.httpClient.get(url);
   }
 
   updateAuthor(id: number, formData: FormData): Observable<any> {
-    const url = `https://bookary.onrender.com/admin/authors/${id}`;
+    const url = `${this.url}/admin/authors/${id}`;
     return this.httpClient.patch(url, formData);
   }
 }

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Book } from '../dataTypes/typesModule';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../envs/environment';
+
 enum Shelf {
   READ = 'read',
   READING = 'reading',
@@ -12,6 +14,8 @@ enum Shelf {
   providedIn: 'root',
 })
 export class UserBooksService {
+  url: string = environment.ENV_URL;
+
   constructor(private _http: HttpClient, private cookieService: CookieService) {}
 
   isLogged(): boolean {
@@ -19,26 +23,23 @@ export class UserBooksService {
   }
 
   getAllBooks(page: number, limit: number): Observable<Book> {
-    return this._http.get<Book>(`https://bookary.onrender.com/books?page=${page}&limit=${limit}`);
+    return this._http.get<Book>(`${this.url}/books?page=${page}&limit=${limit}`);
   }
 
-  getBookById(id:number): Observable<Book>{
-    return this._http.get<Book>(`http://localhost:3000/books/${id}`);
-   }
+  getBookById(id: number): Observable<Book> {
+    return this._http.get<Book>(`${this.url}/books/${id}`);
+  }
 
-   bookReview(id:number,data:any):Observable<any>{
-    return this._http.patch(`http://localhost:3000/user/books/${id}`,data)
-   }
-getUserBooks(page:number,limit:number):Observable<any>{
-  return this._http.get(`http://localhost:3000/user/books?page=${page}&limit=${limit}`)
+  bookReview(id: number, data: any): Observable<any> {
+    return this._http.patch(`${this.url}/user/books/${id}`, data);
+  }
+  getUserBooks(page: number, limit: number): Observable<any> {
+    return this._http.get(`${this.url}/user/books?page=${page}&limit=${limit}`);
+  }
+  getUserBooksByShelf(page: number, limit: number, shelf: Shelf): Observable<any> {
+    return this._http.get(`${this.url}/user/books?page=${page}&limit=${limit}&shelf=${shelf}`);
+  }
+  getPopular(): Observable<any> {
+    return this._http.get(`${this.url}/books/popular`);
+  }
 }
-getUserBooksByShelf(page:number,limit:number, shelf:Shelf):Observable<any>{
-  return this._http.get(`http://localhost:3000/user/books?page=${page}&limit=${limit}&shelf=${shelf}`)
-}
-getPopular():Observable<any>{
-  return this._http.get('http://localhost:3000/books/popular')
-}
-
-}
-
-
