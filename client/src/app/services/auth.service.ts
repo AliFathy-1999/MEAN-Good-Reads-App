@@ -31,7 +31,7 @@ export class AuthService {
 
   login(loginData: object): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    // const options = { withCredentials: true };
+    const options = { withCredentials: true };
     return this._HttpClient.post('https://bookary.onrender.com/signin', loginData, { headers });
   }
 }
