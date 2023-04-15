@@ -1,1 +1,142 @@
-<p>Admin Page</p>
+<app-author-header></app-author-header>
+<div class="container pt-5">
+    <h2 class="title-block">Popular Authors</h2>
+    <div class="row mt-5">
+        <ng-container *ngFor="let author of authors; let i = index;">
+            <div class="col-md-3 mb-4">
+                <mat-card class="h-100">
+                    <div mat-card-header>
+                        <div class="book-image" [style.background-image]="'url(' + author.authorImg + ')'"></div>
+                    </div>
+                    <mat-card-content class="card-content">
+                        <a class="card-link" [routerLink]="['/author',author._id]">
+                            <mat-card-title class="card-title">{{ author.firstName }}
+                                {{ author.lastName }}</mat-card-title>
+                        </a>
+                    </mat-card-content>
+
+                </mat-card>
+            </div>
+            <div class="clearfix d-md-none"></div> <!-- add clearfix to clear the float on small devices -->
+        </ng-container>
+
+    </div>
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="row margin-home ApRow  has-bg bg-boxed" style="background: no-repeat;"
+                data-bg_data=" no-repeat">
+
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-sp-12  ApColumn ">
+                    <div class="block-container genres-book mt-5 mb-2">
+                        <h4 class="title-block">Genres Book
+                        </h4>
+                    </div>
+
+
+                    <div class="widget-category_image widget-cate block ">
+                        <div class="block_content">
+                            <div id="category_image" class="owl-carousel owl-theme row">
+                                <div class="owl-wrapper-outer col-12">
+                                    <div class="owl-wrapper">
+                                        <div class="card-container col-md-12">
+                                            <div class="card col-md-4 col-sm-6 mb-4">
+                                                <div class="item">
+                                                    <div class="category-content d-block">
+                                                        <div class="cover-img d-inline-block">
+                                                            <img class="img-fluid"
+                                                                src="https://demo3leotheme.b-cdn.net/prestashop/leo_bookery_demo/themes/leo_bookery/assets/img/modules/appagebuilder/icon/ch01.jpg"
+                                                                alt="Sci-fi">
+                                                        </div>
+                                                        <div class="cat_name d-inline-block mt-2">
+                                                            <a>
+                                                                Sci-fi
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card col-md-4 col-sm-6 mb-4">
+                                                <div class="item">
+                                                    <div class="category-content d-block">
+                                                        <div class="cover-img d-inline-block">
+                                                            <img class="img-fluid"
+                                                                src="https://demo3leotheme.b-cdn.net/prestashop/leo_bookery_demo/themes/leo_bookery/assets/img/modules/appagebuilder/icon/ch02.jpg"
+                                                                alt="Romance">
+                                                        </div>
+                                                        <div class="cat_name d-inline-block mt-2">
+                                                            <a>Romance</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card col-md-4 col-sm-6 mb-4">
+                                                <div class="item">
+                                                    <div class="category-content d-block">
+                                                        <div class="cover-img d-inline-block">
+                                                            <img class="img-fluid"
+                                                                src="https://demo3leotheme.b-cdn.net/prestashop/leo_bookery_demo/themes/leo_bookery/assets/img/modules/appagebuilder/icon/ch03.jpg"
+                                                                alt="Comedy">
+                                                        </div>
+                                                        <div class="cat_name d-inline-block mt-2">
+                                                            <a>
+                                                                Comedy
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 mb-5">
+    <div class="row container">
+        <h4 class="title-block">Popular Categories</h4>
+        <div class="col-md-3" *ngFor="let category of categories">
+            <mat-card class="category-card">
+                <mat-card-header class="c-card">
+                    <mat-card-title>
+                        <!-- <mat-icon class="category-icon">{{category.icon}}</mat-icon> -->
+                        <a routerLink="/categories/{{category._id}}" class="category-name">{{category.name}}</a>
+                    </mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div class="container ">
+    <div class="row mt-5 container">
+        <h4 class="title-block">Popular Books</h4>
+
+        <ng-container *ngFor="let book of books; let i = index;">
+            <div class="col-md-3 mb-4">
+                <mat-card class="h-100 card-container">
+                    <div mat-card-header>
+                        <div class="book-image" [style.background-image]="'url(' + book.bookImage + ')'"></div>
+                    </div>
+                    <mat-card-content class="card-content">
+                        <a class="card-link">
+                            <mat-card-title class="card-title"
+                                [routerLink]="['/books',book._id]">{{ book.name }}</mat-card-title>
+                        </a>
+                        <a class="card-link">
+                            <!-- <mat-card-subtitle class="card-subtitle" [routerLink]="['/author',book.authorId._id]">{{ book.authorId._id }}{{ book.authorId.lastName }}</mat-card-subtitle> -->
+                        </a>
+                    </mat-card-content>
+
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -26,8 +26,8 @@ import { LoginAdminComponent } from './components/login-admin/login-admin.compon
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
   { path: 'user', component: LoginComponent },
-  { path: 'home', component: TestHomeComponent,canActivate: [AuthGuard] },
-  { path: 'admin/books', component: AdminBookComponent,canActivate: [AuthGuard] },
+  { path: 'home', component: TestHomeComponent, canActivate: [AuthGuard] },
+  { path: 'admin/books', component: AdminBookComponent, canActivate: [AuthGuard] },
   { path: 'crud', component: CrudBookComponent },
   { path: 'author', component: AuthorsTableComponent },
   { path: 'admin/categories', component: CategoriesTableComponent },
@@ -41,10 +41,9 @@ const routes: Routes = [
   { path: 'read', component: ReadComponent },
   { path: 'current-reading', component: CurrentlyReadingComponent },
   { path: 'want-to-read', component: WantToReadComponent },
-  {path:'user/home',component:UserHomeComponent},
-  {path:'admin',component:LoginAdminComponent},
+  { path: 'user/home', component: UserHomeComponent },
+  { path: 'admin', component: LoginAdminComponent },
   { path: '**', component: NotFoundComponent },
-
 ];
 
 @NgModule({

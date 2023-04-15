@@ -124,10 +124,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     NgbModule,
     // StarRatingModule,
   ],
-  providers: [
-    HttpInterceptorProviders,
-    FormsModule,
-  ],
+  providers: [HttpInterceptorProviders, FormsModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
