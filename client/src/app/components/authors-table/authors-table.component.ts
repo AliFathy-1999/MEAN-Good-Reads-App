@@ -164,9 +164,8 @@ export class AuthorsTableComponent implements OnInit {
     formData.append('bio', authorsForm.get('bio')?.value ? authorsForm.get('bio')?.value : this.Oldauthor.bio);
     // formData.append('authorImg', this.file && this.file.length > 0 ? this.file[0] : this.Oldauthor.authorImg);
     if(this.file && this.file.length){
-      console.log(formData.get('authorImg'))
-      console.log(this.file[0])
     formData.append('authorImg',this.file[0]);
+    this.file=[]
     }
     author.isEdit = false;
     this.authorsService.updateAuthor(id, formData).subscribe(
