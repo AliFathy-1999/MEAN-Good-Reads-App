@@ -1,12 +1,9 @@
-* {
-    font-family: 'sora', sans-serif;
-}
-
 section {
     padding-bottom: 80px;
     background-image: url('../../../assets/background-imgs/registrion-bg.jpg');
     background-size: cover;
     background-position: center;
+    font-family: 'sora', sans-serif;
 }
 
 .register {
@@ -20,14 +17,12 @@ section {
 
 .register-form {
     padding: 10%;
-    margin-top: 10%;
 }
 
 .register-right {
     background: #fff;
     border-top-left-radius: 10% 50%;
     border-bottom-left-radius: 10% 50%;
-    animation: slide-right 1s ease-out;
     margin-left: -50px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
@@ -43,7 +38,6 @@ section {
     font-weight: 600;
     width: 50%;
     cursor: pointer;
-    animation: gradient-background 5s ease-in-out infinite, pulse 2s ease-out infinite;
 }
 
 .btnRegister:hover {
@@ -54,19 +48,9 @@ section {
 .register-heading {
     text-align: center;
     margin-top: 20%;
-    margin-bottom: -15%;
+    margin-bottom: -20px;
     font-size: 30px;
     font-weight: bolder;
-    animation: fade-in 1s ease-out;
-}
-
-.register-heading span {
-    display: inline-block;
-    overflow: hidden;
-    animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
-    white-space: nowrap;
-    font-size: 2rem;
-    font-weight: bold;
 }
 
 .custom-input {
@@ -174,9 +158,7 @@ section {
     font-weight: 700;
     margin-bottom: 30px;
     color: #f65d4e;
-    /* change color to orange */
     text-shadow: 1px 1px 0 #555, 2px 2px 0 #555, 3px 3px 0 #555, 4px 4px 0 #555, 5px 5px 0 #555, 6px 6px 0 #555, 7px 7px 0 #555, 8px 8px 0 #555, 9px 9px 0 #555, 10px 10px 0 #555, 11px 11px 30px rgba(16, 16, 16, 0.4);
-    /* add 3D effect */
 }
 
 p.lead {
