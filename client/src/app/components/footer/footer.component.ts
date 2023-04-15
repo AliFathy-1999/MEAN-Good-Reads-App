@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAuthorService } from 'src/app/services/user-author.service';
-import { UserBooksService } from 'src/app/services/user-books.service';
+import { HomePageComponent } from '../home-page/home-page.component';
+import { Book, Category } from 'src/app/dataTypes/typesModule';
+import { HomepageService } from 'src/app/services/homepage.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,27 +10,32 @@ import { UserBooksService } from 'src/app/services/user-books.service';
 })
 export class FooterComponent implements OnInit{
 
-authors!:any
-books!:any
+  authors: any;
+  categories:any = [];
+  books: Book[] = [];
 
-constructor(private _book:UserBooksService,private _author:UserAuthorService){}
-  ngOnInit(){
-    this.getPopularBooks();
-    this.getPopularAuthors();
-  }
-
-getPopularBooks(){
-  this._book.getPopular().subscribe((res)=>{
-    console.log(res)
-    this.books=res.data;
-  })
+constructor(private _home:HomepageService){}
+ngOnInit(): void {
+  this.getPopularAuthors();
+  this.getPopularCategories();
+  this.getPopularBooks();
 }
 
-getPopularAuthors(){
-  this._author.getPopularAuthors().subscribe((res)=>{
-    console.log(res.data)
-    this.authors=res.data;
-  })
+getPopularAuthors() {
+  this._home.getPopularAuthors().subscribe({
+    next: (res) => {
+      this.authors = res.data;
+    },
+  });
 }
-
+getPopularCategories() {
+  this._home.getPopularCategories().subscribe((res) => {
+    this.categories = res.data;
+  });
+}
+getPopularBooks() {
+  this._home.getPopularBooks().subscribe((res: any) => {
+    this.books = res.data;
+  });
+}
 }

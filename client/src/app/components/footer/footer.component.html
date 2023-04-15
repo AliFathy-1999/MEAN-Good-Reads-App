@@ -7,18 +7,14 @@
             </div>
             <div class="col-md-3">
                 <a class="userPages" [routerLink]="['/categories']"><h5>Categories</h5></a>
-                <ul class="list-unstyled">
-                    <li><a href="#">Fiction</a></li>
-                    <li><a href="#">Non-Fiction</a></li>
-                    <li><a href="#">Mystery</a></li>
-                    <li><a href="#">Romance</a></li>
-                    <li><a href="#">Sci-Fi</a></li>
+                <ul class="list-unstyled" *ngFor="let category of categories">
+                    <li><a routerLink="/categories/{{category.category._id}}">{{category.category.name}}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <a class="userPages" [routerLink]="['user/authors']"><h5>Authors</h5></a>
                 <ul class="list-unstyled" *ngFor="let author of authors">
-                    <li><a routerLink="/author/{{author._id}}">{{author.firstName}}</a></li>
+                    <li><a routerLink="/author/{{author.author._id}}">{{author.author.firstName}}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
