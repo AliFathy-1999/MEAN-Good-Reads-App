@@ -1,27 +1,26 @@
 <app-user-navbar></app-user-navbar>
 <section>
     <div class="container ">
-        <h2 class="text-center mb-4 heading">Action</h2>
-        <div class="row ">
+        <h2 class="text-center mb-4 pt-5 heading">Books</h2>
+        <div class="row mt-5">
             <ng-container *ngFor="let book of books; let i = index;">
-                <div class="col-md-3 mb-4">
-                    <mat-card class="h-100">
+                <div class="col-md-2 mb-4">
+                    <mat-card class="h-100 card-container">
                         <div mat-card-header>
                             <div class="book-image" [style.background-image]="'url(' + book.bookImage + ')'"></div>
                         </div>
                         <mat-card-content class="card-content">
                             <a class="card-link">
-                                <mat-card-title class="card-title"[routerLink]="['/books',book._id]">{{ book.name }}</mat-card-title>
+                                <mat-card-title class="card-title"
+                                    [routerLink]="['/books',book._id]">{{ book.name }}</mat-card-title>
                             </a>
-                            <a class="card-link"> 
-                            <!-- <mat-card-subtitle class="card-subtitle" [routerLink]="['/author',book.authorId._id]">{{ book.authorId._id }}{{ book.authorId.lastName }}</mat-card-subtitle> -->
+                            <a class="card-link">
+                                <!-- <mat-card-subtitle class="card-subtitle" [routerLink]="['/author',book.authorId._id]">{{ book.authorId._id }}{{ book.authorId.lastName }}</mat-card-subtitle> -->
                             </a>
                         </mat-card-content>
 
                     </mat-card>
                 </div>
-                <!-- <div class="clearfix d-md-none"></div> add clearfix to clear the float on small devices -->
-                <div *ngIf="(i + 1) % 4 === 0" class="col-md-12 mt-4"></div>
             </ng-container>
             <div class="col-md-12 mt-4">
                 <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
