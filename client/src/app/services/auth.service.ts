@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
+import { environment } from '../../../envs/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  url: string = environment.ENV_URL;
   token: string | null = this.getToken();
   userObj:any
   user:any
@@ -25,7 +27,7 @@ export class AuthService {
   }
 
   getUserData(page: number, limit: number): Observable<any> {
-    return this._HttpClient.get(`https://bookary.onrender.com/users?page=${page}&limit=${limit}`);
+    return this._HttpClient.get(`${this.url}/users?page=${page}&limit=${limit}`);
   }
 
   getToken(): string | null {
@@ -33,7 +35,7 @@ export class AuthService {
   }
 
   register(formData: object): Observable<any> {
-    return this._HttpClient.post('https://bookary.onrender.com/register', formData);
+    return this._HttpClient.post(`${this.url}/register`, formData);
   }
 
   login(loginData: object): Observable<any> {

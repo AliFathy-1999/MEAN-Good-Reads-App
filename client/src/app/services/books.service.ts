@@ -2,14 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from '../../../envs/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BooksService {
-  constructor(private _HttpClient: HttpClient, private cookieService: CookieService) {
-    
-  }
+  url: string = environment.ENV_URL;
+
+  constructor(private _HttpClient: HttpClient, private cookieService: CookieService) {}
 
   isLogged(): boolean {
     return this.cookieService.get('token') != null;

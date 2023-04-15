@@ -3,9 +3,13 @@ footer {
     font-family: 'sora', sans-serif;
     padding: 50px 0;
     background-color: #1D1D1D;
+    /* position: absolute; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
-.userPages{
+.userPages {
     text-decoration: none;
 }
 

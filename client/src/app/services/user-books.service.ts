@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Book } from '../dataTypes/typesModule';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../envs/environment';
+
 enum Shelf {
   READ = 'read',
   READING = 'reading',
@@ -12,6 +14,8 @@ enum Shelf {
   providedIn: 'root',
 })
 export class UserBooksService {
+  url: string = environment.ENV_URL;
+
   constructor(private _http: HttpClient, private cookieService: CookieService) {}
 
   isLogged(): boolean {
@@ -50,5 +54,3 @@ getPopular():Observable<any>{
 }
 
 }
-
-

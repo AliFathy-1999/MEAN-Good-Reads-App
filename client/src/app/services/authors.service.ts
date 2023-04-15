@@ -4,14 +4,14 @@ import { TypesModule, User, Author } from '../dataTypes/typesModule';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../envs/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorsService {
+  url: string = environment.ENV_URL;
   authArr: Array<Author> = [];
-
-  private apiUrl = 'https://bookary.onrender.com/authors';
 
   constructor(private authService: AuthService, private httpClient: HttpClient, private cookieService: CookieService) {}
 

@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../envs/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoriesService {
+  url: string = environment.ENV_URL;
+
   constructor(private _http: HttpClient) {}
 
   addCategory(categoryData: object): Observable<any> {
@@ -22,7 +25,7 @@ export class CategoriesService {
   }
 
   getCategoryById(id: number): Observable<any> {
-    return this._http.get(`https://bookary.onrender.com/category${id}`);
+    return this._http.get(`${this.url}/category${id}`);
   }
 
   updateCategory(id: number, data: object): Observable<any> {

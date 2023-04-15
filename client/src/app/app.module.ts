@@ -10,7 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistrationCardsComponentComponent } from './components/registration-cards-component/registration-cards-component.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarHomeComponent } from './components/navbar-home/navbar-home.component';
-import { TestHomeComponent } from './components/test-home/test-home.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 // import { TokenInterceptorInterceptor } from './token-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminBookComponent } from './components/admin-book/admin-book.component';
@@ -77,7 +77,7 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     CrudBookComponent,
     AuthorsTableComponent,
     AuthorsPopupComponent,
-    TestHomeComponent,
+    HomePageComponent,
     CategoriesTableComponent,
     BooksComponent,
     BooksHeaderComponent,
