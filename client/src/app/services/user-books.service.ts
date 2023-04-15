@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Book } from '../dataTypes/typesModule';
 import { CookieService } from 'ngx-cookie-service';
-
+enum Shelf {
+  READ = 'read',
+  READING = 'reading',
+  WANT2READ = 'want2read',
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -18,18 +22,23 @@ export class UserBooksService {
     return this._http.get<Book>(`https://bookary.onrender.com/books?page=${page}&limit=${limit}`);
   }
 
-  getBookById(id: number): Observable<Book> {
-    return this._http.get<Book>(`https://bookary.onrender.com/books/${id}`);
-  }
+  getBookById(id:number): Observable<Book>{
+    return this._http.get<Book>(`http://localhost:3000/books/${id}`);
+   }
 
-  bookReview(id: number, data: any): Observable<any> {
-    return this._http.patch(`https://bookary.onrender.com/user/books/${id}`, data);
-  }
-  getUserBooks(): Observable<any> {
-    return this._http.get('https://bookary.onrender.com/user/books');
-  }
-
-  getPopular(): Observable<any> {
-    return this._http.get('https://bookary.onrender.com/books/popular');
-  }
+   bookReview(id:number,data:any):Observable<any>{
+    return this._http.patch(`http://localhost:3000/user/books/${id}`,data)
+   }
+getUserBooks(page:number,limit:number):Observable<any>{
+  return this._http.get(`http://localhost:3000/user/books?page=${page}&limit=${limit}`)
 }
+getUserBooksByShelf(page:number,limit:number, shelf:Shelf):Observable<any>{
+  return this._http.get(`http://localhost:3000/user/books?page=${page}&limit=${limit}&shelf=${shelf}`)
+}
+getPopular():Observable<any>{
+  return this._http.get('http://localhost:3000/books/popular')
+}
+
+}
+
+

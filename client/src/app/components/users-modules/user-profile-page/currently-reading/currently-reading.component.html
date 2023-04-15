@@ -1,6 +1,6 @@
-<app-user-navbar></app-user-navbar>
+<app-books-header></app-books-header>
 <div class="container mt-5">
-    <h1 class="mb-5 mt-5">Currently Reading</h1>
+    <h1 class="mb-5 mt-5">Currently Read</h1>
 
     <mat-toolbar color="primary">
         <span>Bookshelf</span>
@@ -12,86 +12,98 @@
 </div>
 
 <div class="container mb-5">
+  <mat-table [dataSource]="dataSource">
+    <!---->
+    <!--*ngFor="let userBook of userProfileData | paginate: { itemsPerPage: 4, currentPage: pageSize };let i= index"-->
+      <ng-container matColumnDef="coverImage">
+          <mat-header-cell *matHeaderCellDef>Cover</mat-header-cell>
+          <mat-cell *matCellDef="let userBook">
+            <!---->
+              <div class="image" >
+                  <img [src]="userBook.book.bookImage" alt="Cover Image">
+              </div>
 
-    <mat-table [dataSource]="userProfileData">
-        <ng-container matColumnDef="coverImage">
-            <mat-header-cell *matHeaderCellDef>Cover</mat-header-cell>
-            <mat-cell *matCellDef="let profileData">
-                <div class="image">
-                    <img src="{{ profileData.coverImage }}" alt="Cover Image">
-                </div>
+          </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="photo">
+        <mat-header-cell *matHeaderCellDef>Author Image</mat-header-cell>
+        <mat-cell class="" *matCellDef="let userBook">
+            <div class="image">
+              <img [src]="userBook.authorId" alt="author img" />
+            </div>
 
-            </mat-cell>
-        </ng-container>
+        </mat-cell>
+    </ng-container>
 
-        <ng-container matColumnDef="photo">
-            <mat-header-cell *matHeaderCellDef>Author Image</mat-header-cell>
-            <mat-cell *matCellDef="let profileData" class="">
-                <div class="image">
-                    <img src="{{ profileData.photo }}" alt="Profile Photo">
-                </div>
+      <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+          <mat-cell *matCellDef="let userBook">
+             {{ userBook.book.name }}
+          </mat-cell>
+      </ng-container>
 
-            </mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="author">
+          <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
+          <mat-cell *matCellDef="let userBook"> {{ userBook.authorId }}</mat-cell>
+      </ng-container>
 
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let profileData">{{ profileData.name }}</mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="rating">
+          <mat-header-cell *matHeaderCellDef >Rating</mat-header-cell>
+          <mat-cell *matCellDef="let userBook" >
+              <div class="rating">
+                  <ng-container *ngIf="userBook.rating > 0; else noRating">
+                    <form [formGroup]="ratingForm" >
+                      <ngb-rating class="bg-warning" [(rate)]="currentRate" formControlName="rating" [max]="5"
+                      class="fs-3 text-warning text-opacity-75 star-icon"
+                       (rateChange)="addRating(userBook.book._id,ratingForm)"></ngb-rating>
+                      </form>
+                  </ng-container>
+                  <ng-template #noRating>No Rating</ng-template>
+              </div>
 
-        <ng-container matColumnDef="author">
-            <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
-            <mat-cell *matCellDef="let profileData">{{ profileData.author }}</mat-cell>
-        </ng-container>
+          </mat-cell>
+      </ng-container>
 
-        <ng-container matColumnDef="rating">
-            <mat-header-cell *matHeaderCellDef>Rating</mat-header-cell>
-            <mat-cell *matCellDef="let profileData">
-                <div class="rating">
-                    <ng-container *ngIf="profileData.rating > 0; else noRating">
-                        <span *ngFor="let i of [1, 2, 3, 4, 5]">
-                            <mat-icon class="star" [ngClass]="{'star-filled': i <= profileData.rating}">
-                                star
-                            </mat-icon>
-                        </span>
-                    </ng-container>
-                    <ng-template #noRating>No Rating</ng-template>
-                </div>
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="averageRating">
-            <mat-header-cell *matHeaderCellDef>Average Rating</mat-header-cell>
-            <mat-cell *matCellDef="let profileData">
-                <div class="rating">
-                    <ng-container *ngIf="profileData.averageRating > 0; else noRating">
-                        <span *ngFor="let i of [1, 2, 3, 4, 5]">
-                            <mat-icon class="star" [ngClass]="{'star-filled': i <= profileData.averageRating}">
-                                star
-                            </mat-icon>
-                        </span>
-                    </ng-container>
-                    <ng-template #noRating>No Rating</ng-template>
-                </div>
-            </mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="averageRating">
+          <mat-header-cell *matHeaderCellDef >Average Rating</mat-header-cell>
+          <mat-cell *matCellDef="let userBook" >
+              <div class="rating">
+                  <ng-container *ngIf="userBook.averageRating > 0; else noRating">
+                      <span *ngFor="let i of [1, 2, 3, 4, 5]">
+                          <mat-icon class="star" [ngClass]="{'star-filled': i <= userBook.averageRating}">
+                              star
+                          </mat-icon>
+                      </span>
+                  </ng-container>
+                  <ng-template #noRating>No Rating</ng-template>
+              </div>
+          </mat-cell>
+      </ng-container>
 
 
-        <ng-container matColumnDef="shelf">
-            <mat-header-cell *matHeaderCellDef>Shelf</mat-header-cell>
-            <mat-cell *matCellDef="let profileData">
-                <mat-form-field appearance="outline">
-                    <mat-label>Shelf</mat-label>
-                    <mat-select [(value)]="profileData.shelf">
-                        <mat-option value="reading">Read</mat-option>
-                        <mat-option value="current-reading">Current Reading</mat-option>
-                        <mat-option value="want-to-read">Want to Read</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="shelf">
+          <mat-header-cell *matHeaderCellDef>Shelf</mat-header-cell>
+          <mat-cell *matCellDef="let userBook">
+                  <select class="btn btn-outline-primary p-1" [(value)]="userBook.shelf" (change)="addToShelf(userBook.book._id,$event.target)">
+                      <option value="read">Read</option>
+                      <option value="reading">Current Reading</option>
+                      <option value="want2read">Want to Read</option>
+                  </select>
+          </mat-cell>
+      </ng-container>
 
-        <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
-    </mat-table>
+      <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[10]"  [pageSize]="pageSize" [length]="totalCount" (page)="onPageChanged($event)" style="display: none;"></mat-paginator>
+
+  <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
+    <img src="../../../assets/previous.png">
+    </button>
+ Page {{currentPageIndex}}
+     <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+<img src="../../../assets/next.png">
+     </button>
+
 </div>
+<router-outlet></router-outlet>
