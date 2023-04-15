@@ -13,13 +13,12 @@ export class AuthService {
   isLogged(): boolean {
     return this._cookieService.get('token') != null;
   }
-  LogOut(){
+  LogOut() {
     return this._cookieService.delete('token');
   }
 
-
-  getUserData(page:number,limit:number):Observable<any>{
-    return this._HttpClient.get(`http://localhost:3000/users?page=${page}&limit=${limit}`)
+  getUserData(page: number, limit: number): Observable<any> {
+    return this._HttpClient.get(`https://bookary.onrender.com/users?page=${page}&limit=${limit}`);
   }
 
   getToken(): string | null {
@@ -27,12 +26,12 @@ export class AuthService {
   }
 
   register(formData: object): Observable<any> {
-    return this._HttpClient.post('http://localhost:3000/register', formData);
+    return this._HttpClient.post('https://bookary.onrender.com/register', formData);
   }
 
   login(loginData: object): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
     // const options = { withCredentials: true };
-    return this._HttpClient.post('http://localhost:3000/signin', loginData,{ headers});
+    return this._HttpClient.post('https://bookary.onrender.com/signin', loginData, { headers });
   }
 }

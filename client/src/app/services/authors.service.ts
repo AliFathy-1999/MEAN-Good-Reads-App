@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthorsService {
   authArr: Array<Author> = [];
 
-  private apiUrl = 'http://localhost:3000/authors';
+  private apiUrl = 'https://bookary.onrender.com/authors';
 
   constructor(private authService: AuthService, private httpClient: HttpClient, private cookieService: CookieService) {}
 
@@ -26,7 +26,7 @@ export class AuthorsService {
   }
 
   deleteAuthor(id: number): Observable<any> {
-    const url = `http://localhost:3000/admin/authors/${id}`;
+    const url = `https://bookary.onrender.com/admin/authors/${id}`;
     return this.httpClient.delete(url);
   }
 
@@ -42,16 +42,16 @@ export class AuthorsService {
     this.authArr.push(author);
     console.log(authorForm.get('authorImg'));
 
-    return this.httpClient.post('http://localhost:3000/admin/authors', authorForm);
+    return this.httpClient.post('https://bookary.onrender.com/admin/authors', authorForm);
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
-    const url = `http://localhost:3000/admin/authors?page=${page}&limit=${limit}`;
+    const url = `https://bookary.onrender.com/admin/authors?page=${page}&limit=${limit}`;
     return this.httpClient.get(url);
   }
 
   updateAuthor(id: number, formData: FormData): Observable<any> {
-    const url = `http://localhost:3000/admin/authors/${id}`;
+    const url = `https://bookary.onrender.com/admin/authors/${id}`;
     return this.httpClient.patch(url, formData);
   }
 }

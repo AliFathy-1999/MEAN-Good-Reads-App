@@ -5,32 +5,31 @@ import { Book } from '../dataTypes/typesModule';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserBooksService {
-
-  constructor(private _http:HttpClient,private cookieService: CookieService) { }
+  constructor(private _http: HttpClient, private cookieService: CookieService) {}
 
   isLogged(): boolean {
     return this.cookieService.get('token') != null;
   }
 
-  getAllBooks(page:number,limit:number): Observable<Book>{
-   return this._http.get<Book>(`http://localhost:3000/books?page=${page}&limit=${limit}`);
+  getAllBooks(page: number, limit: number): Observable<Book> {
+    return this._http.get<Book>(`https://bookary.onrender.com/books?page=${page}&limit=${limit}`);
   }
 
-  getBookById(id:number): Observable<Book>{
-    return this._http.get<Book>(`http://localhost:3000/books/${id}`);
-   }
-   
-   bookReview(id:number,data:any):Observable<any>{
-    return this._http.patch(`http://localhost:3000/user/books/${id}`,data)
-   }
-getUserBooks():Observable<any>{
-  return this._http.get('http://localhost:3000/user/books')
-}
-
-getPopular():Observable<any>{
-  return this._http.get('http://localhost:3000/books/popular')
-}
+  getBookById(id: number): Observable<Book> {
+    return this._http.get<Book>(`https://bookary.onrender.com/books/${id}`);
   }
+
+  bookReview(id: number, data: any): Observable<any> {
+    return this._http.patch(`https://bookary.onrender.com/user/books/${id}`, data);
+  }
+  getUserBooks(): Observable<any> {
+    return this._http.get('https://bookary.onrender.com/user/books');
+  }
+
+  getPopular(): Observable<any> {
+    return this._http.get('https://bookary.onrender.com/books/popular');
+  }
+}

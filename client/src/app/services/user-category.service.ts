@@ -3,18 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserCategoryService {
+  constructor(private _http: HttpClient) {}
 
-  constructor(private _http:HttpClient) { }
-
-  getAllCategories():Observable<any>{
-    return this._http.get('http://localhost:3000/categories');
+  getAllCategories(): Observable<any> {
+    return this._http.get('https://bookary.onrender.com/categories');
   }
 
-  getCategoryBooks(id:number,page:number,limit:number):Observable<any>{
-    return this._http.get(`http://localhost:3000/categories/${id}/?page=${page}&limit=${limit}`)
+  getCategoryBooks(id: number, page: number, limit: number): Observable<any> {
+    return this._http.get(`https://bookary.onrender.com/categories/${id}/?page=${page}&limit=${limit}`);
   }
-
 }
