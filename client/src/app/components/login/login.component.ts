@@ -17,6 +17,8 @@ export class LoginComponent {
   loginForm:FormGroup
   userName:String="";
   password:String="";
+  user!:any;
+  logged!: boolean;
 constructor(private _AuthService :AuthService, private _cookieService:CookieService, private _router:Router,private toastr: ToastrService,){
 this.loginForm = new FormGroup({
   userName : new FormControl(null,[Validators.required,Validators.minLength(8)]),
@@ -28,10 +30,16 @@ login() {
     this._AuthService.login(this.loginForm.value).subscribe({next:
       (res) => {
         this._cookieService.delete('token');
-        console.log(res.token);
         console.log(res);
-        this._cookieService.set('token', res.token);
-        this._router.navigate(['user','home'])
+        this.user=res.user;
+        console.log(this.user.role);
+        let logged="true"
+        this._cookieService.set('logged',logged);
+        if(this.user.role == 'user'){
+          this._router.navigate(['/','categories'])
+        }else{
+          this._router.navigate(['/admin/','categories'])
+        }
       },
       error: (HttpErrorResponse) => {
         console.log(HttpErrorResponse)

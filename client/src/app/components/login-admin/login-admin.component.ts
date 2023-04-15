@@ -16,6 +16,7 @@ export class LoginAdminComponent {
   loginForm:FormGroup
   userName:String="";
   password:String="";
+  user!:any;
 constructor(private _AuthService :AuthService, private _cookieService:CookieService, private _router:Router,private toastr: ToastrService,
 ){
 
@@ -31,10 +32,14 @@ login() {
     this._AuthService.login(this.loginForm.value).subscribe({next:
       (res) => {
         this._cookieService.delete('token');
-        console.log(res.token);
         console.log(res);
+        this.user=res;
         this._cookieService.set('token', res.token);
-        this._router.navigate(['/','home'])
+        // if(this.user.role==="admin"){
+          this._router.navigate(['/','home'])
+        // }else{
+          // this._router.navigate(['/','user']);
+        // }
       },
       error: (HttpErrorResponse) => {
         console.log(HttpErrorResponse)

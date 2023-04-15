@@ -1,21 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   token: string | null = this.getToken();
+
+  // logged= new BehaviorSubject(false);
+  // logged$ = this.logged.asObservable()
+
+  private logged = false;
+  private loggedSubject = new Subject<boolean>();
+
   constructor(private _HttpClient: HttpClient, private _cookieService: CookieService) {}
 
-  isLogged(): boolean {
-    return this._cookieService.get('token') != null;
-  }
+ 
   LogOut(){
-    return this._cookieService.delete('token');
+    return this._cookieService.delete('logged');
   }
+
 
 
   getUserData(page:number,limit:number):Observable<any>{
@@ -30,9 +36,19 @@ export class AuthService {
     return this._HttpClient.post('http://localhost:3000/register', formData);
   }
 
+
   login(loginData: object): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    // const options = { withCredentials: true };
+     const success = true;  
+    if (success) {
+      this.logged = true;
+      this.loggedSubject.next(true);
+    }
     return this._HttpClient.post('http://localhost:3000/signin', loginData,{ headers});
   }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.loggedSubject.asObservable();
+  }
+
 }
