@@ -11,15 +11,14 @@ import { environment } from '../../../envs/environment';
 export class AuthService {
   url: string = environment.ENV_URL;
   token: string | null = this.getToken();
-  userObj:any
-  user:any
+  userObj: any;
+  user: any;
 
-  constructor(private _HttpClient: HttpClient, private _cookieService: CookieService,private _router:Router) {
-    this.userObj=new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
-    this.user=this.userObj.asObservable();
+  constructor(private _HttpClient: HttpClient, private _cookieService: CookieService, private _router: Router) {
+    this.userObj = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
+    this.user = this.userObj.asObservable();
   }
 
- 
   LogOut() {
     localStorage.removeItem('user');
     this.userObj.next(null);
@@ -42,12 +41,12 @@ export class AuthService {
     const headers = { 'Content-Type': 'application/json' };
     const options = { withCredentials: true, headers };
     // return this._HttpClient.post('https://bookary.onrender.com/signin', loginData, { headers })
-    return this._HttpClient.post('http://localhost:3000/signin', loginData, options)
-    .pipe(map((user: any)=>{
-      localStorage.setItem('user',JSON.stringify(user));
-      this.userObj.next(user);
-      return user;
-    }))
+    return this._HttpClient.post(`${this.url}/signin`, loginData, options).pipe(
+      map((user: any) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userObj.next(user);
+        return user;
+      })
+    );
   }
-
 }
