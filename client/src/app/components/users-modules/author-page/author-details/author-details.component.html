@@ -26,58 +26,60 @@
         </mat-card-header>
 
         <div *ngFor="let authorBooks of author">
-        <mat-card-content>
-            <div class="review-section p-3 row">
-                <mat-card class="review-card">
-                    <mat-card-header>
-                        <div class="review-header mb-3">
-                            <div class="col-md-2">
-                                <div class="book-image" [style.background-image]="'url(' + authorBooks.bookImage + ')'"></div>
+            <mat-card-content>
+                <div class="review-section p-3 row">
+                    <mat-card class="review-card">
+                        <mat-card-header>
+                            <div class="review-header mb-3">
+                                <div class="">
+                                    <div class="book-image"
+                                        [style.background-image]="'url(' + authorBooks.bookImage + ')'"></div>
+                                </div>
+                                <div class="user-info">
+                                    <p class="user-name ml-5">{{authorBooks.name}}</p>
+                                </div>
                             </div>
-                            <div class="user-info">
-                                <p class="user-name">{{authorBooks.name}}</p>
-                            </div>
-                        </div>
-                    </mat-card-header>
-                    <div class="col-md-4">
-                            <select class="btn btn-outline-primary " placeholder="Select status" (change)="addToShelf(authorBooks._id,$event.target)" >
+                        </mat-card-header>
+                        <div class="col-md-4">
+                            <select class="btn btn-outline-primary " placeholder="Select status"
+                                (change)="addToShelf(authorBooks._id,$event.target)">
                                 <option value="reading" selected disabled>Choose shelf</option>
                                 <option value="reading">Reading</option>
                                 <option value="read">Read</option>
                                 <option value="want2read">want to read</option>
                             </select>
 
-                        <mat-card-content>
-                            <div class="book-rating d-block">
-                              <div class="mb-3">
-                                <span *ngFor="let star of stars" (mouseover)="onStarHover(star)" (mouseout)="onStarLeave(star)" (click)="onStarClick(star,authorBooks._id)">
-                                    <i class="fa" [ngClass]="{'star-hover': star.hover}" >
-                                        {{ stars.indexOf(star) < starrating ? '★' : '✰' }}
-                                    </i>
-                                </span>
+                            <mat-card-content>
+                                <div class="book-rating d-block">
+                                    <div class="mb-3">
+                                        <span *ngFor="let star of stars" (mouseover)="onStarHover(star)"
+                                            (mouseout)="onStarLeave(star)" (click)="onStarClick(star,authorBooks._id)">
+                                            <i class="fa" [ngClass]="{'star-hover': star.hover}">
+                                                {{ stars.indexOf(star) < starrating ? '★' : '✰' }}
+                                            </i>
+                                        </span>
 
-                              </div>
-                            </div>
-                        </mat-card-content>
-                    </div>
-                    <!-- <mat-card-content>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </div>
+                        <!-- <mat-card-content>
                         <p class="review-description">{{authorBooks.reviews.comment}}</p>
                     </mat-card-content> -->
-                </mat-card>
-            </div>
-        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-card-content>
         </div>
-        <mat-paginator [pageSizeOptions]="[3]"
-               (page)="onPageChanged($event)"
-               hidePrevNextButtons style="display: none;">
-</mat-paginator>
-<button mat-icon-button (click)="onPerviousPage()" [disabled]="currentPageIndex === 1" style="margin-right: 1%;">
-    <img src="../../../assets/previous.png">
-</button>
-Page {{currentPageIndex}}
-     <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
-<img src="../../../assets/next.png">
-     </button>
+        <mat-paginator [pageSizeOptions]="[3]" (page)="onPageChanged($event)" hidePrevNextButtons
+            style="display: none;">
+        </mat-paginator>
+        <button mat-icon-button (click)="onPerviousPage()" [disabled]="currentPageIndex === 1"
+            style="margin-right: 1%;">
+            <img src="../../../assets/previous.png">
+        </button>
+        Page {{currentPageIndex}}
+        <button mat-icon-button (click)="onNextPage()" [disabled]="currentPageIndex==totalPages">
+            <img src="../../../assets/next.png">
+        </button>
     </div>
 </section>
-
