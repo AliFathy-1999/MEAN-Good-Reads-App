@@ -42,9 +42,6 @@ saveCurrentUser(){
   }
  
   LogOut():Observable<any>{
-    localStorage.removeItem('user');
-    this.userObj.next(null);
-    this._router.navigate(['/user']);
     return this._HttpClient.get(`${this.url}/logout`);
   }
 
@@ -61,13 +58,8 @@ saveCurrentUser(){
   }
 
   login(loginData: object): Observable<any> {
-    // const headers = { 'Content-Type': 'application/json' };
     const options = { withCredentials: true };
     return this._HttpClient.post(`${this.url}/signin`, loginData, options)
-    // .pipe(map((user: any)=>{
-    //   localStorage.setItem('user',JSON.stringify(user));
-    //   this.userObj.next(user);
-      // return user;
-    // }))
+
   }
 }

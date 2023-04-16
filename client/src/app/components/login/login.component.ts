@@ -30,14 +30,12 @@ login() {
     this._AuthService.login(this.loginForm.value).subscribe({next:
       (res) => {
         this._cookieService.deleteAll();
-        // console.log(res.token);
-        // console.log(res);
         this._cookieService.set('token', res.data.token);
         this._AuthService.saveCurrentUser();
         const user=this._AuthService.currentUser.getValue();
         console.log(user);
         if(user.role == 'user'){
-          this._router.navigate(['/user/','home'])
+          this._router.navigate(['/','home'])
         }else{
           this._router.navigate(['/admin/','categories'])
         }

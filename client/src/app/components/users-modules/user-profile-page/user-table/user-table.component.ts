@@ -41,17 +41,8 @@ export class UserTableComponent implements OnInit{
       console.log(res);
       this.userProfileData=res.data.docs;
       this.dataSource = res.data.docs
-      this.currentRate = this.dataSource.rating
-      console.log("length : ", this.dataSource.length);
-      console.log(this.dataSource.book.averageRating);
-
-      console.log(this.dataSource);
-      this.totalCount = res.totaalDocs;
-      this.totalPages = res.totalPages;
-      this.totalDocs=res.totalDocs
-      this.totalPages=res.totalPages
-      console.log("this.userProfileData.book._id",this.userProfileData);
-
+      this.totalCount = res.data.totalDocs;
+      this.totalPages = res.data.totalPages;
     })
   }
   // Define the table columns
@@ -63,8 +54,8 @@ export class UserTableComponent implements OnInit{
       this.currentPageIndex = newPageIndex;
       this.pageSize = newPageSize;
       this._user.getUserBooks(this.currentPageIndex, this.pageSize).subscribe((result) => {
-        this.dataSource = result.docs;
-        this.totalCount = result.totalDocs;
+        this.dataSource = result.data.docs
+        this.totalCount = result.data.totalDocs;
       });
     }
   }
@@ -72,9 +63,9 @@ export class UserTableComponent implements OnInit{
   onPreviousPage() {
     if (this.currentPageIndex > 1) {
       this.currentPageIndex--;
-      this._user.getUserBooks(this.currentPageIndex, 4).subscribe((result) => {
+      this._user.getUserBooks(this.currentPageIndex, 5).subscribe((result) => {
         this.dataSource = result.data.docs;
-        this.totalCount = result.totaalDocs;
+        this.totalCount = result.data.totalDocs;
       });
     }
   }
@@ -84,9 +75,9 @@ export class UserTableComponent implements OnInit{
     if (this.currentPageIndex < this.totalPages) {
       console.log(this.currentPageIndex);
       this.currentPageIndex++;
-      this._user.getUserBooks(this.currentPageIndex, 4).subscribe((result) => {
+      this._user.getUserBooks(this.currentPageIndex, 5).subscribe((result) => {
         this.dataSource = result.data.docs;
-        this.totalCount = result.totalDocs;
+        this.totalCount = result.data.totalDocs;
       });
     }
   }

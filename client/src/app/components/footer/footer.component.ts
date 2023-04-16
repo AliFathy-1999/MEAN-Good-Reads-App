@@ -18,7 +18,7 @@ constructor(private _home:HomepageService){}
 ngOnInit(): void {
   this.getPopularAuthors();
   this.getPopularCategories();
-  this.getPopularBooks();
+  // this.getPopularBooks();
 }
 
 getPopularAuthors() {
@@ -33,9 +33,9 @@ getPopularCategories() {
     this.categories = res.data;
   });
 }
-getPopularBooks() {
-  this._home.getPopularBooks().subscribe((res: any) => {
-    this.books = res.data;
-  });
-}
+// getPopularBooks() {
+//   this._home.getPopularBooks().subscribe((res: any) => {
+//     this.books = res.data;
+//   });
+// }
 }

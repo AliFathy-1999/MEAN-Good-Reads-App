@@ -37,17 +37,15 @@ export class CurrentlyReadingComponent {
   }
 
   getUser(){
-    this._user.getUserBooksByShelf(1,5,Shelf.WANT2READ).subscribe((res)=>{
+    this._user.getUserBooksByShelf(this.currentPageIndex,5,Shelf.READING).subscribe((res)=>{
       console.log(res);
       this.userProfileData=res.data.docs;
       this.dataSource = res.data.docs
       this.currentRate = this.dataSource.rating
 
       console.log(this.dataSource);
-      this.totalCount = res.totaalDocs;
+      this.totalCount = res.totalDocs;
       this.totalPages = res.totalPages;
-      this.totalDocs=res.totalDocs
-      this.totalPages=res.totalPages
       console.log("this.userProfileData.book._id",this.userProfileData);
 
     })
@@ -90,15 +88,7 @@ export class CurrentlyReadingComponent {
     }
   }
 
-  // addRating(id:number,form: FormGroup){
-  //   this._userBooks.bookReview(id,form.value).subscribe((res:any)=>{
-  //     console.log(form.value);
-  //     console.log(id);
-  //     this.toastr.success("Rated successfully :)")
-  //   },(err)=>{
-  //     this.toastr.error(err.message)
-  //   })
-  // }
+
 
   stars: { filled: boolean, hover: boolean }[] = Array(5).fill(null).map(() => ({ filled: false, hover: false }));
   onStarHover(star: any) {

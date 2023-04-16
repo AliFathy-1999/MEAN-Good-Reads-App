@@ -44,7 +44,7 @@
 
       <ng-container matColumnDef="author">
           <mat-header-cell *matHeaderCellDef>Author</mat-header-cell>
-          <mat-cell *matCellDef="let userBook"> {{ userBook.authorId }}</mat-cell>
+          <mat-cell *matCellDef="let userBook"> {{ userBook.book.authorId.fullName }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="rating">
@@ -67,13 +67,12 @@
           <mat-header-cell *matHeaderCellDef >Average Rating</mat-header-cell>
           <mat-cell *matCellDef="let userBook" >
               <div class="rating">
-                  <ng-container *ngIf="userBook.averageRating > 0; else noRating">
+                  <ng-container *ngIf="userBook.book.averageRating > 0;">
                       <span>
-                        <ngb-rating class="star" [(rate)]="userBook.book.averageRating" [max]="5" [readonly]="true"[ngClass]="{'star-filled': userBook.averageRating}">
+                        <ngb-rating class="star" [(rate)]="userBook.book.averageRating" [max]="5" [readonly]="true"[ngClass]="{'star-filled': userBook.book.averageRating}">
                         </ngb-rating>
                       </span>
                   </ng-container>
-                  <ng-template #noRating>No Rating</ng-template>
               </div>
           </mat-cell>
       </ng-container>

@@ -24,11 +24,11 @@ constructor(private _author:UserAuthorService){}
 
 
 getAuthors(){
-  this._author.getAuthors(1,5).subscribe({next:(res)=>{
+  this._author.getAuthors(this.currentPageIndex,5).subscribe({next:(res)=>{
     console.log(res)
     this.authors=res.data.docs;
-    this.totalDocs=res.totalDocs
-    this.totalPages=res.totalPages
+    this.totalDocs=res.data.totalDocs
+    this.totalPages=res.data.totalPages
 
   }})
 }
@@ -42,7 +42,7 @@ onPageChanged(event:PageEvent){
     this.pageSize=newpageSize;
     this._author.getAuthors(this.currentPageIndex,this.pageSize).subscribe({
       next:res=>{
-        this.authors=res.docs;
+        this.authors=res.data.docs;
       }
     })
   }
@@ -52,8 +52,8 @@ onPerviousPage(){
   if (this.currentPageIndex > 1) {
     this.currentPageIndex--;
     this._author.getAuthors(this.currentPageIndex,5).subscribe((result) => {
-      this.authors=result.docs;
-      this.totalDocs = result.totalDocs;
+      this.authors=result.data.docs;
+      this.totalDocs = result.data.totalDocs;
     })
 }
 }

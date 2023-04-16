@@ -24,12 +24,12 @@ export class UserNavbarComponent implements OnInit {
 
   logout() {
     this._router.navigate(['']);
-    return this._cookieService.delete('token');
+    return this._cookieService.deleteAll();
   }
 
   getUser() {
     this._auth.getUserData(1, 5).subscribe((res) => {
-      this.user = res.user;
+      this.user = res;
     });
   }
 

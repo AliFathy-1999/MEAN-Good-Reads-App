@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { BooksService } from 'src/app/services/books.service';
 
 
@@ -28,6 +29,7 @@ export class CrudBookComponent implements OnInit {
 
   constructor(
     private _book: BooksService,
+    private toastr: ToastrService,
     private _dialogRef: MatDialogRef<CrudBookComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -69,7 +71,7 @@ export class CrudBookComponent implements OnInit {
           this._dialogRef.close(true);
         },
         error: (HttpErrorResponse) => {
-          console.log(HttpErrorResponse);
+          this.toastr.error(HttpErrorResponse.error.message);
         }
     });
     }else{
@@ -89,15 +91,18 @@ export class CrudBookComponent implements OnInit {
       this._book.addBook(formData).subscribe({next:(res: any)=> {
           this._dialogRef.close(true);
           console.log(res);
-        },
-        error: (HttpErrorResponse) => {
-          console.log(HttpErrorResponse);
-          if(HttpErrorResponse.error.message===" Value of field name is Duplicated please choose another one"){
-            this.nameMessage="The name is already entered before"
-          }else if(HttpErrorResponse.error.message === "Category or Author isn't valid"){
-            this.catMessage="Category or Author number is wrong"
-          }
+        },error: (HttpErrorResponse) => {
+          this.toastr.error(HttpErrorResponse.error.message);
         }
+        // error: (HttpErrorResponse) => {
+        //   console.log(HttpErrorResponse);
+        //   if(HttpErrorResponse.error.message===" Value of field name is Duplicated please choose another one"){
+        //     this.nameMessage="The name is already entered before"
+        //   }else if(HttpErrorResponse.error.message === "Category or Author isn't valid"){
+        //     this.catMessage="Category or Author number is wrong"
+        //   },
+
+        
       });
     
     }

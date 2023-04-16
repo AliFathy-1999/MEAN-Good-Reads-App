@@ -4,16 +4,16 @@
         <mat-card class="book-card">
             <div class="row">
                 <div class="col-md-2">
-                    <div class="book-image" [style.background-image]="'url(' + author.author.authorImg + ')'"></div>
+                    <!-- <div class="book-image" [style.background-image]="'url(' + author.authorImg + ')'"></div> -->
                 </div>
                 <div class="col-md-10 ">
                     <mat-card-header>
-                        <mat-card-title class="book-title">{{ author.author.firstName }} {{ author.author.lastName }}</mat-card-title>
+                        <mat-card-title class="book-title">{{ author.firstName }} {{ author.lastName }}</mat-card-title>
 
                     </mat-card-header>
 
                     <mat-card-content>
-                        <p class="book-description">{{ author.author.bio }}</p>
+                        <p class="book-description">{{ author.bio }}</p>
                     </mat-card-content>
 
                 </div>
@@ -25,7 +25,7 @@
             <mat-card-title class="review-heading">Books</mat-card-title>
         </mat-card-header>
 
-        <div *ngFor="let authorBooks of author.data.docs">
+        <div *ngFor="let authorBooks of author">
         <mat-card-content>
             <div class="review-section p-3 row">
                 <mat-card class="review-card">
@@ -50,14 +50,9 @@
                         <mat-card-content>
                             <div class="book-rating d-block">
                               <div class="mb-3">
-                                <!-- <form [formGroup]="ratingForm">
-                                <ngb-rating formControlName="rating" [max]="5" class="fs-1 star-icon"
-                                 (rateChange)="addRating(authorBooks._id,ratingForm)"></ngb-rating>
-                                </form> -->
-
                                 <span *ngFor="let star of stars" (mouseover)="onStarHover(star)" (mouseout)="onStarLeave(star)" (click)="onStarClick(star,authorBooks._id)">
                                     <i class="fa" [ngClass]="{'star-hover': star.hover}" >
-                                        {{ stars.indexOf(star) < authorBooks.rating ? '★' : '✰' }}
+                                        {{ stars.indexOf(star) < starrating ? '★' : '✰' }}
                                     </i>
                                 </span> 
 

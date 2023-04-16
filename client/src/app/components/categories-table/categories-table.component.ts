@@ -43,7 +43,7 @@ this.getAllCategories()
   }
 
   getAllCategories(){
-   this._category.getCategory(1,4).subscribe((res:any)=>{
+   this._category.getCategory(this.currentPageIndex,4).subscribe((res:any)=>{
     this.books=res.data.docs;
     this.totalCount=res.data.docs.totaalDocs
     this.totalPages=res.data.totalPages
@@ -71,7 +71,7 @@ this.getAllCategories()
   onPreviousPage() {
     if (this.currentPageIndex > 1) {
       this.currentPageIndex--;
-      this._category.getCategory(this.currentPageIndex, 10).subscribe((result) => {
+      this._category.getCategory(this.currentPageIndex, 4).subscribe((result) => {
         this.data = result.data;
         this.totalCount = result.totalCount;
         this.dataSource = new MatTableDataSource(result.data.docs);
@@ -85,7 +85,7 @@ this.getAllCategories()
     if (this.currentPageIndex < this.totalPages) {
       console.log(this.currentPageIndex)
       this.currentPageIndex++;
-      this._category.getCategory(this.currentPageIndex, 10).subscribe((result) => {
+      this._category.getCategory(this.currentPageIndex, 4).subscribe((result) => {
         this.data = result.data;
         this.totalCount = result.totalCount;
         this.dataSource = new MatTableDataSource(result.data.docs);
