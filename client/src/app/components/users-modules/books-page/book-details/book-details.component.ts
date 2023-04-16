@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Book } from 'src/app/dataTypes/typesModule';
+import { Book , User} from 'src/app/dataTypes/typesModule';
 import { UserBooksService } from 'src/app/services/user-books.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
@@ -116,6 +116,8 @@ onSubmit(){
     }
     }})
    }
+
+ 
   }
 
 

@@ -20,7 +20,6 @@ import { ReadComponent } from './components/users-modules/user-profile-page/read
 import { CurrentlyReadingComponent } from './components/users-modules/user-profile-page/currently-reading/currently-reading.component';
 import { WantToReadComponent } from './components/users-modules/user-profile-page/want-to-read/want-to-read.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
-import { UserHomeComponent } from './components/user-home/user-home.component';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
 import { RoleGuard } from './services/role.guard';
 
@@ -28,7 +27,7 @@ const routes: Routes = [
   { path: '', component: RegistrationComponent },
   { path: 'user', component: LoginComponent },
 
-  { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
+  // { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'admin/books', component: AdminBookComponent, canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['admin'] } },
   { path: 'crud', component: CrudBookComponent },
   { path: 'author', component: AuthorsTableComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['admin'] }},
@@ -44,7 +43,7 @@ const routes: Routes = [
   { path: 'read', component: ReadComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
   { path: 'current-reading', component: CurrentlyReadingComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
   { path: 'want-to-read', component: WantToReadComponent ,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
-  { path: 'user/home', component: UserHomeComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'home', component: HomePageComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
 
   { path: 'admin', component: LoginAdminComponent },
   { path: '**', component: NotFoundComponent },

@@ -57,7 +57,6 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 // import { StarRatingConfigService, StarRatingModule } from 'angular-star-rating';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
-import { UserHomeComponent } from './components/user-home/user-home.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +97,6 @@ import { UserHomeComponent } from './components/user-home/user-home.component';
     SpinerComponent,
     NotFoundComponent,
     LoginAdminComponent,
-    UserHomeComponent,
   ],
   imports: [
     BrowserModule,
