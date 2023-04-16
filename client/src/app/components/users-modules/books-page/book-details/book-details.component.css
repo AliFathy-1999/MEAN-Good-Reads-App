@@ -10,13 +10,13 @@
     color: #ff8c00;
     font-size: 25px;
     margin-top: 5px;
-  }
-  
-  
-  .star-hover {
+}
+
+
+.star-hover {
     color: orange;
     cursor: pointer;
-  }
+}
 
 
 .book-image {
@@ -39,12 +39,12 @@
 
 }
 
-#line{
+#line {
     width: 70%;
     margin: auto;
 }
 
-.form-group #starRate{
+.form-group #starRate {
     margin-top: 2%;
     align-items: center;
     justify-content: center;
@@ -54,26 +54,26 @@
     color: #ffc107;
 }
 
-#review-text{
+#review-text {
     margin: auto;
     height: 100px;
 }
 
-#review-text:focus{
-border: 1px solid #fb4e3e;
-outline: none;
+#review-text:focus {
+    border: 1px solid #fb4e3e;
+    outline: none;
 }
 
-.btn-block{
-  margin-left: 45%;
-  background-color: #fb4e3e;  
-  color: #fff;
-  padding: 10px;
-  margin-top: 2%;
+.btn-block {
+    margin-left: 45%;
+    background-color: #fb4e3e;
+    color: #fff;
+    padding: 10px;
+    margin-top: 2%;
 }
 
-button:hover{
-    background-color: #fff;  
+button:hover {
+    background-color: #fff;
     color: #fb4e3e;
     border: 1px solid #fb4e3e;
 }
@@ -118,6 +118,7 @@ button:hover{
 .review-header {
     display: flex;
     align-items: center;
+
 }
 
 .user-icon {
@@ -134,6 +135,7 @@ button:hover{
 .user-name {
     font-weight: bold;
     margin-bottom: 5px;
+    left: 140px !important;
 }
 
 .user-rating {
@@ -142,7 +144,7 @@ button:hover{
     margin: 3px;
 }
 
-.user-rating i{
+.user-rating i {
     display: inline;
     float: right;
     margin: 3px;

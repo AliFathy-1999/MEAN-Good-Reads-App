@@ -16,52 +16,58 @@
 
                     </mat-card-header>
                 </div>
-                    <mat-card-content>
+                <mat-card-content>
 
-                        <div class="book-rating d-block">
-                            <ng-container *ngFor="let star of stars">
-                                <!-- <mat-icon class="star-icon">{{ star }}</mat-icon> -->
-                            </ng-container>
+                    <div class="book-rating d-block">
+                        <ng-container *ngFor="let star of stars">
+                            <!-- <mat-icon class="star-icon">{{ star }}</mat-icon> -->
+                        </ng-container>
+                    </div>
+                </mat-card-content>
+                <mat-card-content>
+                    <p class="book-description">{{ book.description }}</p>
+                    <br />
+                </mat-card-content>
+                <hr id="line" />
+                <mat-card-content>
+                    <form [formGroup]="userReview" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <!-- <ngb-rating id="starRate" [max]="5" (rateChange)="onRateChange($event)" name="rating" [readonly]="false"></ngb-rating> -->
+                            <span *ngFor="let star of stars" (mouseover)="onStarHover(star)"
+                                (mouseout)="onStarLeave(star)" (click)="onStarClick(star,book._id)">
+                                <i class="fa" [ngClass]="{'star-hover': star.hover}">
+                                    {{ stars.indexOf(star) < starrating ? '★' : '✰' }}
+
+                                    <!-- {{stars.}} -->
+                                </i>
+                            </span>
                         </div>
-                    </mat-card-content>
-                    <mat-card-content>
-                        <p class="book-description">{{ book.description }}</p>
-                        <br/>
-                    </mat-card-content>
-                    <hr id="line"/>
-                    <mat-card-content>
-                        <form [formGroup]="userReview" (ngSubmit)="onSubmit()">
-                            <div class="form-group">
-                                <!-- <ngb-rating id="starRate" [max]="5" (rateChange)="onRateChange($event)" name="rating" [readonly]="false"></ngb-rating> -->
-                                <span *ngFor="let star of stars" (mouseover)="onStarHover(star)" (mouseout)="onStarLeave(star)" (click)="onStarClick(star,book._id)">
-                                    <i class="fa" [ngClass]="{'star-hover': star.hover}" >
-                                        {{ stars.indexOf(star) < starrating ? '★' : '✰' }}
-
-                                        <!-- {{stars.}} -->
-                                    </i>
-                                </span> 
-                            </div>
-                            <div class="form-group">
-                              <textarea class="form-control w-50" id="review-text" formControlName="review" name="review"></textarea>
-                              <div class="dialogVal alert-danger"
-                              *ngIf="userReview.get('review')?.errors != null && userReview.get('review')?.touched">
-                              <p class="text-danger" *ngIf="userReview.get('review')?.errors?.['required']">Your comment is required!
-                              </p>
-                              <p class="text-danger" *ngIf="userReview.get('review')?.errors?.['minlength']">your comment minmum
-                                length 3</p>
-                                <p class="text-danger" *ngIf="userReview.get('review')?.errors?.['minlength']">your comment maximum
+                        <div class="form-group">
+                            <textarea class="form-control w-50" id="review-text" formControlName="review"
+                                name="review"></textarea>
+                            <div class="dialogVal alert-danger"
+                                *ngIf="userReview.get('review')?.errors != null && userReview.get('review')?.touched">
+                                <p class="text-danger" *ngIf="userReview.get('review')?.errors?.['required']">Your
+                                    comment is required!
+                                </p>
+                                <p class="text-danger" *ngIf="userReview.get('review')?.errors?.['minlength']">your
+                                    comment minmum
+                                    length 3</p>
+                                <p class="text-danger" *ngIf="userReview.get('review')?.errors?.['minlength']">your
+                                    comment maximum
                                     length 140</p>
-                                <div *ngIf="errorMessage" class="alert mt-3 alert-danger text-center"
-                                role="alert">{{errorMessage}}</div>
+                                <div *ngIf="errorMessage" class="alert mt-3 alert-danger text-center" role="alert">
+                                    {{errorMessage}}
+                                </div>
                             </div>
-                            </div>
+                        </div>
 
 
-                            <div>
-                                <button class="btn btn-block">Add Your Review</button>
-                            </div>
-                          </form>
-                    </mat-card-content>
+                        <div>
+                            <button class="btn btn-block">Add Your Review</button>
+                        </div>
+                    </form>
+                </mat-card-content>
             </div>
         </mat-card>
         <mat-card-header>
@@ -70,20 +76,20 @@
 
         <mat-card-content>
             <div class="review-section" *ngFor="let review of reviews">
-                <mat-card class="review-card" >
+                <mat-card class="review-card">
                     <mat-card-header>
                         <div class="review-header">
                             <mat-icon class="user-icon">account_circle</mat-icon>
-                            <div class="user-info" >
+                            <div class="user-info">
                                 <p class="user-name">{{ review.user.userName}}</p>
                                 <div class="user-rating d-inline-flex w-100" *ngFor="let star of stars">
-                                  <!-- <p class="text-warning">Rating : {{review.rating}}  -->
-                                    <i class="fa" [ngClass]="{'star-hover': star.hover}" >
+                                    <!-- <p class="text-warning">Rating : {{review.rating}}  -->
+                                    <i class="fa" [ngClass]="{'star-hover': star.hover}">
                                         {{ stars.indexOf(star) < review.rating ? '★' : '✰' }}
 
                                         <!-- {{stars.}} -->
                                     </i>
-                                  <!-- </p> -->
+                                    <!-- </p> -->
                                 </div>
                             </div>
                         </div>

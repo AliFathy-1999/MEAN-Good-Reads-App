@@ -8,20 +8,20 @@
 
 .mat-paginator-navigation-previous,
 .mat-paginator-navigation-next {
-  display: none;
+    display: none;
 }
 
 .fa {
     color: #ff8c00;
     font-size: 25px;
     margin-top: 5px;
-  }
-  
-  
-  .star-hover {
+}
+
+
+.star-hover {
     color: orange;
     cursor: pointer;
-  }
+}
 
 .book-image {
     height: 225px;
@@ -98,6 +98,7 @@
 .user-name {
     font-weight: bold;
     margin-bottom: 5px;
+    left: 140px !important;
 }
 
 .user-rating {
