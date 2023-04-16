@@ -36,7 +36,7 @@ login() {
         this.user=res;
         this._cookieService.set('token', res.token);
         // if(this.user.role==="admin"){
-          this._router.navigate(['/','home'])
+          this._router.navigate(['/admin','categories'])
         // }else{
           // this._router.navigate(['/','user']);
         // }
