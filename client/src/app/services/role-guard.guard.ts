@@ -14,6 +14,7 @@ constructor(private _auth: AuthService ,private _router:Router){}
     const myValue = myObject.user.role;
     if(myValue == "user"){
       this._router.navigate(['/user']);
+      localStorage.removeItem('user');
       return false;
     }
     console.log(myValue)

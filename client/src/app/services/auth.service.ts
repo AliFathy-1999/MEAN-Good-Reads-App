@@ -19,17 +19,17 @@ export class AuthService {
     this.user = this.userObj.asObservable();
   }
 
-
   getUserRole(): string {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.role;
   }
 
  
-  LogOut() {
+  LogOut():Observable<any>{
     localStorage.removeItem('user');
     this.userObj.next(null);
     this._router.navigate(['/user']);
+    return this._HttpClient.get(`${this.url}/logout`);
   }
 
   getUserData(page: number, limit: number): Observable<any> {

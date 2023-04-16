@@ -31,10 +31,7 @@ login() {
       (res) => {
         this._cookieService.delete('token');
         console.log(res);
-        this.user=res.user;
-        console.log(this.user.role);
-        let logged="true"
-        this._cookieService.set('logged',logged);
+        this.user=res.data;
         if(this.user.role == 'user'){
           this._router.navigate(['/','categories'])
         }else{

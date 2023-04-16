@@ -96,7 +96,7 @@ export class RegistrationComponent implements OnInit {
         (res) => {
           console.log(formData.get('firstName'));
 
-          if (res.message === 'User registered successfully') {
+          if (res.status === 'success') {
             this.successMessage = 'Signed up successfully!';
             this.router.navigate(['/user']);
             this.registrationForm.reset();

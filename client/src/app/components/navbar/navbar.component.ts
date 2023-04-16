@@ -12,8 +12,8 @@ export class NavbarComponent {
 constructor(private _user:AuthService, private _route:Router){}
 
 logout(){
-  this._user.LogOut();
-  this._route.navigate(['/','user'])
+  this._user.LogOut().subscribe((res)=>{   
+  });
 }
 
 }
