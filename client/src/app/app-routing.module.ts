@@ -22,27 +22,30 @@ import { WantToReadComponent } from './components/users-modules/user-profile-pag
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
-import { RoleGuardGuard } from './services/role-guard.guard';
+import { RoleGuard } from './services/role.guard';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
   { path: 'user', component: LoginComponent },
+
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
-  { path: 'admin/books', component: AdminBookComponent, canActivate: [AuthGuard,RoleGuardGuard] },
+  { path: 'admin/books', component: AdminBookComponent, canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['admin'] } },
   { path: 'crud', component: CrudBookComponent },
-  { path: 'author', component: AuthorsTableComponent,canActivate: [AuthGuard,RoleGuardGuard]},
-  { path: 'admin/categories', component: CategoriesTableComponent ,canActivate: [AuthGuard,]},
-  { path: 'books', component: BooksComponent },
-  { path: 'books/:id', component: BookDetailsComponent },
-  { path: 'user/authors', component: AuthorCardsComponent },
-  { path: 'author/:id', component: AuthorDetailsComponent },
-  { path: 'categories', component: CategoryCardsComponent },
-  { path: 'categories/:id', component: CategoryComponent,canActivate: [AuthGuard]},
-  { path: 'user/profile', component: UserTableComponent },
-  { path: 'read', component: ReadComponent },
-  { path: 'current-reading', component: CurrentlyReadingComponent },
-  { path: 'want-to-read', component: WantToReadComponent },
-  { path: 'user/home', component: UserHomeComponent },
+  { path: 'author', component: AuthorsTableComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['admin'] }},
+  { path: 'admin/categories', component: CategoriesTableComponent ,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['admin'] }},
+
+  { path: 'books', component: BooksComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'books/:id', component: BookDetailsComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'user/authors', component: AuthorCardsComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'author/:id', component: AuthorDetailsComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'categories', component: CategoryCardsComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'categories/:id', component: CategoryComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'user/profile', component: UserTableComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'read', component: ReadComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'current-reading', component: CurrentlyReadingComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'want-to-read', component: WantToReadComponent ,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+  { path: 'user/home', component: UserHomeComponent,canActivate: [AuthGuard,RoleGuard],data: { allowedRoles: ['user'] }},
+
   { path: 'admin', component: LoginAdminComponent },
   { path: '**', component: NotFoundComponent },
 ];

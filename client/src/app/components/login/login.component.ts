@@ -29,9 +29,9 @@ this.loginForm = new FormGroup({
 login() {
     this._AuthService.login(this.loginForm.value).subscribe({next:
       (res) => {
-        this._cookieService.delete('token');
-        console.log(res.token);
-        console.log(res);
+        this._cookieService.deleteAll();
+        // console.log(res.token);
+        // console.log(res);
         this._cookieService.set('token', res.data.token);
         this._AuthService.saveCurrentUser();
         const user=this._AuthService.currentUser.getValue();
@@ -44,10 +44,10 @@ login() {
       },
       error: (HttpErrorResponse) => {
         console.log(HttpErrorResponse)
-        // if(HttpErrorResponse.error.message==="un-authenticated"){
-        //   this.errorMessage="Check Your Username or Password"
-        //   this.toastr.error(this.errorMessage)
-        // }
+        if(HttpErrorResponse.error.message==="un-authenticated"){
+          this.errorMessage="Check Your Username or Password"
+          this.toastr.error(this.errorMessage)
+        }
         }})
       };
 }

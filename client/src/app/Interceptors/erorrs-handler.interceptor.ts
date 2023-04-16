@@ -19,9 +19,10 @@ export class ErorrsHandlerInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (
       request.url.endsWith('/register') ||
-      request.url.endsWith('/login') ||
+      request.url.endsWith('/user') ||
       request.url.endsWith('/books') ||
-      request.url.endsWith('/authors')
+      request.url.endsWith('/user/authors')||
+      request.url.endsWith('/categories')
     ) {
       this.spinnerService.requestStarted();
     }

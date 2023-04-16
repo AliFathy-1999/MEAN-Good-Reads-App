@@ -26,7 +26,7 @@ constructor(private _author:UserAuthorService){}
 getAuthors(){
   this._author.getAuthors(1,5).subscribe({next:(res)=>{
     console.log(res)
-    this.authors=res.docs;
+    this.authors=res.data.docs;
     this.totalDocs=res.totalDocs
     this.totalPages=res.totalPages
 
