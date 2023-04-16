@@ -17,8 +17,6 @@ export class AuthService {
   user: any;
 
   constructor(private _HttpClient: HttpClient, private _cookieService: CookieService, private _router: Router) {
-    // this.userObj = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
-    // this.user = this.userObj.asObservable();
         if(this._cookieService.check('token')){
       this.saveCurrentUser()
     }
@@ -63,13 +61,13 @@ saveCurrentUser(){
   }
 
   login(loginData: object): Observable<any> {
-    const headers = { 'Content-Type': 'application/json' };
-    const options = { withCredentials: true, headers };
+    // const headers = { 'Content-Type': 'application/json' };
+    const options = { withCredentials: true };
     return this._HttpClient.post(`${this.url}/signin`, loginData, options)
-    .pipe(map((user: any)=>{
-      localStorage.setItem('user',JSON.stringify(user));
-      this.userObj.next(user);
-      return user;
-    }))
+    // .pipe(map((user: any)=>{
+    //   localStorage.setItem('user',JSON.stringify(user));
+    //   this.userObj.next(user);
+      // return user;
+    // }))
   }
 }

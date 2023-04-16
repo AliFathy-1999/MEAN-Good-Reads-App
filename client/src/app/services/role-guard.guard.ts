@@ -20,18 +20,33 @@ constructor(private _auth: AuthService ,private _router:Router){}
     // console.log(myValue)
     // return true;
 
-    const user=this._auth.currentUser.getValue();
-    const allowedRoles = route.data['allowedRoles'];
-    console.log(user)
-    if (allowedRoles.includes(user.role)) {
+  //   const user=this._auth.currentUser.getValue();
+  //   const allowedRoles = route.data['allowedRoles'];
+  //   console.log(user)
+  //   if (allowedRoles.includes(user.role)) {
+  //     return true;
+  // }
+  // else {
+  //     this._router.navigate(['/user']);
+  //     return false;
+  // }
+
+
+  if(this._auth.currentUser.getValue() != null){
+    if(this._auth.currentUser.getValue().role === 'admin'){
       return true;
+    }
+    alert('un authorized')
+    this._router.navigate(['/user/','home']);
+    return false;
   }
   else {
-      this._router.navigate(['/user']);
-      return false;
+    this._router.navigate(['/admin/books']);
+    return false;
   }
+}
 
   
   }
   
-}
+

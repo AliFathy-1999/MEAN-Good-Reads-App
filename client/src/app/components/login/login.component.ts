@@ -32,7 +32,7 @@ login() {
         this._cookieService.delete('token');
         console.log(res.token);
         console.log(res);
-        this._cookieService.set('token', res.token);
+        this._cookieService.set('token', res.data.token);
         this._AuthService.saveCurrentUser();
         const user=this._AuthService.currentUser.getValue();
         console.log(user);
