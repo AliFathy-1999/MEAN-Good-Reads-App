@@ -81,10 +81,13 @@
                                     <div class="form-group mt-3">
                                         <input class="custom-file-upload" type="file" id="pImage"
                                             (change)="onFileSelected($event)">
+                                            <div *ngIf="registrationForm.get('pImage')?.errors != null && registrationForm.get('pImage')?.touched"
+                                            class="alert-danger mt-2">
                                         <div *ngIf="registrationForm.get('pImage')?.errors?.['required']"
                                             class="alert-danger mt-2">
                                             <p>Image is required!</p>
                                         </div>
+                                            </div>
                                     </div>
                                 </div>
 

@@ -108,7 +108,7 @@ export class RegistrationComponent implements OnInit {
     //     }
     //   });
     // }
-  
+
       this._AuthService.register(this.registrationForm.value)
         .subscribe({
           next: (response) => {

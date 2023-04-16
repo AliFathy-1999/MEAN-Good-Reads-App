@@ -25,7 +25,7 @@
             <mat-card-title class="review-heading">Books</mat-card-title>
         </mat-card-header>
 
-        <div *ngFor="let authorBooks of author.data.docs">
+        <div *ngFor="let authorBooks of author">
         <mat-card-content>
             <div class="review-section p-3 row">
                 <mat-card class="review-card">
@@ -59,7 +59,7 @@
                                     <i class="fa" [ngClass]="{'star-hover': star.hover}" >
                                         {{ stars.indexOf(star) < authorBooks.rating ? '★' : '✰' }}
                                     </i>
-                                </span> 
+                                </span>
 
                               </div>
                             </div>

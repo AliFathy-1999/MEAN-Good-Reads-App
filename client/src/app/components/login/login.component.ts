@@ -37,7 +37,7 @@ login() {
         const user=this._AuthService.currentUser.getValue();
         console.log(user);
         if(user.role == 'user'){
-          this._router.navigate(['/user/','home'])
+          this._router.navigate(['home'])
         }else{
           this._router.navigate(['/admin/','categories'])
         }
