@@ -38,7 +38,6 @@ export class AuthorDetailsComponent {
 
 getAuthor(id:number){
 this._author.getAuthorsById(id,this.currentPageIndex,3).subscribe({next:res=>{
-  console.log(res)
   this.author=res.data.docs
   this.totalDocs=res.data.totaalDocs
   this.totalPages=res.data.totalPages
@@ -47,16 +46,12 @@ this._author.getAuthorsById(id,this.currentPageIndex,3).subscribe({next:res=>{
 
 getBookById(id:number){
   this._books.getBookById(id).subscribe((res:any)=>{
-    console.log(res.data)
     this.books=res.data.book
     this.reviews=res.data.reviews
     this._auth.saveCurrentUser();
     const user=this._auth.currentUser.getValue();
-    console.log("hi")
     this.starrating=res.data.reviews.filter((elem :any) =>
       elem.user._id==user.userId)[0].rating
-      console.log(id)
-    console.log(this.starrating)
   })
   }
 

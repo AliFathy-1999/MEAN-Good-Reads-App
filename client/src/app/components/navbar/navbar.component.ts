@@ -13,11 +13,8 @@ export class NavbarComponent {
 constructor(private _user:AuthService, private _route:Router,private _cookieService:CookieService){}
 
 logout(){
-   
-    this._cookieService.deleteAll();
-    this._route.navigate(['/','user'])
-
-
+  this._cookieService.set('token', '');
+  this._route.navigate([''])
 }
 
 }

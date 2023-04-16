@@ -38,7 +38,6 @@ export class UserTableComponent implements OnInit{
 
   getUser(){
     this._user.getUserBooks(this.currentPageIndex,5).subscribe((res)=>{
-      console.log(res);
       this.userProfileData=res.data.docs;
       this.dataSource = res.data.docs
       this.totalCount = res.data.totalDocs;
@@ -71,9 +70,7 @@ export class UserTableComponent implements OnInit{
   }
 
   onNextPage() {
-    console.log(this.currentPageIndex);
     if (this.currentPageIndex < this.totalPages) {
-      console.log(this.currentPageIndex);
       this.currentPageIndex++;
       this._user.getUserBooks(this.currentPageIndex, 5).subscribe((result) => {
         this.dataSource = result.data.docs;

@@ -10,6 +10,5 @@ export class AppComponent {
   user: any = {};
 
   onSubmit() {
-    console.log(this.user);
   }
 }

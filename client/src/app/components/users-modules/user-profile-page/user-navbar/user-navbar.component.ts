@@ -22,10 +22,10 @@ export class UserNavbarComponent implements OnInit {
   ) {}
   ngOnInit(): void {}
 
-  logout() {
-    this._router.navigate(['']);
-    return this._cookieService.deleteAll();
-  }
+  logout(){
+    this._cookieService.set('token', '');
+    this._router.navigate([''])
+}
 
   getUser() {
     this._auth.getUserData(1, 5).subscribe((res) => {
@@ -37,10 +37,8 @@ export class UserNavbarComponent implements OnInit {
     this._bookService.searchBooks(this.searchTerm).subscribe({
       next: (response: any) => {
         this.searchResults = response.data.docs;
-        console.log(this.searchResults);
       },
       error: (error) => {
-        console.log(error);
       },
     });
   }

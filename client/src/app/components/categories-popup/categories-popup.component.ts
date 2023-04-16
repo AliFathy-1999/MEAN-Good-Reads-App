@@ -28,14 +28,12 @@ export class CategoriesPopupComponent implements OnInit {
   submitCategory() {
     if(this.data){
       this._category.updateCategory(this.data._id,this.categoryForm.value).subscribe((res)=>{
-        console.log(res);
         this._dialogRef.close(true);
       }, (error: any) => {
         this.toastr.error(error.error.message);
       })
     }else{
       this._category.addCategory(this.categoryForm.value).subscribe((res) => {
-        console.log(res);
         this._dialogRef.close(true); 
     },(error: any) => {
       this.toastr.error(error.error.message);

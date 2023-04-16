@@ -20,7 +20,6 @@ constructor(){
 }
 
 login() {
-  console.log(this.loginForm.value);
 }
 
 }

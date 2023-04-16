@@ -29,10 +29,8 @@ this.route.params.subscribe(params=>this.getBooks(params['id']))
 getBooks(id:number){
 this._category.getCategoryBooks(id,1,4).subscribe((res:any)=>{
   this.books=res.data.docs
-  console.log(res.data.docs)
   this.totalPages=res.data.totalPages
   this.booksData=res.data;
-  console.log(this.books)
 })
 }
 
@@ -43,7 +41,6 @@ onPageChanged(event:PageEvent) {
     this.currentPageIndex = newPageIndex;
     this.pageSize = newPageSize;
     this._category.getCategoryBooks(this.route.snapshot.params['id'],this.currentPageIndex, this.pageSize).subscribe((result) => {
-     console.log(result.data.docs)
       this.books = result.data.docs;
       this.totalCount = result.totalCount;
 
@@ -63,11 +60,9 @@ onPreviousPage(){
 }
 
 onNextPage(){
-  console.log(this.currentPageIndex)
   if (this.currentPageIndex < this.totalPages) {
     this.currentPageIndex++;
     this._category.getCategoryBooks(this.route.snapshot.params['id'],this.currentPageIndex, 4).subscribe((result) => {
-    console.log(result)
     this.books = result.data.docs;
     this.totalCount = result.totalCount;
 

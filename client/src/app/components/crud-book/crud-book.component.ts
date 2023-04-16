@@ -67,7 +67,6 @@ export class CrudBookComponent implements OnInit {
       }
       this._book.editBook(this.data.id, formData).subscribe({
         next:(res: any) => {
-          console.log(res.data);
           this._dialogRef.close(true);
         },
         error: (HttpErrorResponse) => {
@@ -81,27 +80,14 @@ export class CrudBookComponent implements OnInit {
       formData.append('categoryId', bookForm.get('categoryId')?.value);
       formData.append('authorId', bookForm.get('authorId')?.value);
       formData.append('bookImage', this.file[0]);
-      console.log(formData.get('name'))
-      console.log(formData.get('description'))
-      console.log(formData.get('categoryId'))
-      console.log(formData.get('authorId'))
-      console.log(formData.get('bookImage'))
+
 
 
       this._book.addBook(formData).subscribe({next:(res: any)=> {
           this._dialogRef.close(true);
-          console.log(res);
         },error: (HttpErrorResponse) => {
           this.toastr.error(HttpErrorResponse.error.message);
         }
-        // error: (HttpErrorResponse) => {
-        //   console.log(HttpErrorResponse);
-        //   if(HttpErrorResponse.error.message===" Value of field name is Duplicated please choose another one"){
-        //     this.nameMessage="The name is already entered before"
-        //   }else if(HttpErrorResponse.error.message === "Category or Author isn't valid"){
-        //     this.catMessage="Category or Author number is wrong"
-        //   },
-
         
       });
     

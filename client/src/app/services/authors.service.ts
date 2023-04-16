@@ -43,16 +43,13 @@ export class AuthorsService {
       isEdit: false,
     };
     this.authArr.push(author);
-    console.log(authorForm.get('authorImg'));
     const options = { withCredentials: true };
 
-    // return this.httpClient.post('https://bookary.onrender.com/admin/authors', authorForm);
     return this.httpClient.post(`${this.url}/admin/authors`, authorForm,options);
 
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
-    // const url = `https://bookary.onrender.com/admin/authors?page=${page}&limit=${limit}`;
     const url = `${this.url}/admin/authors?page=${page}&limit=${limit}`;
     const options = { withCredentials: true };
 
@@ -61,7 +58,6 @@ export class AuthorsService {
 
   updateAuthor(id: number, formData: FormData): Observable<any> {
     const url = `${this.url}/admin/authors/${id}`;
-    // const url = `https://bookary.onrender.com/admin/authors/${id}`;
     const options = { withCredentials: true };
 
     return this.httpClient.patch(url, formData,options);

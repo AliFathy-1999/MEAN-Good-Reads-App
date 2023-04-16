@@ -20,7 +20,6 @@ this.gitCategories()
   gitCategories(){
 this._category.getAllCategories().subscribe((res)=>{
   this.categories=res.data
-  console.log(res)
 })
   }
 

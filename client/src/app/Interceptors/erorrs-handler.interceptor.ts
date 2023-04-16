@@ -42,7 +42,4 @@ export class ErorrsHandlerInterceptor implements HttpInterceptor {
   }
 }
 
-// catchError((error): Observable<HttpEvent<any>> => {
-//   console.log(error.message);
-//   return throwError(error);
-// });
+

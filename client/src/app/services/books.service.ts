@@ -17,14 +17,12 @@ export class BooksService {
   }
 
   addBook(bookData: object): Observable<any> {
-    console.log(bookData);
+   
     const options = { withCredentials: true};
     return this._HttpClient.post(`${this.url}/admin/books`, bookData,options);
-    // return this._HttpClient.post('https://bookary.onrender.com/admin/books', bookData);
   }
   getAllBooks(page: number, limit: number): Observable<any> {
     const options = { withCredentials: true};
-    // return this._HttpClient.get(`https://bookary.onrender.com/admin/books?page=${page}&limit=${limit}`);
     return this._HttpClient.get(`${this.url}/admin/books?page=${page}&limit=${limit}`,options);
 
   }

@@ -43,7 +43,6 @@ export class AuthorsPopupComponent {
   validateDOB(control: AbstractControl): { [key: string]: boolean } | null {
     const DOB = new Date(control.value);
     const year = DOB.getFullYear();
-    console.log(year);
 
     if (year >= 2010) {
       return { invalidDOB: true };
@@ -63,7 +62,6 @@ export class AuthorsPopupComponent {
     if (modelDiv != null) {
       modelDiv.style.display = 'none';
       this.authorsTableComponent.getAuthors();
-      console.log('Close');
     }
   }
 
@@ -87,7 +85,6 @@ export class AuthorsPopupComponent {
     };
     this.authorsService.addAuthor(formData).subscribe(
       (res) => {
-        console.log(res);
         if (res.message === 'Author Added successfully') {
           this.authorsTableComponent.getAuthors();
           this.authorsForm.reset();
@@ -96,11 +93,9 @@ export class AuthorsPopupComponent {
             this.authorsService.authArr = authors;
           });
           this.authorsService.getAuthorsApi(1, 5).subscribe();
-          console.log(formData.get('authorImg'));
         }
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
       }
     );
   }

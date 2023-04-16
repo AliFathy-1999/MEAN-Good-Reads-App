@@ -49,7 +49,6 @@ export class AuthorsTableComponent implements OnInit {
   validateDOB(control: AbstractControl): { [key: string]: boolean } | null {
     const DOB = new Date(control.value);
     const year = DOB.getFullYear();
-    console.log(year);
 
     if (year >= 2010) {
       return { invalidDOB: true };
@@ -63,7 +62,6 @@ export class AuthorsTableComponent implements OnInit {
       this.totalCount = result.totalDocs;
       this.totalPages = result.totalPages;
     });
-    console.log(this.authArr);
   }
 
   getAuthors() {
@@ -116,7 +114,6 @@ export class AuthorsTableComponent implements OnInit {
 
   onNextPage() {
     if (this.currentPageIndex < this.totalPages) {
-      console.log(this.currentPageIndex);
       this.currentPageIndex++;
       this.authorsService.getAuthorsApi(this.currentPageIndex, 4).subscribe((result) => {
         this.authArr = result.docs;

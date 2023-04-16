@@ -50,7 +50,6 @@ getAllBooks(){
   this.books=res.data.docs;
   this.totalCount=res.data.totalDocs
   this.totalPages=res.data.totalPages
-  console.log(res)
   this.dataSource=new MatTableDataSource(this.books);
   this.dataSource.paginator=this.paginator;
   })
@@ -90,9 +89,7 @@ onPreviousPage() {
 }
 
 onNextPage() {
-  console.log(this.currentPageIndex)
   if (this.currentPageIndex < this.totalPages) {
-    console.log(this.currentPageIndex)
     this.currentPageIndex++;
     this._book.getAllBooks(this.currentPageIndex, 10).subscribe((result) => {
       this.books = result.data.docs;

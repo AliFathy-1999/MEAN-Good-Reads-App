@@ -20,7 +20,6 @@ export class BookDetailsComponent implements OnInit {
   userReview!:FormGroup
   book: any |undefined
   reviews!:any
-  // rating!:any
   userObj={
     review:''}
     obj:object={
@@ -42,7 +41,6 @@ this.route.params.subscribe(params=>this.getBookById(params['id']))
   
   getBookById(id:number){
     this._book.getBookById(id).subscribe((res:any)=>{
-      console.log(res.data)
       this.book=res.data.book
       this.reviews=res.data.reviews
       this._auth.saveCurrentUser();
@@ -51,17 +49,6 @@ this.route.params.subscribe(params=>this.getBookById(params['id']))
     })
     }
 
-  // onRateChange(event:number) {
-  //   this.rating = event;
-  // }
-  // getUser(){
-  //   this._user.getUserBooks(1,5).subscribe((res)=>{
-  //     console.log(res);
-  //     this.userProfileData=res.data.docs.rating;
-      
-  //     console.log(this.userProfileData)
-  //   })
-  // }
 
   stars: { filled: boolean, hover: boolean }[] = Array(5).fill(null).map(() => ({ filled: false, hover: false }));
 
@@ -101,11 +88,9 @@ this.route.params.subscribe(params=>this.getBookById(params['id']))
 
 onSubmit(){
     this.userObj.review=this.userReview.get('review')?.value;
-    // this.userObj.rating=this.rating;
     const bookId = this.route.snapshot.params['id'];
 
     this._book.bookReview(bookId,this.userReview.value).subscribe({next:(res:any)=>{
-    console.log(res)
     this.toastr.success("Your Review added successfully")
 
     }, error: (HttpErrorResponse) => {

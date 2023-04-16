@@ -28,21 +28,18 @@ this.loginForm = new FormGroup({
 
 
 login() {
-    console.log(this.loginForm.value);
     this._AuthService.login(this.loginForm.value).subscribe({next:
       (res) => {
         this._cookieService.delete('token');
-        console.log(res);
-        this.user=res;
+        this.user=res.data;
         this._cookieService.set('token', res.token);
-        // if(this.user.role==="admin"){
+        if(this.user.role==="admin"){
           this._router.navigate(['/admin','categories'])
-        // }else{
-          // this._router.navigate(['/','user']);
-        // }
+        }else{
+          this._router.navigate(['/','user']);
+        }
       },
       error: (HttpErrorResponse) => {
-        console.log(HttpErrorResponse)
         if(HttpErrorResponse.error.message==="un-authenticated"){
           this.errorMessage="Check Your Username or Password"
           this.toastr.error(this.errorMessage)

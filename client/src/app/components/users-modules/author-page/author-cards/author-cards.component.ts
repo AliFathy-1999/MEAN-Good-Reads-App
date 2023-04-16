@@ -25,7 +25,6 @@ constructor(private _author:UserAuthorService){}
 
 getAuthors(){
   this._author.getAuthors(this.currentPageIndex,5).subscribe({next:(res)=>{
-    console.log(res)
     this.authors=res.data.docs;
     this.totalDocs=res.data.totalDocs
     this.totalPages=res.data.totalPages
@@ -62,7 +61,6 @@ onNextPage(){
   if(this.currentPageIndex<this.totalPages){
     this.currentPageIndex++;
     this._author.getAuthors(this.currentPageIndex,5).subscribe((result)=>{
-      console.log("hi")
       this.authors=result.docs;
       this.totalDocs = result.totalDocs;
     })

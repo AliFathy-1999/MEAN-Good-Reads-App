@@ -81,9 +81,7 @@ this.getAllCategories()
   }
   
   onNextPage() {
-    console.log(this.currentPageIndex)
     if (this.currentPageIndex < this.totalPages) {
-      console.log(this.currentPageIndex)
       this.currentPageIndex++;
       this._category.getCategory(this.currentPageIndex, 4).subscribe((result) => {
         this.data = result.data;
@@ -100,16 +98,13 @@ this.getAllCategories()
       this.getAllCategories()
     },
     (error) => {
-      console.log(error);
     })
   }
   getCategory(id:number){
     this._category.getCategoryById(id).subscribe(
       (res:any) => {
-        console.log(res.name);
       },
       (error) => {
-        console.log(error);
       }
     );
   }

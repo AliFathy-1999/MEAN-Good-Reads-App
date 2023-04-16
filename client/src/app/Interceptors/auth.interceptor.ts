@@ -15,19 +15,15 @@ export class AuthInterceptor implements HttpInterceptor {
       const modifiedRequest = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${myToken}`),
       });
-      console.log(modifiedRequest, next);
       return next.handle(modifiedRequest).pipe(
         tap((response) => {
-          console.log(response);
         }),
         catchError((error) => {
-          console.log(error);
           return throwError(error);
         })
       );
     }
-    // }
-    console.log(request, next);
+ 
     return next.handle(request);
   }
 }

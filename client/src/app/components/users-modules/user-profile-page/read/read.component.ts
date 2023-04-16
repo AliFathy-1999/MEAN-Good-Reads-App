@@ -38,17 +38,14 @@ export class ReadComponent {
 
   getUser(){
     this._user.getUserBooksByShelf(1,5,Shelf.READ).subscribe((res)=>{
-      console.log(res);
       this.userProfileData=res.data.docs;
       this.dataSource = res.data.docs
       this.currentRate = this.dataSource.rating
 
-      console.log(this.dataSource);
       this.totalCount = res.totaalDocs;
       this.totalPages = res.totalPages;
       this.totalDocs=res.totalDocs
       this.totalPages=res.totalPages
-      console.log("this.userProfileData.book._id",this.userProfileData);
 
     })
   }
@@ -79,9 +76,7 @@ export class ReadComponent {
   }
 
   onNextPage() {
-    console.log(this.currentPageIndex);
     if (this.currentPageIndex < this.totalPages) {
-      console.log(this.currentPageIndex);
       this.currentPageIndex++;
       this._user.getUserBooks(this.currentPageIndex, 4).subscribe((result) => {
         this.dataSource = result.data.docs;
