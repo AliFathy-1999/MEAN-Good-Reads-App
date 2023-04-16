@@ -106,10 +106,8 @@ export class UserTableComponent implements OnInit{
     }
 
     this._userBooks.bookReview(bookId,obj).subscribe((res) => {
-      // if(res.status==200){
-      //   this.getUser()
-      // }
       this.toastr.success("Rated successfully :)")
+      this.getUser()
         },(err)=>{
           this.toastr.error(err.message)
         })
@@ -126,26 +124,6 @@ export class UserTableComponent implements OnInit{
     this.updateRate(rating,bookId)
   }
 
-  // UpdateRating(item: any, value: number) {
-  //   console.log(item.bookId._id);
-  //   item.rating = value;
-  //   this._userBooks.bookReview(
-  //       id: item.bookId._id,
-  //       rating: value,
-  //     )
-  //     .subscribe((res) => {
-  //       console.log(res);
-  //     });
-  // }
-
-
-// addRating(id:number,form: FormGroup){
-//   this._userBooks.bookReview(id,form.value).subscribe((res:any)=>{
-//     this.toastr.success("Rated successfully :)")
-//   },(err)=>{
-//     this.toastr.error(err.message)
-//   })
-// }
   addToShelf(id:number,event:any){
     this._userBooks.bookReview(id,{shelf:event.value}).subscribe((res:any)=>{
       this.toastr.success(`Book status is changed to ${event.value}`)

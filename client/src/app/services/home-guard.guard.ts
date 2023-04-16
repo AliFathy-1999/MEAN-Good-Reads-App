@@ -1,35 +1,32 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { Observable, map, of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate{
-
+export class HomeGuardGuard implements CanActivate {
   constructor(private _auth: AuthService ,private _router:Router,private _cookieService: CookieService){}
-  
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean {
-    // return this._auth.user.pipe(map(user => {
-    //   if (!user) {
-    //     this._router.navigate(['/user']);
-    //     return false;
-    //   }
-    //   return true;
-    // }));
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
   const user=this._auth.currentUser.getValue();
   if(this._auth.currentUser.getValue()!==null){
-    return true;
-  }else{
-    this._router.navigate(['/user']);
+    if (user.role=="admin") {
+      this._router.navigate(['/author'])
+  }else if(user.role=="user"){
+    this._router.navigate(['/categories'])
+  }
     return false;
+  }else{
+    return true;
+  }
   }
 
-  }
-}
-
-  
+    }
   
 

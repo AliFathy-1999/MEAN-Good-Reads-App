@@ -47,14 +47,20 @@
                                 <option value="want2read">want to read</option>
                             </select>
 
-
                         <mat-card-content>
                             <div class="book-rating d-block">
                               <div class="mb-3">
-                                <form [formGroup]="ratingForm">
+                                <!-- <form [formGroup]="ratingForm">
                                 <ngb-rating formControlName="rating" [max]="5" class="fs-1 star-icon"
                                  (rateChange)="addRating(authorBooks._id,ratingForm)"></ngb-rating>
-                                </form>
+                                </form> -->
+
+                                <span *ngFor="let star of stars" (mouseover)="onStarHover(star)" (mouseout)="onStarLeave(star)" (click)="onStarClick(star,authorBooks._id")>
+                                    <i class="fa" [ngClass]="{'star-hover': star.hover}" >
+                                        {{ stars.indexOf(star) < userBook.rating ? '★' : '✰' }}
+                                    </i>
+                                </span> 
+
                               </div>
                             </div>
                         </mat-card-content>

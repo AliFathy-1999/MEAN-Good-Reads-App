@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
 import { environment } from '../../../envs/environment';
+import jwtDecode from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root',
@@ -15,15 +17,31 @@ export class AuthService {
   user: any;
 
   constructor(private _HttpClient: HttpClient, private _cookieService: CookieService, private _router: Router) {
-    this.userObj = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
-    this.user = this.userObj.asObservable();
+    // this.userObj = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
+    // this.user = this.userObj.asObservable();
+        if(this._cookieService.check('token')){
+      this.saveCurrentUser()
+    }
   }
+currentUser = new BehaviorSubject<any>(null);
+saveCurrentUser(){
+  const userToken= this._cookieService.get('token');
+  this.currentUser.next(jwtDecode(userToken))
+}
 
   getUserRole(): string {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.role;
   }
 
+  isLogged(): boolean {
+    return this._cookieService.get('token') != null;
+  }
+
+  
+  isLogOut(){
+    return this._cookieService.delete('token');
+  }
  
   LogOut():Observable<any>{
     localStorage.removeItem('user');

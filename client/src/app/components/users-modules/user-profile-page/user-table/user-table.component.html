@@ -70,7 +70,6 @@
                   <ng-container *ngIf="userBook.book.averageRating > 0; else noRating">
                       <span>
                           <ngb-rating class="star" [(rate)]="userBook.book.averageRating" [max]="5" [readonly]="true"[ngClass]="{'star-filled': userBook.averageRating}">
-                              star
                           </ngb-rating>
                       </span>
                   </ng-container>

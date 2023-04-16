@@ -8,15 +8,15 @@ import { SpinerService } from '../core/spiner/spiner.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private spinnerService: SpinerService) {}
-  // headers: request.headers.set('Authorization', myToken),      
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
+    const myToken = this.authService.getToken();
+    if (myToken) {
       const modifiedRequest = request.clone({
-        withCredentials: true,
+        headers: request.headers.set('Authorization', `Bearer ${myToken}`),
       });
       console.log(modifiedRequest, next);
-      return next.handle(request).pipe(
+      return next.handle(modifiedRequest).pipe(
         tap((response) => {
           console.log(response);
         }),
@@ -25,9 +25,9 @@ export class AuthInterceptor implements HttpInterceptor {
           return throwError(error);
         })
       );
+    }
     // }
-    // console.log(request, next);
-
-    // return next.handle(request);
+    console.log(request, next);
+    return next.handle(request);
   }
 }

@@ -13,6 +13,7 @@ constructor(private _user:AuthService, private _route:Router){}
 
 logout(){
   this._user.LogOut().subscribe((res)=>{   
+    // localStorage.removeItem('user');
   });
 }
 

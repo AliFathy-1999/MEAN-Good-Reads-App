@@ -13,7 +13,7 @@ import { UserBooksService } from 'src/app/services/user-books.service';
 })
 export class AuthorDetailsComponent {
   author!:any
-  stars: string[] = ['star', 'star', 'star', 'star_half', 'star_border'];
+  // stars: string[] = ['star', 'star', 'star', 'star_half', 'star_border'];
   totalDocs!:number
   totalPages!:number
   pageSize!:number
@@ -77,13 +77,47 @@ onNextPage(){
   }
 }
 
-addRating(id:number,form: FormGroup){
-  this._userBooks.bookReview(id,form.value).subscribe((res:any)=>{
-    this.toastr.success("Rated successfully :)")
-  },(err)=>{
-    this.toastr.error(err.message)
-  })
+// addRating(id:number,form: FormGroup){
+//   this._userBooks.bookReview(id,form.value).subscribe((res:any)=>{
+//     this.toastr.success("Rated successfully :)")
+//   },(err)=>{
+//     this.toastr.error(err.message)
+//   })
+// }
+
+stars: { filled: boolean, hover: boolean }[] = Array(5).fill(null).map(() => ({ filled: false, hover: false }));
+onStarHover(star: any) {
+  star.hover = true;
 }
+
+onStarLeave(star: any) {
+  star.hover = false;
+}
+
+updateRate(rating: number,bookId:number){
+  const obj:object={
+    "rating": rating
+  }
+
+  this._userBooks.bookReview(bookId,obj).subscribe((res) => {
+    this.toastr.success("Rated successfully :)")
+      },(err)=>{
+        this.toastr.error(err.message)
+      })
+
+  }
+
+
+onStarClick(star: any,bookId:number) {
+  const rating=this.stars.indexOf(star) + 1
+  this.updateRate(rating,bookId)
+}
+
+Change(bookId:number,rating:number){
+  this.updateRate(rating,bookId)
+}
+
+
 addToShelf(id:number,event:any){
   this._userBooks.bookReview(id,{shelf:event.value}).subscribe((res:any)=>{
     this.toastr.success(`Book status is changed to ${event.value}`)

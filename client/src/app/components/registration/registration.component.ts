@@ -92,23 +92,38 @@ export class RegistrationComponent implements OnInit {
       formData.append('confirmPassword', registrationForm.get('confirmPassword')?.value);
       formData.append('userName', registrationForm.get('userName')?.value);
       formData.append('pImage', this.file[0]);
-      this._AuthService.register(formData).subscribe(
-        (res) => {
-          console.log(formData.get('firstName'));
-
-          if (res.status === 'success') {
+    //   this._AuthService.register(formData).subscribe({next:(res) => {
+    //       console.log(formData.get('firstName'));
+    //       if (res.status === 200) {
+    //         this.successMessage = 'Signed up successfully!';
+    //         this.router.navigate(['/user']);
+    //         this.registrationForm.reset();
+    //         this.toastr.success(res.message);
+    //         console.log(res);
+    //       }
+    //     },
+    //     (error: HttpErrorResponse) => {
+    //       this.toastr.error(error.error.message);
+    //       console.log(error);
+    //     }
+    //   });
+    // }
+  
+      this._AuthService.register(this.registrationForm.value)
+        .subscribe({
+          next: (response) => {
+            console.log(response);
             this.successMessage = 'Signed up successfully!';
-            this.router.navigate(['/user']);
+            this._router.navigate(['/user']);
             this.registrationForm.reset();
-            this.toastr.success(res.message);
-            console.log(res);
+            this.toastr.success(this.successMessage);
+          },
+          error: (error) => {
+            console.log(error);
+            this.toastr.error(error.error.message);
           }
-        },
-        (error: HttpErrorResponse) => {
-          this.toastr.error(error.error.message);
-          console.log(error);
-        }
-      );
+        });
     }
   }
 }
+
