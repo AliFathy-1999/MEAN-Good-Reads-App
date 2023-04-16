@@ -44,10 +44,10 @@ login() {
       },
       error: (HttpErrorResponse) => {
         console.log(HttpErrorResponse)
-        if(HttpErrorResponse.error.message==="un-authenticated"){
-          this.errorMessage="Check Your Username or Password"
-          this.toastr.error(this.errorMessage)
-        }
+        // if(HttpErrorResponse.error.message==="un-authenticated"){
+        //   this.errorMessage="Check Your Username or Password"
+        //   this.toastr.error(this.errorMessage)
+        // }
         }})
       };
 }
