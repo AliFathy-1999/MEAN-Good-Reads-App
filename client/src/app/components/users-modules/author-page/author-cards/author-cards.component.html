@@ -6,7 +6,7 @@
             <ng-container *ngFor="let author of authors; let i = index;">
                 <div class="col-md-2 mb-4">
                     <mat-card class="h-100">
-                        <div mat-card-header>
+                        <div mat-card-header class="image-container">
                             <div class="book-image" [style.background-image]="'url(' + author.authorImg + ')'"></div>
                         </div>
                         <mat-card-content class="card-content">
@@ -18,7 +18,7 @@
 
                     </mat-card>
                 </div>
-                <div class="clearfix d-md-none"></div> <!-- add clearfix to clear the float on small devices -->
+                <div class="clearfix d-md-none"></div>
             </ng-container>
             <div class="col-md-12 mt-4">
                 <mat-paginator [pageSizeOptions]="[5]" (page)="onPageChanged($event)" hidePrevNextButtons
