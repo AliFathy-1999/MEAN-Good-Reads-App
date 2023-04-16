@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Book } from 'src/app/dataTypes/typesModule';
+import { Book , User} from 'src/app/dataTypes/typesModule';
 import { UserBooksService } from 'src/app/services/user-books.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -26,6 +26,7 @@ export class BookDetailsComponent implements OnInit {
     review:'',
     rating:0
   }
+  reviews:any;
   constructor(private _book:UserBooksService, private route:ActivatedRoute,private router:Router,private _route:ActivatedRoute,private toastr: ToastrService,
     ) {
     this.userReview=new FormGroup({
@@ -37,16 +38,16 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit(){
 this.route.params.subscribe(params=>this.getBookById(params['id']))
   }
-  
+
  onRateChange(event:number) {
     this.rating = event;
   }
 
 onSubmit(){
-  
+
     // const formData= new FormData();
     // formData.append('review', this.userReview.get('review')?.value);
-    // formData.append('rating',this.rating) 
+    // formData.append('rating',this.rating)
     // console.log(formData.get('review'))
     // console.log(formData.get('rating'))
 
@@ -55,7 +56,8 @@ onSubmit(){
     const bookId = this.route.snapshot.params['id'];
 
     this._book.bookReview(bookId,this.userObj).subscribe({next:(res:any)=>{
-    console.log(res)
+      this.toastr.success("Your review has been saved successfully")
+    this.ngOnInit()
     }, error: (HttpErrorResponse) => {
       if(HttpErrorResponse.error.message === "jwt malformed"){
         this.router.navigate(['/user']);
@@ -69,7 +71,7 @@ onSubmit(){
     this._book.getBookById(id).subscribe((res:any)=>{
       console.log(res.data)
       this.book=res.data.book
-      console.log(this.book)
+      this.reviews = res.data.reviews
     })
     }
   }

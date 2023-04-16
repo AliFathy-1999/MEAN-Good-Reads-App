@@ -63,35 +63,20 @@
 
         <mat-card-content>
             <div class="review-section">
-                <mat-card class="review-card">
+                <mat-card class="review-card" *ngFor="let review of reviews" >
                     <mat-card-header>
                         <div class="review-header">
                             <mat-icon class="user-icon">account_circle</mat-icon>
-                            <div class="user-info">
-                                <!-- <p class="user-name">{{book.reviews.user.firstName}}</p> -->
-                                <p class="user-name">User1</p>
-
+                            <div class="user-info" >
+                                <p class="user-name">{{ review.user.userName}}</p>
                                 <div class="user-rating">
-                                    <!-- <ng-container *ngFor="let star of stars">
-                                        <mat-icon class="star-icon">{{ star }}</mat-icon>
-                                    </ng-container> -->
-                                    <!-- <ngb-rating [max]='5' [(rate)]="book.reviews.rating" [readonly]="true"> -->
-                                        <!-- <ng-template let-fill="fill">
-                                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
-                                        </ng-template> -->
-                                    <!-- </ngb-rating> -->
+                                  <p class="text-warning">Rating :  {{review.rating}}.0  </p>
                                 </div>
                             </div>
                         </div>
                     </mat-card-header>
                     <mat-card-content>
-                        <p class="review-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Aenean nec dui eget velit
-                            euismod eleifend. Proin quis malesuada justo. Pellentesque euismod mi vitae felis
-                            accumsan, id commodo
-                            libero iaculis. Nunc non leo tincidunt, vestibulum velit vel, convallis velit. Donec
-                            quis ultricies magna,
-                            vel volutpat arcu. Curabitur vitae erat quis velit semper euismod.</p>
+                        <p class="review-description"> {{review.review}}</p>
                     </mat-card-content>
                 </mat-card>
 
