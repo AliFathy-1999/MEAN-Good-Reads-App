@@ -55,9 +55,9 @@
                                  (rateChange)="addRating(authorBooks._id,ratingForm)"></ngb-rating>
                                 </form> -->
 
-                                <span *ngFor="let star of stars" (mouseover)="onStarHover(star)" (mouseout)="onStarLeave(star)" (click)="onStarClick(star,authorBooks._id")>
+                                <span *ngFor="let star of stars" (mouseover)="onStarHover(star)" (mouseout)="onStarLeave(star)" (click)="onStarClick(star,authorBooks._id)">
                                     <i class="fa" [ngClass]="{'star-hover': star.hover}" >
-                                        {{ stars.indexOf(star) < userBook.rating ? '★' : '✰' }}
+                                        {{ stars.indexOf(star) < authorBooks.rating ? '★' : '✰' }}
                                     </i>
                                 </span> 
 
