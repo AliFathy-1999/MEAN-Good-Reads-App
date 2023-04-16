@@ -20,9 +20,18 @@
                     <a class="nav-link" routerLink="/user/authors">Authors</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class=" searchBtn" type="submit">Search</button>
+            <form class="d-flex search-form" role="search">
+                <input class="form-control me-2" [(ngModel)]="searchTerm" (keyup.enter)="search()"
+                    placeholder="Search for a book..." aria-label="Search" name="search">
+                <button class=" searchBtn" type="submit" (click)="search()">Search</button>
+                <div class="res-container" *ngIf="searchTerm">
+                    <ul class="list-group">
+                        <li *ngFor="let book of searchResults" class="list-group-item"
+                            [routerLink]="['/books', book.id]">
+                            <a>{{ book.name }}</a>
+                        </li>
+                    </ul>
+                </div>
             </form>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <!-- <li class="nav-item">

@@ -2,6 +2,14 @@ nav {
     background-color: #F7F7F7 !important;
 }
 
+a {
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}
+
 .navbar-brand {
     font-size: 1.4em;
 }
@@ -130,4 +138,15 @@ nav {
     word-break: break-word;
     border: 0;
     width: 150px;
+}
+
+.search-form {
+    position: relative;
+}
+
+.search-form .res-container {
+    position: absolute;
+    top: 44px;
+    width: 69%;
+    z-index: 555555555;
 }

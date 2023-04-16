@@ -11,12 +11,12 @@ import { environment } from '../../../envs/environment';
 export class AuthService {
   url: string = environment.ENV_URL;
   token: string | null = this.getToken();
-  userObj:any
-  user:any
+  userObj: any;
+  user: any;
 
-  constructor(private _HttpClient: HttpClient, private _cookieService: CookieService,private _router:Router) {
-    this.userObj=new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
-    this.user=this.userObj.asObservable();
+  constructor(private _HttpClient: HttpClient, private _cookieService: CookieService, private _router: Router) {
+    this.userObj = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
+    this.user = this.userObj.asObservable();
   }
 
 
@@ -54,5 +54,4 @@ export class AuthService {
       return user;
     }))
   }
-
 }
