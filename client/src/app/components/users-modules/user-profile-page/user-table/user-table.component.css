@@ -9,6 +9,18 @@
 
 }
 
+.fa {
+    color: #ff8c00;
+    font-size: 25px;
+    margin-top: 5px;
+  }
+  
+  
+  .star-hover {
+    color: orange;
+    cursor: pointer;
+  }
+
 /* Style the table */
 .mat-table {
     width: 100%;

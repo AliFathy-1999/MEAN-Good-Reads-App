@@ -51,14 +51,13 @@
           <mat-header-cell *matHeaderCellDef >Rating</mat-header-cell>
           <mat-cell *matCellDef="let userBook" >
               <div class="rating">
-                  <ng-container *ngIf="userBook.rating > 0; else noRating">
-                    <form [formGroup]="ratingForm" >
-                      <ngb-rating class="bg-warning" [(rate)]="currentRate" formControlName="rating" [max]="5"
-                      class="fs-3 text-warning text-opacity-75 star-icon"
-                       (rateChange)="addRating(userBook.book._id,ratingForm)"></ngb-rating>
-                      </form>
+                  <ng-container>                 
+                    <span *ngFor="let star of stars" (mouseover)="onStarHover(star)" (mouseout)="onStarLeave(star)" (click)="onStarClick(star,userBook.book._id)">
+                        <i class="fa" [ngClass]="{'star-hover': star.hover}" >
+                            {{ stars.indexOf(star) < userBook.rating ? '★' : '✰' }}
+                        </i>
+                    </span>                      
                   </ng-container>
-                  <ng-template #noRating>No Rating</ng-template>
               </div>
 
           </mat-cell>
@@ -68,11 +67,11 @@
           <mat-header-cell *matHeaderCellDef >Average Rating</mat-header-cell>
           <mat-cell *matCellDef="let userBook" >
               <div class="rating">
-                  <ng-container *ngIf="userBook.averageRating > 0; else noRating">
-                      <span *ngFor="let i of [1, 2, 3, 4, 5]">
-                          <mat-icon class="star" [ngClass]="{'star-filled': i <= userBook.averageRating}">
+                  <ng-container *ngIf="userBook.book.averageRating > 0; else noRating">
+                      <span>
+                          <ngb-rating class="star" [(rate)]="userBook.book.averageRating" [max]="5" [readonly]="true"[ngClass]="{'star-filled': userBook.averageRating}">
                               star
-                          </mat-icon>
+                          </ngb-rating>
                       </span>
                   </ng-container>
                   <ng-template #noRating>No Rating</ng-template>

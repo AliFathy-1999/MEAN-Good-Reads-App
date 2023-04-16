@@ -27,7 +27,7 @@ export class AuthorsService {
 
   deleteAuthor(id: number): Observable<any> {
     // const url = `https://bookary.onrender.com/admin/authors/${id}`;
-    const url = `http://localhost:3000/admin/authors/${id}`;
+    const url = `${this.url}/admin/authors/${id}`;
     const options = { withCredentials: true };
 
     return this.httpClient.delete(url,options);
@@ -47,20 +47,20 @@ export class AuthorsService {
     const options = { withCredentials: true };
 
     // return this.httpClient.post('https://bookary.onrender.com/admin/authors', authorForm);
-    return this.httpClient.post('http://localhost:3000/admin/authors', authorForm,options);
+    return this.httpClient.post(`${this.url}/admin/authors`, authorForm,options);
 
   }
 
   getAuthorsApi(page: number, limit: number): Observable<any> {
     // const url = `https://bookary.onrender.com/admin/authors?page=${page}&limit=${limit}`;
-    const url = `http://localhost:3000/admin/authors?page=${page}&limit=${limit}`;
+    const url = `${this.url}/admin/authors?page=${page}&limit=${limit}`;
     const options = { withCredentials: true };
 
     return this.httpClient.get(url,options);
   }
 
   updateAuthor(id: number, formData: FormData): Observable<any> {
-    const url = `http://localhost:3000/admin/authors/${id}`;
+    const url = `${this.url}/admin/authors/${id}`;
     // const url = `https://bookary.onrender.com/admin/authors/${id}`;
     const options = { withCredentials: true };
 

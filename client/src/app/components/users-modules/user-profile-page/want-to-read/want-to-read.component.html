@@ -31,9 +31,9 @@
             </div>
 
         </mat-cell>
-    </ng-container>
+    </ng-container> 
 
-      <ng-container matColumnDef="name">
+       <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
           <mat-cell *matCellDef="let userBook">
              {{ userBook.book.name }}
@@ -57,10 +57,10 @@
                       </form>
                   </ng-container>
                   <ng-template #noRating>No Rating</ng-template>
-              </div>
+              </div> 
 
-          </mat-cell>
-      </ng-container>
+           </mat-cell>
+      </ng-container> 
 
       <ng-container matColumnDef="averageRating">
           <mat-header-cell *matHeaderCellDef >Average Rating</mat-header-cell>
@@ -79,7 +79,7 @@
       </ng-container>
 
 
-      <ng-container matColumnDef="shelf">
+       <ng-container matColumnDef="shelf">
           <mat-header-cell *matHeaderCellDef>Shelf</mat-header-cell>
           <mat-cell *matCellDef="let userBook">
                   <select class="btn btn-outline-primary p-1" [(value)]="userBook.shelf" (change)="addToShelf(userBook.book._id,$event.target)">
@@ -104,4 +104,4 @@
      </button>
 
 </div>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> 

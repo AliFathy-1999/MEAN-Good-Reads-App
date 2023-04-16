@@ -19,6 +19,12 @@ export class AuthService {
     this.user=this.userObj.asObservable();
   }
 
+
+  getUserRole(): string {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.role;
+  }
+
  
   LogOut() {
     localStorage.removeItem('user');
@@ -41,8 +47,7 @@ export class AuthService {
   login(loginData: object): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
     const options = { withCredentials: true, headers };
-    // return this._HttpClient.post('https://bookary.onrender.com/signin', loginData, { headers })
-    return this._HttpClient.post('http://localhost:3000/signin', loginData, options)
+    return this._HttpClient.post(`${this.url}/signin`, loginData, options)
     .pipe(map((user: any)=>{
       localStorage.setItem('user',JSON.stringify(user));
       this.userObj.next(user);

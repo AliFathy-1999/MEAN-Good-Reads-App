@@ -15,13 +15,13 @@ export class UserCategoryService {
     // return this._http.get('https://bookary.onrender.com/categories');
     const options = { withCredentials: true };
 
-    return this._http.get('http://localhost:3000/categories',options);
+    return this._http.get(`${this.url}/categories`,options);
 
   }
 
   getCategoryBooks(id: number, page: number, limit: number): Observable<any> {
     const options = { withCredentials: true };
 
-    return this._http.get(`https://bookary.onrender.com/categories/${id}/?page=${page}&limit=${limit}`,options);
+    return this._http.get(`${this.url}/categories/${id}/?page=${page}&limit=${limit}`,options);
   }
 }

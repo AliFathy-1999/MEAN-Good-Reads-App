@@ -24,22 +24,26 @@ export class UserTableComponent implements OnInit{
   count: number = 0;
   collectionSize: number = 100;
   shelf:string | null= null
-  ratingForm = new FormGroup({
-    rating: new FormControl(''),
-  });
+  rating:any
   currentRate:number = 0;
+  id!:number
   constructor(private _user:UserBooksService,private _userBooks:UserBooksService,private toastr:ToastrService){}
   ngOnInit(){
     this.getUser()
   }
 
+  ratingForm = new FormGroup({
+    rating: new FormControl(''),
+  });
+
   getUser(){
-    this._user.getUserBooks(1,5).subscribe((res)=>{
+    this._user.getUserBooks(this.currentPageIndex,5).subscribe((res)=>{
       console.log(res);
       this.userProfileData=res.data.docs;
       this.dataSource = res.data.docs
       this.currentRate = this.dataSource.rating
       console.log("length : ", this.dataSource.length);
+      console.log(this.dataSource.book.averageRating);
 
       console.log(this.dataSource);
       this.totalCount = res.totaalDocs;
@@ -87,15 +91,61 @@ export class UserTableComponent implements OnInit{
     }
   }
 
-  addRating(id:number,form: FormGroup){
-    this._userBooks.bookReview(id,form.value).subscribe((res:any)=>{
-      console.log(form.value);
-      console.log(id);
-      this.toastr.success("Rated successfully :)")
-    },(err)=>{
-      this.toastr.error(err.message)
-    })
+  stars: { filled: boolean, hover: boolean }[] = Array(5).fill(null).map(() => ({ filled: false, hover: false }));
+  onStarHover(star: any) {
+    star.hover = true;
   }
+
+  onStarLeave(star: any) {
+    star.hover = false;
+  }
+
+  updateRate(rating: number,bookId:number){
+    const obj:object={
+      "rating": rating
+    }
+
+    this._userBooks.bookReview(bookId,obj).subscribe((res) => {
+      // if(res.status==200){
+      //   this.getUser()
+      // }
+      this.toastr.success("Rated successfully :)")
+        },(err)=>{
+          this.toastr.error(err.message)
+        })
+
+    }
+  
+
+  onStarClick(star: any,bookId:number) {
+    const rating=this.stars.indexOf(star) + 1
+    this.updateRate(rating,bookId)
+  }
+
+  Change(bookId:number,rating:number){
+    this.updateRate(rating,bookId)
+  }
+
+  // UpdateRating(item: any, value: number) {
+  //   console.log(item.bookId._id);
+  //   item.rating = value;
+  //   this._userBooks.bookReview(
+  //       id: item.bookId._id,
+  //       rating: value,
+  //     )
+  //     .subscribe((res) => {
+  //       console.log(res);
+  //     });
+  // }
+
+
+// addRating(id:number,form: FormGroup){
+//   this._userBooks.bookReview(id,form.value).subscribe((res:any)=>{
+//     this.toastr.success("Rated successfully :)")
+//   },(err)=>{
+//     this.toastr.error(err.message)
+//   })
+// }
   addToShelf(id:number,event:any){
     this._userBooks.bookReview(id,{shelf:event.value}).subscribe((res:any)=>{
       this.toastr.success(`Book status is changed to ${event.value}`)

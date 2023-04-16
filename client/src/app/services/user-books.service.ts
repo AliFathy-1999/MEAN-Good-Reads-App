@@ -25,32 +25,31 @@ export class UserBooksService {
   getAllBooks(page: number, limit: number): Observable<Book> {
     const options = { withCredentials: true };
 
-    return this._http.get<Book>(`https://bookary.onrender.com/books?page=${page}&limit=${limit}`,options);
+    return this._http.get<Book>(`${this.url}/books?page=${page}&limit=${limit}`,options);
   }
 
   getBookById(id:number): Observable<Book>{
     const options = { withCredentials: true };
 
-    return this._http.get<Book>(`http://localhost:3000/books/${id}`,options);
+    return this._http.get<Book>(`${this.url}/books/${id}`,options);
    }
 
    bookReview(id:number,data:any):Observable<any>{
     const options = { withCredentials: true };
-
-    return this._http.patch(`http://localhost:3000/user/books/${id}`,data,options)
+    return this._http.patch(`${this.url}/user/books/${id}`,data,options)
    }
 getUserBooks(page:number,limit:number):Observable<any>{
   const options = { withCredentials: true};
-  return this._http.get(`http://localhost:3000/user/books?page=${page}&limit=${limit}`,options)
+  return this._http.get(`${this.url}/user/books?page=${page}&limit=${limit}`,options)
 }
 getUserBooksByShelf(page:number,limit:number, shelf:Shelf):Observable<any>{
   const options = { withCredentials: true };
 
-  return this._http.get(`http://localhost:3000/user/books?page=${page}&limit=${limit}&shelf=${shelf}`,options)
+  return this._http.get(`${this.url}/user/books?page=${page}&limit=${limit}&shelf=${shelf}`,options)
 }
 getPopular():Observable<any>{
   const options = { withCredentials: true };
-  return this._http.get('http://localhost:3000/books/popular',options)
+  return this._http.get(`${this.url}/books/popular`,options)
 }
 
 }

@@ -22,12 +22,13 @@ import { WantToReadComponent } from './components/users-modules/user-profile-pag
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { LoginAdminComponent } from './components/login-admin/login-admin.component';
+import { RoleGuardGuard } from './services/role-guard.guard';
 
 const routes: Routes = [
   { path: '', component: RegistrationComponent },
   { path: 'user', component: LoginComponent },
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
-  { path: 'admin/books', component: AdminBookComponent, canActivate: [AuthGuard] },
+  { path: 'admin/books', component: AdminBookComponent, canActivate: [AuthGuard,RoleGuardGuard] },
   { path: 'crud', component: CrudBookComponent },
   { path: 'author', component: AuthorsTableComponent,canActivate: [AuthGuard]},
   { path: 'admin/categories', component: CategoriesTableComponent ,canActivate: [AuthGuard]},
