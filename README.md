@@ -36,7 +36,9 @@
 <h2>Code Structure:</h2>
 <ol>
 	<li><code>client</code> directory: This directory contains the Angular frontend code. It includes components, services, and models used to build the user interface.</li>
-	<li><code>server</code> directory: This directory contains the Node.js backend code. It includes routes, controllers, and models used to handle user requests, interact with the database, and perform business logic.</li>
+	<li><code>server</code> directory: This directory contains the Node.js backend code. It includes routes, controllers, and models used to handle user requests, interact with the database, and perform business logic.
+	Backend latest version repo link: [a link](https://github.com/nadaezzat-99/Bookary-API)
+	</li>
 	<li><code>package.json</code> file: This file contains the dependencies and scripts used to build and run the app.</li>
 </ol>
 
